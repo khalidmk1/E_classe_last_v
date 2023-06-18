@@ -1,12 +1,12 @@
 
 
-<x-guest-layout>
+{{-- <x-guest-layout> --}}
     @if (session('success'))
 <div>
  {{ session('success')}}
 </div>
 @endif
-    <!-- Session Status -->
+   {{--  <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
@@ -52,3 +52,76 @@
         </div>
     </form>
 </x-guest-layout>
+ --}}
+
+
+@extends('master.blank_master_page')
+
+@section('title')
+    
+@endsection
+
+@section('content')
+
+ <div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+      <div class="card-header text-center">
+        <a href="../../index2.html" class="h1"><b>E-</b>Classe</a>
+      </div>
+      <div class="card-body">
+        <p class="login-box-msg">Connectez-vous pour démarrer votre tableau de bord</p>
+  
+        <form  method="POST" action="{{ route('login') }}">
+            @csrf
+          <div class="input-group mb-3">
+            <input type="email" id="email"  class="form-control" placeholder="Email" 
+            name="email" :value="old('email')" required autofocus autocomplete="username">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password"
+            name="password" required autocomplete="current-password" >
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="icheck-primary">
+                <input type="checkbox" id="remember"  name="remember">
+                <label for="remember">
+                Souviens-moi 
+                </label>
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-6">
+              <button type="submit" class="btn btn-primary btn-block size_route">Connectez-vous</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+  
+  
+        <p class="mb-1">
+          <a href="{{ route('password.request') }}">j'ai oublié mon mot de passe</a>
+        </p>
+        <p class="mb-0">
+          <a href="{{route('register')}}" class="text-center">
+            Enregistrer un nouveau compte</a>
+        </p>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.login-box -->
+
+ @endsection

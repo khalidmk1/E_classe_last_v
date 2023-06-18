@@ -51,7 +51,7 @@
     </form>
 </x-guest-layout> --}}
 
-@extends('master.blank_master_page')
+@extends('master.master_page')
 
 @section('title')
   

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\enseignement;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
        
 
         if($request->has('terms')){
-            $user = User::create([
+            $user = enseignement::create([
                 'name' => $request->name,
                 'last_name'=>$request->last_name,
                 'email' => $request->email,

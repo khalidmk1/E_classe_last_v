@@ -20,6 +20,13 @@ Route::get('/', function () {
 
 Route::get('register', [RegisteredUserController::class, 'create'])->name('register.store');
 
+Route::middleware('student')->group(function () {
+    Route::get('/student', function () {
+        return view('etudiant.etudaint');
+    });
+    
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
