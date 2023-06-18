@@ -18,6 +18,12 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/register_prof', function () {
+    return view('auth.register_enseignement');
+});
+
+
+
 Route::get('register', [RegisteredUserController::class, 'create'])->name('register.store');
 
 Route::middleware('student')->group(function () {

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('image');
             $table->string('adresse')->nullable();
             $table->string('ph_number');
-            $table->sting('p_ph_number');
+            $table->string('p_ph_number');
             $table->string('age');
-            $table->srting('a_level');
+            $table->string('a_level');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
