@@ -1,5 +1,180 @@
-/* side_bar links */
 
-.size_route{
+ @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@800&family=Rubik:wght@500&family=Source+Code+Pro:wght@700&display=swap');
+
+
+ :root{
+
+    --text-color: #252B42;
+    --light-text-color:#FFF;
+    --second-text-color: #737373;
+    --danger-text-color:#E74040;
+    --black:#000;
+    --primary-color:#FF6551;
+    --dark-background-color: #26335D;
+ }
+
+
+
+ *~{
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+ }
+
+
+ a{
+    font-weight: 700 !important;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px !important;
+ }
+
+ h1{
+    color: var(--light-text-color);
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 80px;
+    letter-spacing: 0.2px;
+ }
+ h6{
+    color: var(--text-color);
     font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+ }
+
+ h5{
+    color: var(--light-text-color);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+ }
+
+ h4{
+    color: var(--light-text-color);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+    letter-spacing: 0.2px;
+    font-family: 'Montserrat', sans-serif;
+ }
+
+ h3{
+    color: var(--text-color);
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 50px;
+    letter-spacing: 0.2px;
+    font-family: 'Montserrat', sans-serif;
+ }
+
+ .h2{
+    color: var(--text-color);
+    font-size: 40px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 50px;
+    letter-spacing: 0.2px;
+ }
+
+ span{
+    color: var(--danger-text-color);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+ }
+
+ p{
+    color: var(--second-text-color, #737373);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+ }
+
+ button{
+    border-radius: 5px;
+    background: var(--primary-color);
+    border: none;
+    color: var(--light-text-color) !important ;
+ }
+
+ button a{
+    color: var(--light-text-color) !important ;
+ }
+
+ .fa-arrow-right{
+    padding: 0px 0px 0px 10px;
+    position: relative;
+    top: 1px;
+ }
+
+ .auth_link{
+    gap: 15px;
+ }
+
+ .first_content{
+   background-color: #E74040;
+ }
+
+ .title_do{
+    color: var(--text-color);
+    font-size: 24px;
+    font-family: Montserrat;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0.1px;
+ }
+.number_introduction span{
+    padding: 23px;
+    background-color:#ECECEC;
+    border-radius: 50px;
 }
+
+.icon_niveaux{
+    border-radius: 10px;
+    color: #FFF;
+    padding: 20px 15px 20px 15px;
+    font-size: 20px;
+    background-color: var(--danger-text-color);
+}
+
+.card_title span{
+    color: var(--text-color) !important;
+    font-size: 16px;
+    font-family: Montserrat;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+}
+
+.lin_card{
+    max-width: 77px;
+    border: 2px solid  var(--danger-text-color) ;
+    
+}
+
+.number_introduction .card_introduction{
+    padding: 40px 10px 52px 23px
+}
+
+.bg_static{
+    background-color: var(--dark-background-color);
+}
+
+.learn_more{
+    color:  var(--danger-text-color) ;
+}
+
+.fa-star{
+    color: yellow;
+}
+ @media screen and (max-width: 992px) {
+    .image_side {
+      display: none;
+    }
+    .content_introduction{
+        width: 100%;
+    }
+  }

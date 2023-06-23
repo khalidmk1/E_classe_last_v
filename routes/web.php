@@ -15,8 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('landing_page.content_page');
+});
+
+Route::get('/home', function () {
     return view('home');
 });
+
+
+
+
 
 Route::get('/register_prof', function () {
     return view('auth.register_enseignement');
@@ -34,7 +42,7 @@ Route::middleware('student')->group(function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
