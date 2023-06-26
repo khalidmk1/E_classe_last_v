@@ -254,7 +254,7 @@
                       <div class="input-group">
                         <div class="custom-file">
                           <input type="file" class="custom-file-input" id="exampleInputFile">
-                          <label class="custom-file-label" for="exampleInputFile">choiser un photo de profille</label>
+                          <label class="custom-file-label" for="exampleInputFile">choiser un photo</label>
                         </div>
                         <div class="input-group-append">
                           <span class="input-group-text">Upload</span>
@@ -319,18 +319,20 @@
   
                   </div>
                 </div>
-
-
                 <div class="col-lg-6 bg-indigo text-white">
                   <div class="p-5">
                     <h3 class="fw-normal mb-5">Contact Details</h3>
 
-                    <div class="mb-4 pb-2" >
+                    <div class="mb-4 pb-2">
                       <label class="form-label" for="form3Examplev2">ville</label>
-                      <select class="form-control select2"  name="county"  style="width: 100%;">
-                        @foreach ($county_array as $country)
-                        <option  value="{{ $country }}">{{ $country }}</option>
-                    @endforeach
+                      <select class="form-control select2" style="width: 100%;">
+                        <option selected="selected">Alabama</option>
+                        <option>Alaska</option>
+                        <option>California</option>
+                        <option>Delaware</option>
+                        <option>Tennessee</option>
+                        <option>Texas</option>
+                        <option>Washington</option>
                       </select>
                     </div>
 
@@ -360,23 +362,83 @@
                   <!-- select -->
                   <div class="form-group  mb-4 pb-2">
                     <label>statut du travail</label>
-                    <select id="myselect" class="form-control">
-                      <option value="option 1 ">Select an option</option>
-                      <option value="option 2">option 2</option>
-                      <option value="option 3">option 3</option>
-                      <option value="option 4">option 4</option>
-                      
+                    <select class="form-control">
+                      <option>option 1</option>
+                      <option>option 2</option>
+                      <option>option 3</option>
+                      <option>option 4</option>
+                      <option>option 5</option>
                     </select>
                   </div>
 
                    <!-- text input -->
-                   <div class="form-group mb-4 pb-2" id="status_select">
+                   <div class="form-group mb-4 pb-2">
                     <label>Nom de etablisement</label>
                     <input type="text" class="form-control" placeholder="Enter ...">
                   </div>
                   </div>
 
-              
+                  
+
+      
+  
+     {{--                  <!-- /.row -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-default">
+            
+              <div class="card-body">
+                <div id="actions" class="row">
+                  <div class="col-lg-12">
+                    <div class="btn-group w-100">
+                      <span class="btn btn-success col fileinput-button">
+                        <i class="fas fa-plus"></i>
+                        <span>Ajouter CIN photo</span>
+                      </span>
+                     
+                     
+                    </div>
+                  </div>
+                
+                </div>
+                <div class="table table-striped files" id="previews">
+                  <div id="template" class="row justify-content-center  mt-2">
+                    <div class="col-auto">
+                        <span class="preview"><img src="data:," alt="" data-dz-thumbnail /></span>
+                    </div>
+                    <div class="col-12 justify-content-center d-flex align-items-center">
+                        <p class="mb-0 w-100 text-dark text-center">
+                          <span class="lead" data-dz-name></span>
+                          (<span data-dz-size></span>)
+                        </p>
+                        <strong class="error text-danger" data-dz-errormessage></strong>
+                    </div>
+                  
+                    <div class="col-auto d-flex align-items-center">
+                      <div class="btn-group">
+                        <button class="btn btn-primary start d-none">
+                          <i class="fas fa-upload"></i>
+                          <span>Start</span>
+                        </button>
+                        <button data-dz-remove class="btn btn-warning cancel d-none">
+                          <i class="fas fa-times-circle"></i>
+                          <span>Cancel</span>
+                        </button>
+                        <button data-dz-remove class="btn btn-danger delete">
+                          <i class="fas fa-trash"></i>
+                          <span>Delete</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row --> --}}
   
   
                     <div class="form-check d-flex justify-content-start mb-4 pb-3">
@@ -432,34 +494,6 @@
 <script src="../../dist/js/demo.js"></script>
 <!-- Page specific script -->
 <script>
-
-/* var selectElement = document.getElementById("mySelect");
-var county_div = document.getElementById('status_select')
-county_div.style.display = 'none'
-
-if (selectElement !=="option 1") {
-  county_div.style.display = 'block'
-} else {
-  
-} */
-
-/* var selectElement = document.getElementById("mySelect");
-
-if (selectElement !== null) {
-  var selectedOption = selectElement.value;
-
-  if (selectedOption !== "") {
-    // An option is selected
-    console.log("Option selected: " + selectedOption);
-  } else {
-    // No option is selected
-    console.log("No option selected");
-  }
-} else {
-  console.log("Select element not found");
-} */
-
-
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()

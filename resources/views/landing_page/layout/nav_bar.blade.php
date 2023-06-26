@@ -18,10 +18,15 @@
           @endauth
        
         </div>
+        @if (!Auth::check())
         <div class="navbar-nav auth_link col justify-content-center">
           <a class="nav-link "  href="{{Route('login')}}">Login</a>
          <button  type="submit" > <a class="nav-link " href="{{Route('register')}}">Rejoignez-nous<i class="fas fa-arrow-right "></i></a></button>
         </div>
+        @endif
+
+      
+       
 
       </div>
     </div>

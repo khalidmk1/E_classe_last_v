@@ -33,7 +33,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/" class="nav-link">
+            <a href="{{Route('enseignement.create')}}" class="nav-link">
               <i class="nav-icon  fas fa-user-plus"></i>
               <p>
                 Ajouter enseignement

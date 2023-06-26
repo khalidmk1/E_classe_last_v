@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\RegisteredUserEnseignementController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,13 @@ Route::get('/home', function () {
 Route::get('/register_prof', function () {
     return view('auth.register_enseignement');
 });
+
+
+Route::middleware('admin')->group(function () {
+    Route::get('register/enseignement', [RegisteredUserEnseignementController::class, 'create'])->name('enseignement.create');
+    
+});
+
 
 
 
