@@ -206,12 +206,31 @@
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12">
+          @if (session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{ session('success')}}</strong> 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+@else
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{ session('failed')}}</strong> 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+@endif
           <div class="card card-registration card-registration-2" style="border-radius: 15px;">
             <div class="card-body p-0">
+              <form action="{{Route('enseignement.send_demand')}}" method="POST" enctype="multipart/form-data" >
+                @csrf
               <div class="row g-0">
-                <div class="col-lg-6">
+                <div class="col-lg-6 content_register">
                   <div class="p-5">
                     <h3 class="fw-normal mb-5" style="color: #4835d4;">Informations générales</h3>
+
   
                    
   
@@ -253,8 +272,8 @@
                     
                       <div class="input-group">
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="exampleInputFile">
-                          <label class="custom-file-label" for="exampleInputFile">choiser un photo</label>
+                          <input type="file" name="avatar" class="custom-file-input" id="exampleInputFile">
+                          <label class="custom-file-label" for="exampleInputFile">choiser un photo de profille</label>
                         </div>
                         <div class="input-group-append">
                           <span class="input-group-text">Upload</span>
@@ -275,6 +294,24 @@
                         </div>
                       </div>
                     </div>
+
+                                <!-- phone mask -->
+                                <div class="mb-4 pb-2">
+                                  <div class="form-group">
+                  
+                  
+                                    <div class="input-group flex-row-reverse">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                      </div>
+                                      <input type="text" name="phone" class="form-control" data-inputmask='"mask": "999 999 9999"' data-mask placeholder="Telephone" 
+                                      required autofocus autocomplete="phone">
+                                    </div>
+                                    <!-- /.input group -->
+                                  </div>
+                                  <!-- /.form group -->
+                                                </div>
+
                     <div class="mb-4 pb-2">
                       <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Mot de passe"  
@@ -288,7 +325,7 @@
                     </div>
                     <div class="mb-4 pb-2">
                       <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Retype password"
+                        <input type="password" class="form-control" placeholder="Confirme password"
                         name="password_confirmation" required autocomplete="new-password" >
                         <div class="input-group-append">
                           <div class="input-group-text">
@@ -299,47 +336,44 @@
                     </div>
 
 
-                              <!-- phone mask -->
-                              <div class="mb-4 pb-2">
-                <div class="form-group">
-
-
-                  <div class="input-group flex-row-reverse">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                    </div>
-                    <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask placeholder="Telephone">
-                  </div>
-                  <!-- /.input group -->
-                </div>
-                <!-- /.form group -->
-                              </div>
+                  
 
         
   
                   </div>
                 </div>
+
+
                 <div class="col-lg-6 bg-indigo text-white">
                   <div class="p-5">
-                    <h3 class="fw-normal mb-5">Contact Details</h3>
+                    <h3 class="fw-normal mb-5">Form Détails</h3>
 
-                    <div class="mb-4 pb-2">
+                    <div class="mb-4 pb-2" >
                       <label class="form-label" for="form3Examplev2">ville</label>
-                      <select class="form-control select2" style="width: 100%;">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
+                      <select class="form-control select2"  name="county"  style="width: 100%;">
+                        @foreach ($county_array as $country)
+                        <option  value="{{ $country }}">{{ $country }}</option>
+                    @endforeach
                       </select>
                     </div>
+
+                                       <!-- select subject -->
+
+                    
+                                       <div class="mb-4 pb-2" >
+                                        <label class="form-label" for="form3Examplev2">Le sujet que vous étudiez</label>
+                                        <select class="form-control select2"  name="subject"  style="width: 100%;">
+                                          @foreach ($subject as $sujet)
+                                          <option  value="{{ $sujet }}">{{ $sujet }}</option>
+                                      @endforeach
+                                        </select>
+                                      </div>
+                   
 
                     <div class="input-group mb-4 pb-2">
                       <label class="form-label col-12" for="form3Examplev2">Ajouter photo de cin</label>
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input custom-file-label" id="exampleInputFile">
+                        <input type="file" name="cin" class="custom-file-input custom-file-label" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">choiser un photo</label>
                       </div>
                       <div class="input-group-append">
@@ -349,7 +383,7 @@
                     <div class="input-group mb-4 pb-2 ">
                       <label class="form-label col-12" for="form3Examplev2">Ajouter photo de license</label>
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input custom-file-label" id="exampleInputFile">
+                        <input type="file" name="license" class="custom-file-input custom-file-label" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">choiser un photo</label>
                       </div>
                       <div class="input-group-append">
@@ -359,101 +393,48 @@
 
 
                     
+
+
+  
+
+                    
                   <!-- select -->
                   <div class="form-group  mb-4 pb-2">
                     <label>statut du travail</label>
-                    <select class="form-control">
-                      <option>option 1</option>
-                      <option>option 2</option>
-                      <option>option 3</option>
-                      <option>option 4</option>
-                      <option>option 5</option>
+                    <select id="myselect" name="work_status" class="form-control">
+                      <option value="">Select an option</option>
+                      <option value="je travailler">je travailler</option>
+                      <option value="sans emploi">sans emploi</option>
+                      <option value="à la retraite">à la retraite</option>
+                      
                     </select>
                   </div>
+                
 
                    <!-- text input -->
-                   <div class="form-group mb-4 pb-2">
+                   <div class="form-group mb-4 pb-2" id="status_select">
                     <label>Nom de etablisement</label>
-                    <input type="text" class="form-control" placeholder="Enter ...">
+                    <input name="name_school" value="{{old('name_school')}}" type="text" class="form-control" placeholder="Entrez ..."
+                    required autofocus autocomplete="name_school">
                   </div>
                   </div>
 
-                  
-
-      
-  
-     {{--                  <!-- /.row -->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card card-default">
-            
-              <div class="card-body">
-                <div id="actions" class="row">
-                  <div class="col-lg-12">
-                    <div class="btn-group w-100">
-                      <span class="btn btn-success col fileinput-button">
-                        <i class="fas fa-plus"></i>
-                        <span>Ajouter CIN photo</span>
-                      </span>
-                     
-                     
-                    </div>
-                  </div>
-                
-                </div>
-                <div class="table table-striped files" id="previews">
-                  <div id="template" class="row justify-content-center  mt-2">
-                    <div class="col-auto">
-                        <span class="preview"><img src="data:," alt="" data-dz-thumbnail /></span>
-                    </div>
-                    <div class="col-12 justify-content-center d-flex align-items-center">
-                        <p class="mb-0 w-100 text-dark text-center">
-                          <span class="lead" data-dz-name></span>
-                          (<span data-dz-size></span>)
-                        </p>
-                        <strong class="error text-danger" data-dz-errormessage></strong>
-                    </div>
-                  
-                    <div class="col-auto d-flex align-items-center">
-                      <div class="btn-group">
-                        <button class="btn btn-primary start d-none">
-                          <i class="fas fa-upload"></i>
-                          <span>Start</span>
-                        </button>
-                        <button data-dz-remove class="btn btn-warning cancel d-none">
-                          <i class="fas fa-times-circle"></i>
-                          <span>Cancel</span>
-                        </button>
-                        <button data-dz-remove class="btn btn-danger delete">
-                          <i class="fas fa-trash"></i>
-                          <span>Delete</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-             
-            </div>
-            <!-- /.card -->
-          </div>
-        </div>
-        <!-- /.row --> --}}
   
   
                     <div class="form-check d-flex justify-content-start mb-4 pb-3">
-                      <input class="form-check-input me-3" type="checkbox" value="" id="form2Example3c" />
+                      <input class="form-check-input me-3" name="terms" value="agree" type="checkbox"  id="form2Example3c" />
                       <label class="form-check-label text-white" for="form2Example3">
                         I do accept the <a href="#!" class="text-white"><u>Terms and Conditions</u></a> of your
                         site.
                       </label>
                     </div>
   
-                    <button type="button" class="btn btn-light btn-lg"
+                  <button type="submit"  class="btn btn-light btn-lg mb-3"
                       data-mdb-ripple-color="dark">Register</button>
   
                   </div>
                 </div>
+              </form>
               </div>
             </div>
           </div>
@@ -490,10 +471,13 @@
 <script src="../../plugins/dropzone/min/dropzone.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
+
 <!-- Page specific script -->
 <script>
+
+
+
+
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
@@ -629,6 +613,10 @@
 </script>
 </body>
 </html>
+
+
+
+
 
 
 

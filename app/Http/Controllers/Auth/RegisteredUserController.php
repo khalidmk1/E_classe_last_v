@@ -35,22 +35,29 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'last_name'=>['required', 'string', 'max:255'],
+            'phone' => ['required', 'numeric'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+          
         ]);
-       
+
+        if ($request->has('avatar')) {
+            $file = $request ->avatar;
+            $image_name = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/avatars'),$image_name);
+        }
 
         if($request->has('terms')){
             $user = User::create([
+                'avatar' =>$image_name,
                 'name' => $request->name,
                 'last_name'=>$request->last_name,
+                'phone' =>$request->phone,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
-               
+                'password' => Hash::make($request->password),   
+                'confirmed' => true,
             ]);
             event(new Registered($user));
-
-            /*   Auth::login($user); */
       
               return redirect()->route('login')->with('success','Votre inscription a réussi');
     
@@ -60,4 +67,7 @@ class RegisteredUserController extends Controller
         }
      
     }
+
+
+    
 }

@@ -34,11 +34,9 @@
     top: 13px;
     }
     
-    .gradient-custom-2 {
-    /* fallback for old browsers */
-    background: #a1c4fd;
-    
-    }
+   .content_register{
+      background-color: #f4f6f9;
+   }
     
     .bg-indigo {
     background-color: #4835d4;
@@ -54,4 +52,12 @@
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     }
+    }
+
+    .ereur_style{
+      font-size: 12px;
+    }
+
+    .size_route{
+      font-size: 13px;
     }

@@ -11,6 +11,14 @@
           <div class="col-sm-6">
             <h1 class="m-0">Administrateur</h1>
           </div><!-- /.col -->
+          @if (session('success'))
+          <div class="alert alert-success alert-dismissible fade show col-sm-6" role="alert">
+            <strong>{{ session('success')}}</strong> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+@endif
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserEnseignementController;
+use App\Http\Controllers\TableController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,28 +21,22 @@ Route::get('/', function () {
     return view('landing_page.content_page');
 });
 
-Route::get('/home', function () {
-    return view('home');
+Route::get('/table', function () {
+    return view('admin.tables.ensiengement_table');
 });
 
+Route::get('demande/enseignement', [RegisteredUserEnseignementController::class, 'demande'])->name('enseignement.demande');
+Route::post('send_demand/enseignement', [RegisteredUserEnseignementController::class, 'send_demand'])->name('enseignement.send_demand');
 
-
-
-
-Route::get('/register_prof', function () {
-    return view('auth.register_enseignement');
-});
-
-
-Route::middleware('admin')->group(function () {
+Route::middleware('admin' , 'auth')->group(function () {
     Route::get('register/enseignement', [RegisteredUserEnseignementController::class, 'create'])->name('enseignement.create');
+    Route::post('store/enseignement', [RegisteredUserEnseignementController::class, 'store'])->name('enseignement.store');
+    Route::resource('table/enseignement', TableController::class);
+    Route::get('table/student', [TableController::class, 'student_table'])->name('table.student');
+    
     
 });
 
-
-
-
-Route::get('register', [RegisteredUserController::class, 'create'])->name('register.store');
 
 Route::middleware('student')->group(function () {
     Route::get('/student', function () {

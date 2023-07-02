@@ -79,30 +79,63 @@
     <div class="card-body">
       <p class="login-box-msg">Enregistrer une nouvelle utilisateur</p>
 
-      <form  method="post" action="{{ route('register') }}">
+      <form  method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf
+
+        <div class="input-group mb-3">
+          <img src="{{asset('assets/images/project_images/default_avatar.png')}}"  id="blah" class="rounded mx-auto d-block mb-2"  style="height: 200px;width:200px;" alt="your image" >
+          
+      </div>
+
+        <div class="input-group mb-3">
+          <div class="custom-file">
+            <input type="file" name="avatar" class="custom-file-input" id="exampleInputFile">
+            <label class="custom-file-label" for="exampleInputFile">choiser un photo de profille</label>
+          </div>
+        </div>
+
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Nom" 
           name="name" value="{{old('name')}}" required autofocus autocomplete="name">
-          @error('name')
-          <input type="text" class="form-control is-invalid" id="inputError" placeholder="Enter ...">
-          @enderror
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
           </div>
+          @error('nom')
+          <div class="text-danger mx-4 mb-2 ereur_style">{{ $message }}</div>
+          @enderror
         </div>
         <div class="input-group mb-3">
           <input type="text" class="form-control" name="last_name" placeholder="Prenom"
           value="{{old('last_name')}}" required autofocus autocomplete="last_name">
-         
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
           </div>
+          @error('last_name')
+          <div class="text-danger mx-4 mb-2 ereur_style">{{ $message }}</div>
+          @enderror
         </div>
+
+         <!-- phone mask -->
+        
+       <div class="input-group mb-3">
+        <input type="text" name="phone" class="form-control"
+        data-mask placeholder="Telephone" value="{{old('phone')}}" required autofocus autocomplete="phone">
+        <div class="input-group-append">
+          <div class="input-group-text">
+            <span class="fas fa-phone"></span>
+          </div>
+        </div>
+        @error('phone')
+        <div class="text-danger mx-4 mb-2 ereur_style">{{ $message }}</div>
+        @enderror
+      </div>
+          <!-- /.form group -->
+      
+
         <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="Email" 
           name="email" value="{{old('email')}}" required autocomplete="username" >
@@ -111,6 +144,9 @@
               <span class="fas fa-envelope"></span>
             </div>
           </div>
+          @error('email')
+          <div class="text-danger mx-4 mb-2 ereur_style">{{ $message }}</div>
+          @enderror
         </div>
         <div class="input-group mb-3">
           <input type="password" class="form-control" placeholder="Mot de passe"  
@@ -120,9 +156,12 @@
               <span class="fas fa-lock"></span>
             </div>
           </div>
+          @error('password')
+          <div class="text-danger mx-4 mb-2 ereur_style">{{ $message }}</div>
+          @enderror
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password"
+          <input type="password" class="form-control" placeholder="Confirmer Mot de passe"
           name="password_confirmation" required autocomplete="new-password" >
           <div class="input-group-append">
             <div class="input-group-text">
@@ -148,9 +187,9 @@
       </form>
 
       <div class="social-auth-links text-center">
-        <a href="#" class="btn btn-block btn-primary">
+        <a href="{{Route('enseignement.demande')}}" class="btn btn-block btn-primary">
           <i class="fas fa-user-graduate mr-2"></i>
-          Inscrivez-vous en tant que tuteur
+          Envoyer un demande pour etre an enseignement
         </a>
       </div>
 

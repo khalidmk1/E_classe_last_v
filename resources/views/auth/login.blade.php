@@ -1,11 +1,15 @@
 
 
 {{-- <x-guest-layout> --}}
-    @if (session('success'))
+{{--     @if (session('status'))
 <div>
- {{ session('success')}}
-</div>
-@endif
+ {{ session('status')}}
+</div> --}}
+
+
+
+
+
    {{--  <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -63,6 +67,23 @@
 
 @section('content')
 
+@if (session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{ session('success')}}</strong> 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+@elseif (session('failed'))
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{ session('failed')}}</strong> 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+@endif
+
  <div class="login-box">
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
@@ -74,6 +95,8 @@
   
         <form  method="POST" action="{{ route('login') }}">
             @csrf
+
+          
           <div class="input-group mb-3">
             <input type="email" id="email"  class="form-control" placeholder="Email" 
             name="email" :value="old('email')" required autofocus autocomplete="username">
@@ -82,16 +105,25 @@
                 <span class="fas fa-envelope"></span>
               </div>
             </div>
+            @error('email')
+          <div class="text-danger mx-4 mb-2 ereur_style">{{ $message }}</div>
+          @enderror
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Password"
+            <input type="password" class="form-control" placeholder="Mots de passe"
             name="password" required autocomplete="current-password" >
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
               </div>
             </div>
+            @error('password')
+            <div class="text-danger mx-4 mb-2 ereur_style">{{ $message }}</div>
+            @enderror
           </div>
+
+
+        
           <div class="row">
             <div class="col-6">
               <div class="icheck-primary">
@@ -107,6 +139,8 @@
             </div>
             <!-- /.col -->
           </div>
+
+
         </form>
   
   
