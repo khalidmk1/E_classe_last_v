@@ -31,10 +31,13 @@ Route::post('send_demand/enseignement', [RegisteredUserEnseignementController::c
 Route::middleware('admin' , 'auth')->group(function () {
     Route::get('register/enseignement', [RegisteredUserEnseignementController::class, 'create'])->name('enseignement.create');
     Route::post('store/enseignement', [RegisteredUserEnseignementController::class, 'store'])->name('enseignement.store');
-    Route::resource('table/enseignement', TableController::class);
+    
+    Route::get('table/enseignement', [TableController::class, 'index'])->name('table.index');
+    Route::get('table/enseignement/{id}', [TableController::class, 'show'])->name('table.show');
+    Route::put('table/enseignement/{id}', [TableController::class, 'update'])->name('table.update');
+    Route::get('table/demande', [TableController::class, 'demande_table'])->name('table.demande');
     Route::get('table/student', [TableController::class, 'student_table'])->name('table.student');
-    
-    
+
 });
 
 

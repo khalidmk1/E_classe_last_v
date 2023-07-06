@@ -13,14 +13,14 @@
     <!-- Main content -->
     <section class="content mt-3">
         <div class="container-fluid">
-            @if (session('success'))
+          {{--   @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>{{ session('success')}}</strong> 
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            @endif
+            @endif --}}
 
           <div class="row">
             <div class="col-12">
@@ -46,20 +46,23 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($table_prof as $prof )
+                        @foreach ($table_demande as $demnade )
                         <tr>
-                            <td><img src="{{asset('images/avatars/' .$prof->avatar)}}" alt="ensiengement_logo" height="72" ></td>
-                            <td>{{$prof->name}}</td>
-                            <td>{{$prof->last_name}}</td>
-                            <td>{{$prof->email}}</td>
-                            <td>{{$prof->phone}}</td>
-                            <td>{{$prof->county}}</td>
-                            <td>cin</td>
-                            <td>license</td>
-                            <td>{{$prof->subject}}</td>
-                            <td>{{$prof->name_school}}</td>
+                           
+                          <td><img src="{{asset('images/avatars/' .$demnade->avatar)}}" alt="ensiengement_logo" height="72" ></td>
+                          <td>{{$demnade->name}}</td>
+                          <td>{{$demnade->last_name}}</td>
+                          <td>{{$demnade->email}}</td>
+                          <td>{{$demnade->phone}}</td>
+                          <td>{{$demnade->county}}</td>
+                          <td>cin</td>
+                          <td>license</td>
+                          <td>{{$demnade->subject}}</td>
+                          <td>{{$demnade->name_school}}</td>
+                            
+                          
                             <td>
-                                <a href="{{ route('table.show' , Crypt::encrypt($prof->id) ) }}" type="submit">Show</a>
+                               {{--  <a href="{{ route('enseignement.show' , Crypt::encrypt($demnade->id) ) }}" type="submit">Show</a> --}}
                                 {{-- <div id="block" class="block">Click Me</div> --}}
                                {{--  <form action="{{ Route('enseignement.update' ,$prof->id) }}" method="post">
                                   @csrf
@@ -67,11 +70,11 @@
                                   <input type="submit" value="block" class="btn bg-primary text-white">
                                   </form> --}}
 
-                                  <form action="{{ route('table.update', $prof->id) }}" method="post">
+                                {{--   <form action="{{ route('enseignement.update', $demnade->id) }}" method="post">
                                     @csrf
                                     @method('PUT')
-                                    <input value="1" type="submit" class="block" placeholder="block" >
-                                </form>
+                                    <input name='block' type="submit" class="block" >
+                                </form> --}}
 
                                {{--  <a href="{{ Route('enseignement.update' , Crypt::encrypt($prof->id)) }}" type="submit">block</a> --}}
                                {{--  <a href="#" type="submit" class="block-link" data-id="{{ $prof->id }}">Block</a> --}}

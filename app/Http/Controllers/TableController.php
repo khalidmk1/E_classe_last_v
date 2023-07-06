@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Crypt;
 
 class TableController extends Controller
 {
@@ -19,6 +20,11 @@ class TableController extends Controller
     public function student_table(){
         $table_student = User::where('role' , 'student')->get();
         return view('admin.tables.student_table')->with('table_student' , $table_student);
+    }
+
+    public function demande_table(){
+        $table_demande = User::where('confirmed' , '0')->get();
+        return view('admin.tables.table_demande')->with('table_demande' , $table_demande);
     }
 
 
@@ -43,7 +49,7 @@ class TableController extends Controller
      */
     public function show(string $id)
     {
-        $enseignement = User::find($id);
+        $enseignement = User::find(Crypt::decrypt($id));
         return view('prof.show')->with('enseignement' ,$enseignement);     
     }
 
@@ -52,24 +58,47 @@ class TableController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::find($id);
-        return view('prof.edit',compact('user'));
+      
 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        $user = User::find($id);
-
-    
-        $user->update([
-            'block' => true,
+       /*  $block = User::find(Crypt::decrypt($request->id));
+        $block->update([
+            'block' => "1",
         ]);
+
+       
     
-        return response()->json(['success' => 'Utilisateur bloqué avec succès']);
+        return redirect()->back(); */
+
+      /*   dd($request); */
+        $decryptedId = $request->id;
+        $block = User::find($decryptedId);
+    
+        if ($block) {
+            $block->update([
+                'block' => '1',
+            ]);
+    
+            return redirect()->back()->with('success', 'User blocked successfully');
+        } else {
+            return redirect()->back()->with('error', 'User not found');
+        }
+
+        /*  // Get the new value from the request
+         $newValue = $request->input('block');
+
+         // Update the column in the database
+         // Replace 'your_table' and 'your_column' with the actual table and column names
+         DB::table('User')->update(['block' => $newValue]);
+ 
+         // Return a response if needed
+         return response()->json(['message' => 'Column updated successfully']); */
     }
 
     /**

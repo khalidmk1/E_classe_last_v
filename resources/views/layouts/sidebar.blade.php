@@ -12,10 +12,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{asset('images/avatars/'.auth()->user()->avatar)}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{auth()->user()->name . auth()->user()->last_name}}</a>
         </div>
       </div>
 
@@ -37,7 +37,7 @@
             
         
           <li class="nav-item">
-            <a href="{{Route('enseignement.create')}}" class="nav-link">
+            <a href="{{route('enseignement.create')}}" class="nav-link">
               <i class="nav-icon  fas fa-user-plus"></i>
               <p>
                 Ajouter enseignement
@@ -56,13 +56,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('enseignement.index')}}" class="nav-link">
+                <a href="{{route('table.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p class="size_route">table des enseignements</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{Route('table.student')}}" class="nav-link">
+                <a href="{{route('table.student')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>table des etudiant</p>
                 </a>
@@ -73,7 +73,7 @@
           
            
           <li class="nav-item">
-            <a href="pages/kanban.html" class="nav-link">
+            <a href="{{Route('table.demande')}}" class="nav-link">
               <i class="fas fa-calendar-check  nav-icon"></i>
               <p class="size_route">
                 Demande des enseignement
@@ -81,7 +81,19 @@
             </a>
           </li>
 
+          @elseif (auth()->user()->role == "prof")
+
+          <li class="nav-item">
+            <a href="{{route('enseignement.create')}}" class="nav-link">
+              <i class="fa-regular fa-screen-users"></i>
+              <p>
+                crée un class
+              </p>
+            </a>
+          </li>
+
           @endif
+         
          
        
           <li class="nav-header">Paramètre</li>

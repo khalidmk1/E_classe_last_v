@@ -167,6 +167,26 @@
     color:  var(--danger-text-color) ;
 }
 
+.profile-circel-image-200 img {
+   width: 60px;
+   height: 60px;
+   border-radius: 20px;
+}
+.vv img {
+   transition: all 0.3s ease;
+   cursor: pointer;
+}
+.vv img:hover {
+   opacity: 0.8;
+   box-shadow: 0px 0px 5px 8px rgba(0,0,0,0.08);
+}
+
+.avatar_logo{
+ height: 60px;
+ width: 60px;
+}
+
+
 .fa-star{
     color: yellow;
 }
