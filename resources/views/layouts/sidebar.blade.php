@@ -84,10 +84,18 @@
           @elseif (auth()->user()->role == "prof")
 
           <li class="nav-item">
-            <a href="{{route('enseignement.create')}}" class="nav-link">
-              <i class="fa-regular fa-screen-users"></i>
+            <a href="#" class="nav-link">
+              <i class="fa-regular fa-screen-users  nav-icon"></i>
               <p>
-                crée un class
+                Crée des Cours
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa fa-calendar  nav-icon" aria-hidden="true"></i>
+              <p>
+                calendrier
               </p>
             </a>
           </li>

@@ -36,7 +36,9 @@
                 <div class="info-box-content">
                   <span class="info-box-text">Nombre de Professeur</span>
                   <span class="info-box-number">
-                    10
+
+                    {{App\Models\User::where('role' , 'prof')->count()}}
+                    
                    
                   </span>
                 </div>
@@ -68,7 +70,7 @@
   
                 <div class="info-box-content">
                   <span class="info-box-text">Nomber des Etudiant</span>
-                  <span class="info-box-number">2,000</span>
+                  <span class="info-box-number">{{App\Models\User::where('role' , 'student')->count()}}</span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
