@@ -54,8 +54,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-   /*  public function participant()
-    {
-        return $this->hasOne(Student::class);
-    } */
+   /**
+    * Get all of the event for the User
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+   public function event(): HasMany
+   {
+       return $this->hasMany(event::class);
+   }
+   public function Calender(): HasMany
+   {
+       return $this->hasMany(Calender::class);
+   }
 }

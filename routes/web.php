@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserEnseignementController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\CalenderController;
+use App\Http\Controllers\EventController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -21,9 +24,9 @@ Route::get('/', function () {
     return view('landing_page.content_page');
 });
 
-Route::get('/table', function () {
+/* Route::get('/table', function () {
     return view('admin.tables.ensiengement_table');
-});
+}); */
 
 Route::get('demande/enseignement', [RegisteredUserEnseignementController::class, 'demande'])->name('enseignement.demande');
 Route::post('send_demand/enseignement', [RegisteredUserEnseignementController::class, 'send_demand'])->name('enseignement.send_demand');
@@ -48,6 +51,13 @@ Route::middleware('student')->group(function () {
     
 });
 
+Route::middleware('prof' , 'auth')->group(function () {
+    Route::get('event/all_events', [EventController::class , 'index'])->name('event.index');
+   Route::get('event/create', [EventController::class , 'create'])->name('event.create');
+   Route::post('event/store', [EventController::class , 'store'])->name('event.store');
+
+});
+
 Route::get('/dashboard', function () {
     return view('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -57,5 +67,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('full-calender', [CalenderController::class, 'index'])->name('calender');
+
+Route::post('full-calender/action', [CalenderController::class, 'action']);
+
+Route::get('calender', function(){
+    return view('prof.calender');
+});
+
+
+
 
 require __DIR__.'/auth.php';

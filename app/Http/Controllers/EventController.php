@@ -12,7 +12,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = event::where('user_id', auth()->user()->id)->get();
+        return view('prof.event.show')->with('events', $events);
     }
 
     /**
@@ -20,7 +21,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('prof.event.create');
     }
 
     /**
@@ -28,7 +29,35 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        /* dd($request); */
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'programe' =>['required', 'string', 'max:255'],
+            'video' => 'required|mimes:mp4', 
+        ]);
+
+        if ($request->hasFile('video')) {
+            $file = $request->file('video');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            $file->move(public_path('videos'), $fileName); // Move the uploaded video to the desired location
+        }
+
+
+        $event = event::create([
+            'user_id' =>auth()->user()->id,
+            'title' => $request->title,
+            'description' =>$request->description,
+            'programe' => $request->programe,
+            'video' => $fileName,
+        ]);
+
+        return redirect()->back()->with('valide' , 'u create a event');
+
+        
+
     }
 
     /**
@@ -36,7 +65,7 @@ class EventController extends Controller
      */
     public function show(event $event)
     {
-        //
+       
     }
 
     /**

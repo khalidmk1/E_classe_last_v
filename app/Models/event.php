@@ -18,11 +18,24 @@ class event extends Model
         'user_id',
         'title',
         'description',
+        'programe',
         'images',
-        'video'
+        'video',
     ];
 
     protected $casts = [
         'images' => 'array'
     ];
+
+
+    /**
+     * Get the user that owns the event
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

@@ -74,7 +74,7 @@ return view('auth.register_enseignement');
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'last_name'=>['required', 'string', 'max:255'],
-            'phone' => ['required', 'numeric'],
+            'phone' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
           
@@ -119,8 +119,8 @@ return view('auth.register_enseignement');
                 'phone' => ['required' , 'string', 'max:255'],
                 'county' => ['required' , 'string', 'max:255'],
                 'subject' => ['required' , 'string', 'max:255'],
-                'license' => ['required|mimes:pdf|max:2048'],
-                'cin' => ['required|mimes:pdf|max:2048'],
+                'license' => ['required', 'mimes:pdf' ,'max:2048'],
+                'cin' => ['required', 'mimes:pdf' ,'max:2048'],
                 'name_school' =>['required', 'string', 'max:255'],
             ]);
 

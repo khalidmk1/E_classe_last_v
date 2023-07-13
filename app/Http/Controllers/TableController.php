@@ -67,17 +67,8 @@ class TableController extends Controller
      */
     public function update(Request $request)
     {
-       /*  $block = User::find(Crypt::decrypt($request->id));
-        $block->update([
-            'block' => "1",
-        ]);
-
        
-    
-        return redirect()->back(); */
-
-      /*   dd($request); */
-        $decryptedId = $request->id;
+        $decryptedId = $request->block;
         $block = User::find($decryptedId);
     
         if ($block) {
@@ -90,15 +81,7 @@ class TableController extends Controller
             return redirect()->back()->with('error', 'User not found');
         }
 
-        /*  // Get the new value from the request
-         $newValue = $request->input('block');
-
-         // Update the column in the database
-         // Replace 'your_table' and 'your_column' with the actual table and column names
-         DB::table('User')->update(['block' => $newValue]);
- 
-         // Return a response if needed
-         return response()->json(['message' => 'Column updated successfully']); */
+        
     }
 
     /**

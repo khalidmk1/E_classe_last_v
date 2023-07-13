@@ -3,7 +3,7 @@
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="{{asset('assets/images/project_images/WhatsApp Image 2023-06-10 at 13.00.23.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{asset('assets/images/project_images/WhatsApp Image 2023-06-26 at 10.24.13.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">E-classe</span>
     </a>
 
@@ -84,7 +84,9 @@
           @elseif (auth()->user()->role == "prof")
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{Route('event.create')}}" class="nav-link">
+              <img src="{{asset('assets/images/project_images/icons8-class-50.png')}}" class="nav-icon" alt="">
+             
               <i class="fa-regular fa-screen-users  nav-icon"></i>
               <p>
                 Crée des Cours
@@ -92,7 +94,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{Route('event.index')}}" class="nav-link">
+              <i class="fa fa-eye nav-icon" aria-hidden="true"></i>
+              <p>
+                voir tes Cours
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{Route('calender')}}" class="nav-link">
               <i class="fa fa-calendar  nav-icon" aria-hidden="true"></i>
               <p>
                 calendrier

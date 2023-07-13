@@ -1,4 +1,4 @@
-@extends('master.master_page')
+@extends('master.master_table')
 
 @section('title')
     
@@ -7,6 +7,7 @@
 
 @section('content')
 
+    
 
 
 <div class="wrapper">
@@ -59,22 +60,17 @@
                             <td>{{$prof->subject}}</td>
                             <td>{{$prof->name_school}}</td>
                             <td>
-                                <a href="{{ route('table.show' , Crypt::encrypt($prof->id) ) }}" type="submit">Show</a>
-                                {{-- <div id="block" class="block">Click Me</div> --}}
-                               {{--  <form action="{{ Route('enseignement.update' ,$prof->id) }}" method="post">
-                                  @csrf
-                                  @method('PUT')
-                                  <input type="submit" value="block" class="btn bg-primary text-white">
-                                  </form> --}}
+                             
+                                <a class="btn btn-block  btn-outline-primary m-2" href="{{ route('table.show' , Crypt::encrypt($prof->id) ) }}" type="submit">Show</a>
+                               
 
                                   <form action="{{ route('table.update', $prof->id) }}" method="post">
                                     @csrf
                                     @method('PUT')
-                                    <input value="1" type="submit" class="block" placeholder="block" >
+                                    <input value="block" name="block" type="submit" class="btn btn-block btn-outline-danger m-2"  >
                                 </form>
 
-                               {{--  <a href="{{ Route('enseignement.update' , Crypt::encrypt($prof->id)) }}" type="submit">block</a> --}}
-                               {{--  <a href="#" type="submit" class="block-link" data-id="{{ $prof->id }}">Block</a> --}}
+                               
                             </td>
                             
                           </tr>
@@ -97,26 +93,8 @@
       </section>
       <!-- /.content -->
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-  $(document).ready(function() {
-  $('#block').click(function() {
-    // Send an AJAX request to update the column
-    $.ajax({
-      url: 'table/enseignement/{$prof->id} ',
-      method: 'PUT',
-      data: { block: '1' },
-      success: function(response) {
-        console.log('Column updated successfully');
-      },
-      error: function(xhr, status, error) {
-        console.error('Error updating column:', error);
-      }
-    });
-  });
-});
 
-</script>
+
 
 @endsection

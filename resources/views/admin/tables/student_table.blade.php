@@ -1,4 +1,4 @@
-@extends('master.master_page')
+@extends('master.master_table')
 
 @section('title')
     

@@ -34,7 +34,7 @@
                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-user-graduate"></i></span>
   
                 <div class="info-box-content">
-                  <span class="info-box-text">Nombre de Professeur</span>
+                  <span class="info-box-text">Nombre des Professeurs</span>
                   <span class="info-box-number">
 
                     {{App\Models\User::where('role' , 'prof')->count()}}
@@ -53,9 +53,10 @@
   
                 <div class="info-box-content">
                   <span class="info-box-text">Nomber des cours</span>
-                  <span class="info-box-number">41,410</span>
+                  <span class="info-box-number">{{App\Models\event::where('user_id' , auth()->user()->id)->get()->count()}}</span>
                 </div>
                 <!-- /.info-box-content -->
+
               </div>
               <!-- /.info-box -->
             </div>
