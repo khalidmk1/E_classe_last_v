@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class EventController extends Controller
 {
@@ -30,13 +31,25 @@ class EventController extends Controller
     public function store(Request $request)
     {
 
-        /* dd($request); */
+
+
+       /*  dd($request); */
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
             'programe' =>['required', 'string', 'max:255'],
             'video' => 'required|mimes:mp4', 
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif',
         ]);
+
+        $uploadedImages = [];
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images/event'), $imageName);
+            $uploadedImages[] = $imageName;
+        }
+    }
 
         if ($request->hasFile('video')) {
             $file = $request->file('video');
@@ -52,6 +65,7 @@ class EventController extends Controller
             'description' =>$request->description,
             'programe' => $request->programe,
             'video' => $fileName,
+            'images' => $uploadedImages,
         ]);
 
         return redirect()->back()->with('valide' , 'u create a event');
@@ -63,9 +77,10 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(event $event)
-    {
-       
+    public function show(string $id)
+    {  
+       $events = event::find(Crypt::decrypt($id)); 
+       return view('prof.event.detail')->with('events' , $events);
     }
 
     /**

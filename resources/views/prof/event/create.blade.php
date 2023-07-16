@@ -3,6 +3,24 @@
 @section('title')
 @endsection
 
+<style>
+    .image-wrapper {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.images{
+    height: 147px;
+}
+
+.image-wrapper{
+    padding: 5px;
+}
+.delete_icon{
+    position: absolute;
+    top: 0;
+}
+</style>
 
 @section('content')
     <!-- Main content -->
@@ -42,8 +60,8 @@
                             <!-- /.col-->
 
 
-                            <label for="inputName" class="col-12 text-center"> Ajouter des images pour votre coure</label>
-                            <div class="col-md-12">
+                            <label for="inputName" class="col-12 text-left"> Ajouter des images pour votre coure</label>
+                           {{--  <div class="col-md-12">
 
                                 <div class="card card-default">
                                     <div class="card-body">
@@ -118,10 +136,38 @@
 
                                 </div>
                                 <!-- /.card -->
+                            </div> --}}
+
+
+                          {{--   <div class="col-12">
+                                <input type="file"  id="fileInput" multiple>
+                                <div id="imageContainer"></div>
+                                <button id="submitImages"> click</button>
+                            </div> --}}
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                  <input type="file" name="images[]" class="custom-file-input" id="inputGroupFile01" multiple>
+                                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                </div>
+                              </div>
+
+                              <div class="col-12">
+                                <div id="imageContainer"></div>
+                              </div>
+
+                            <div class="col-12">
+                                <img src="" id="images" alt="">
                             </div>
 
 
                             <div class="input-group mb-3">
+                                <label for="inputName" class="col-12 text-left"> Ajouter un video pour votre$
+                                    
+                                    coure</label>
                                 <div class="custom-file">
                                     <input type="file" name="video" class="custom-file-input" id="exampleInputFile">
                                     <label class="custom-file-label" for="exampleInputFile">choiser un video</label>
@@ -132,7 +178,7 @@
                         </div>
                         <!-- /.card-body -->
 
-                        <button type="submit">click</button>
+                        <button class="btn btn-block btn-outline-primary btn-lg" type="submit">Submit</button>
                     </form>
                 </div>
                 <!-- /.card -->
@@ -148,4 +194,50 @@
       </div> --}}
     </section>
     <!-- /.content -->
+
+    <script>
+     
+     const fileInput = document.getElementById('inputGroupFile01');
+const imageContainer = document.getElementById('imageContainer');
+
+fileInput.addEventListener('change', (event) => {
+  const files = event.target.files;
+
+  // Clear previous images
+  imageContainer.innerHTML = '';
+
+  // Iterate through each selected file
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const imgContainer = document.createElement('div');
+      imgContainer.className = 'image-wrapper';
+
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.alt = 'Image';
+      img.className = 'images'
+      imgContainer.appendChild(img);
+
+      const deleteBtn = document.createElement('div');
+      deleteBtn.innerHTML = '<i class="fa fa-trash delete_icon" aria-hidden="true"></i>';
+
+      deleteBtn.addEventListener('click', () => {
+        imgContainer.remove();
+      });
+      imgContainer.appendChild(deleteBtn);
+
+      imageContainer.appendChild(imgContainer);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
+  }
+});
+
+
+
+    </script>
 @endsection
