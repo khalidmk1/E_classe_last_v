@@ -58,6 +58,7 @@ Route::middleware('student' , 'auth')->group(function () {
 
 
 Route::middleware('prof' , 'auth')->group(function () {
+    Route::get('profile/enseignement/{id}', [TableController::class, 'show'])->name('profile.show');
     Route::get('event/all_events', [EventController::class , 'index'])->name('event.index');
    Route::get('event/create', [EventController::class , 'create'])->name('event.create');
    Route::post('/event/store', [EventController::class , 'store'])->name('event.store');
@@ -70,6 +71,9 @@ Route::middleware('prof' , 'auth')->group(function () {
 Route::get('/dashboard', function () {
     return view('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/profile', function () {
+    return view('home');
+})->middleware(['auth', 'verified'])->name('profile');
 
 
 Route::middleware('auth')->group(function () {
@@ -77,6 +81,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 
 

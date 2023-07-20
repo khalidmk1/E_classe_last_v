@@ -13,7 +13,8 @@ class Folow extends Model
         'user_id',
         'event_id',
         'folow',
-        'participat'
+        'participat',
+        'accepte'
     ];
     
     public function event()

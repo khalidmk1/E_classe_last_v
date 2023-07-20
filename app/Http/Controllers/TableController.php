@@ -49,8 +49,13 @@ class TableController extends Controller
      */
     public function show(string $id)
     {
-        $enseignement = User::find(Crypt::decrypt($id));
-        return view('prof.show')->with('enseignement' ,$enseignement);     
+        $enseignement = User::find($id);
+        if(auth()->user()->id !== $enseignement->id){
+            return redirect()->back();
+        }else{
+            return view('prof.show')->with('enseignement' ,$enseignement);     
+        }
+        
     }
 
     /**
