@@ -12,10 +12,15 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
+          @if (auth()->user()->avatar)
           <img src="{{asset('images/avatars/'.auth()->user()->avatar)}}" class="img-circle elevation-2" alt="User Image">
+          @else
+          <img src="{{asset('images/avatars/1688305003_8 Grunge Yes No Icon PNG Transparent  OnlyGFX.com_thumbnail.png')}}" class="img-circle elevation-2" alt="User Image">
+          @endif
+         
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{auth()->user()->name . auth()->user()->last_name}}</a>
+          <a href="#" class="d-block">{{auth()->user()->name . " " . auth()->user()->last_name}}</a>
         </div>
       </div>
 
@@ -25,7 +30,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="/" class="nav-link">
+            <a href="{{Route('dashboard')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Accuielle
@@ -110,6 +115,24 @@
             </a>
           </li>
 
+          @elseif (auth()->user()->role == "student")
+
+          <li class="nav-item">
+            <a href="{{Route('events.index')}}" class="nav-link">
+              <i class="fa fa-eye nav-icon" aria-hidden="true"></i>
+              <p>
+                Voir les Cours
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{Route('favoris.event')}}" class="nav-link">
+              <i class="fa fa-star nav-icon" aria-hidden="true"></i>
+              <p>
+                Favoris
+              </p>
+            </a>
+          </li>
           @endif
          
          

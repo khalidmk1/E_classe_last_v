@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+   
     <title>@yield('title')</title>
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -21,6 +23,10 @@
 
     <link rel="stylesheet" href="{{ asset('assets/videopopup.css') }}" media="screen">
 
+  
+
+    
+
 
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
@@ -35,8 +41,7 @@
         <!-- /.navbar -->
 
         @include('layouts.sidebar')
-
-        @yield('model')
+        
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
 
@@ -68,6 +73,8 @@
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    
 
 
     <!-- Summernote -->

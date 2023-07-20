@@ -4,7 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+   
     <title>@yield('title')</title>
+
+
 
 
     <!-- SweetAlert2 -->
@@ -50,6 +53,11 @@
 
     <link rel="stylesheet" href="{{ asset('assets/dashboard.css') }}">
 
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
+
+
 
 
 
@@ -59,7 +67,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <h1>@yield('title')</h1>
+    {{-- <h1>@yield('title')</h1> --}}
 
     <div class="wrapper">
         @include('layouts.nav_bar')
@@ -112,6 +120,10 @@
     <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+    <!-- bs-custom-file-input -->
+    <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+
+
 
 
 

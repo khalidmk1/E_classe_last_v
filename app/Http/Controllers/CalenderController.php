@@ -16,7 +16,7 @@ class CalenderController extends Controller
                        ->get(['id', 'title', 'start', 'end']);
             return response()->json($data);
     	}
-    	return view('prof.calender.calender');
+    	return view('prof.calender');
     }
 
     public function action(Request $request)
@@ -37,7 +37,7 @@ class CalenderController extends Controller
 
     		if($request->type == 'update')
     		{
-    			$event = Event::find($request->id)->update([
+    			$event = Calender::find($request->id)->update([
     				'title'		=>	$request->title,
     				'start'		=>	$request->start,
     				'end'		=>	$request->end
@@ -48,7 +48,7 @@ class CalenderController extends Controller
 
     		if($request->type == 'delete')
     		{
-    			$event = Event::find($request->id)->delete();
+    			$event = Calender::find($request->id)->delete();
 
     			return response()->json($event);
     		}

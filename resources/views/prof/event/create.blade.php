@@ -178,7 +178,7 @@
                         </div>
                         <!-- /.card-body -->
 
-                        <button class="btn btn-block btn-outline-primary btn-lg" type="submit">Submit</button>
+                        <button class="btn btn-block btn-outline-primary btn-lg w-25 m-auto" type="submit">Crée</button>
                     </form>
                 </div>
                 <!-- /.card -->
@@ -209,6 +209,7 @@ fileInput.addEventListener('change', (event) => {
   // Iterate through each selected file
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
+
     const reader = new FileReader();
 
     reader.onload = (e) => {
@@ -220,6 +221,9 @@ fileInput.addEventListener('change', (event) => {
       img.alt = 'Image';
       img.className = 'images'
       imgContainer.appendChild(img);
+
+      
+
 
       const deleteBtn = document.createElement('div');
       deleteBtn.innerHTML = '<i class="fa fa-trash delete_icon" aria-hidden="true"></i>';

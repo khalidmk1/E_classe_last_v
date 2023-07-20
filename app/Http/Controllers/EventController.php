@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\event;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -14,8 +15,24 @@ class EventController extends Controller
     public function index()
     {
         $events = event::where('user_id', auth()->user()->id)->get();
-        return view('prof.event.show')->with('events', $events);
+        $events_all = event::all();
+        return view('prof.event.show')->with([
+            'events' => $events,
+            'events_all' => $events_all
+    ]);
     }
+
+    public function sort(Request $request){
+        
+        /* $query = event::query(); */
+        $search = $request->search;
+        $events = event::where('title','LIKE', "%$search%")->get();
+        return view('prof.search')->with([
+            'events' => $events, 
+        ]);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -54,7 +71,6 @@ class EventController extends Controller
         if ($request->hasFile('video')) {
             $file = $request->file('video');
             $fileName = time() . '_' . $file->getClientOriginalName();
-
             $file->move(public_path('videos'), $fileName); // Move the uploaded video to the desired location
         }
 

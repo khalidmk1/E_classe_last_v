@@ -71,15 +71,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+                    <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2 ">
                         <div>
                             <video autoplay id="v1" loop controls style="top: 0 !important">
                                 <source src="{{ asset('videos/' . $events->video) }}" type="video/mp4" >
                             </video>
                         </div>
+                        @if (auth()->user()->role == 'prof')
                         <div class="text-center mt-5 mb-3 position-absolute " style="bottom: 0 ; right: 0;">
                             <a href="#" class="btn btn-block btn-outline-warning">Modifier</a>
                         </div>
+                        @else
+                       
+                        <form action="{{Route('update.event' , $events->id)}}" method="post">
+                            @csrf
+                            @if (App\Models\Folow::where(['user_id'=>auth()->user()->id,'event_id'=>$events->id])->where('participat' , 0)->exists())
+                            <div class="text-center mt-5 mb-3 position-absolute " style="bottom: 0 ; right: 0;">
+                                <button type="submit" class="btn btn-block btn-outline-success">Partciper</button>  
+                            </div>
+                            @endif
+                        </form>
+                        
+                       
+                       
+                        @endif
+                       
                     </div>
 
                     
