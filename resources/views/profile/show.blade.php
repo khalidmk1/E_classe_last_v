@@ -182,6 +182,8 @@
                                     
                                     </p>
 
+                                    <a href="{{Route('profile.edit')}}">update</a>
+
                                  
                                 </div>
 

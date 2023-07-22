@@ -111,10 +111,6 @@ class RegisteredUserEnseignementController extends Controller
                 'name_school' =>['required', 'string', 'max:255'],
             ]);
 
-            
-/* $image_name = null;
-$fileCin = null;
-$filelicense = null; */
 
             if ($request->has('avatar')) {
                 $file_image = $request ->avatar;

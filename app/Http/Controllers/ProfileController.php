@@ -45,7 +45,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
+        return view('profile.edit')->with([
             'county_array' => $this->county_array,
             'subject' => $this->subject,
             'user' => $request->user(),
