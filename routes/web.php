@@ -35,12 +35,13 @@ Route::post('send_demand/enseignement', [RegisteredUserEnseignementController::c
 
 Route::middleware('admin' , 'auth')->group(function () {
     Route::get('register/enseignement', [RegisteredUserEnseignementController::class, 'create'])->name('enseignement.create');
+    Route::put('accepte/enseignement/{id}', [RegisteredUserEnseignementController::class, 'accepte_demande'])->name('enseignement.accepte');
     Route::post('store/enseignement', [RegisteredUserEnseignementController::class, 'store'])->name('enseignement.store');
     Route::get('table/enseignement', [TableController::class, 'index'])->name('table.index');
-    Route::get('table/enseignement/{id}', [TableController::class, 'show'])->name('table.show');
+     Route::get('table/profile/{id}', [ProfileController::class, 'show'])->name('profiles.show');
     Route::put('table/enseignement/{id}', [TableController::class, 'update'])->name('table.update');
     Route::get('table/demande', [TableController::class, 'demande_table'])->name('table.demande');
-    Route::get('table/student', [TableController::class, 'student_table'])->name('table.student');
+    Route::get('table/student', [TableController::class, 'student_table'])->name('table.student');/* this a profile for the student */
 
 });
 
@@ -50,7 +51,7 @@ Route::middleware('student' , 'auth')->group(function () {
     Route::get('event/all_event', [EventController::class , 'index'])->name('events.index');
     Route::get('events/show/{id}', [EventController::class , 'show'])->name('events.show');
     Route::get('event/seach' , [EventController::class , 'sort'])->name('event.sort');
-    Route::post('folow/event/{id}' , [FolowController::class , 'store'])->name('event.folow');
+    Route::post('folow/event/{id}' , [FolowController::class , 'store'])->name('store.folow');
     Route::post('update/event/{id}' , [FolowController::class , 'upadte_paticipate'])->name('update.event');
     Route::get('favoris/event' , [FolowController::class , 'favoris'])->name('favoris.event');
     Route::post('unfolow/event/{id}' , [FolowController::class , 'unfolow'])->name('unfolow.event');
@@ -58,7 +59,7 @@ Route::middleware('student' , 'auth')->group(function () {
 
 
 Route::middleware('prof' , 'auth')->group(function () {
-    Route::get('profile/enseignement/{id}', [TableController::class, 'show'])->name('profile.show');
+   /*  Route::get('profile/enseignement/{id}', [TableController::class, 'show'])->name('profile.show'); */
     Route::get('event/all_events', [EventController::class , 'index'])->name('event.index');
    Route::get('event/create', [EventController::class , 'create'])->name('event.create');
    Route::post('/event/store', [EventController::class , 'store'])->name('event.store');
@@ -78,8 +79,9 @@ Route::get('/profile', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+   /*  Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); */
 });
 
 

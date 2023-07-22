@@ -107,6 +107,7 @@ class RegisteredUserEnseignementController extends Controller
                 'subject' => ['required' , 'string', 'max:255'],
                 'license' => ['required', 'mimes:pdf' ,'max:2048'],
                 'cin' => ['required', 'mimes:pdf' ,'max:2048'],
+                'work_status' =>['required', 'string', 'max:255'],
                 'name_school' =>['required', 'string', 'max:255'],
             ]);
 
@@ -150,6 +151,7 @@ $filelicense = null; */
                 'name_school' => $request->name_school,
                 'license' =>$filelicense,
                 'cin' =>$fileCin,
+                'work_status' => $request->work_status,
                 'confirmed' => false,
                 'block' => true,
 
@@ -165,6 +167,23 @@ $filelicense = null; */
         }
           
         } 
+
+
+        public function accepte_demande(string $id){
+
+            $accepte = User::find($id);
+            if ($accepte) {
+                $accepte->update([
+                    'confirmed' => true
+                ]);
+        
+                return redirect()->back()->with('success', 'La demande a été acceptée avec succès.');
+            }
+        
+        
+            return redirect()->back()->with('error', 'Utilisateur non trouvé.');
+
+        }
 
         
        

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('cin')->nullable();
             $table->string('license')->nullable();
             $table->string('subject')->nullable();
+            $table->string('work_status')->nullable();
             $table->string('name_school')->nullable();
             $table->boolean('confirmed')->nullable()->default(true);
             $table->boolean('block')->nullable()->default(false);

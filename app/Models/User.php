@@ -30,6 +30,7 @@ class User extends Authenticatable
         'cin',
         'license',
         'subject',
+        'work_status',
         'name_school',
         'confirmed',
         'block'

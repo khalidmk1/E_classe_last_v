@@ -7,7 +7,14 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Administrateur</h1>
+                    @if (auth()->user()->role == 'admin')
+                    <h2 class="m-0">Administrateur</h2>
+                    @elseif (auth()->user()->role == 'prof')
+                    <h2 class="m-0">Enseignement</h2>
+                    @else
+                    <h2 class="m-0">Etudiant</h2>
+                    @endif
+                   
                 </div><!-- /.col -->
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show col-sm-6" role="alert">

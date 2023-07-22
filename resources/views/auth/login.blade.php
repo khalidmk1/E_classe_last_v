@@ -1,5 +1,3 @@
-
-
 {{-- <x-guest-layout> --}}
 {{--     @if (session('status'))
 <div>
@@ -10,7 +8,7 @@
 
 
 
-   {{--  <!-- Session Status -->
+{{--  <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
@@ -62,100 +60,108 @@
 @extends('master.blank_master_page')
 
 @section('title')
-    
 @endsection
 
 @section('content')
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('success') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @elseif (session('failed'))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{ session('failed') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    @error('email')
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{ $message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @enderror
+    @error('password')
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{ $message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @enderror
 
-@if (session('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>{{ session('success')}}</strong> 
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-
-@elseif (session('failed'))
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>{{ session('failed')}}</strong> 
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-@endif
-
- <div class="login-box">
-    <!-- /.login-logo -->
-    <div class="card card-outline card-primary">
-      <div class="card-header text-center">
-        <a href="../../index2.html" class="h1"><b>E-</b>Classe</a>
-      </div>
-      <div class="card-body">
-        <p class="login-box-msg">Connectez-vous pour démarrer votre tableau de bord</p>
-  
-        <form  method="POST" action="{{ route('login') }}">
-            @csrf
-
-          
-          <div class="input-group mb-3">
-            <input type="email" id="email"  class="form-control" placeholder="Email" 
-            name="email" :value="old('email')" required autofocus autocomplete="username">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="../../index2.html" class="h1"><b>E-</b>Classe</a>
             </div>
-            @error('email')
-          <div class="text-danger mx-4 mb-2 ereur_style">{{ $message }}</div>
-          @enderror
-          </div>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Mots de passe"
-            name="password" required autocomplete="current-password" >
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
+            <div class="card-body">
+                <p class="login-box-msg">Connectez-vous pour démarrer votre tableau de bord</p>
+
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+
+
+                    <div class="input-group mb-3">
+                        <input type="email" id="email" class="form-control" placeholder="Email" name="email"
+                            :value="old('email')" required autofocus autocomplete="username">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                   
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Mots de passe" name="password" required
+                            autocomplete="current-password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember" name="remember">
+                                <label for="remember">
+                                    Souviens-moi
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary btn-block size_route">Connectez-vous</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+
+
+                </form>
+
+
+                <p class="mb-1">
+                    <a href="{{ route('password.request') }}">j'ai oublié mon mot de passe</a>
+                </p>
+                <p class="mb-0">
+                    <a href="{{ route('register') }}" class="text-center">
+                        Enregistrer un nouveau compte</a>
+                </p>
             </div>
-            @error('password')
-            <div class="text-danger mx-4 mb-2 ereur_style">{{ $message }}</div>
-            @enderror
-          </div>
-
-
-        
-          <div class="row">
-            <div class="col-6">
-              <div class="icheck-primary">
-                <input type="checkbox" id="remember"  name="remember">
-                <label for="remember">
-                Souviens-moi 
-                </label>
-              </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-6">
-              <button type="submit" class="btn btn-primary btn-block size_route">Connectez-vous</button>
-            </div>
-            <!-- /.col -->
-          </div>
-
-
-        </form>
-  
-  
-        <p class="mb-1">
-          <a href="{{ route('password.request') }}">j'ai oublié mon mot de passe</a>
-        </p>
-        <p class="mb-0">
-          <a href="{{route('register')}}" class="text-center">
-            Enregistrer un nouveau compte</a>
-        </p>
-      </div>
-      <!-- /.card-body -->
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
     </div>
-    <!-- /.card -->
-  </div>
-  <!-- /.login-box -->
-
- @endsection
+    <!-- /.login-box -->
+@endsection

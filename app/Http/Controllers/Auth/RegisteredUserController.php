@@ -45,13 +45,12 @@ class RegisteredUserController extends Controller
             $file = $request ->avatar;
             $image_name = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('images/avatars'),$image_name);
-            $user = User::create([
-                'avatar' =>$image_name,
-            ]);
+           
         }
 
         if($request->has('terms')){
             $user = User::create([
+                'avatar' =>$image_name,
                 'name' => $request->name,
                 'last_name'=>$request->last_name,
                 'phone' =>$request->phone,

@@ -25,17 +25,34 @@
                       <th>Prenom</th>
                       <th>Email</th>
                       <th>Numero telephone</th>
+                      <th>Action</th>
                       
                     </tr>
                     </thead>
                     <tbody>
                         @foreach ($table_student as $student )
                         <tr>
-                            <td><img src="{{asset('images/avatars/' .$student->avatar)}}" alt="ensiengement_logo" height="72" ></td>
+                            <td><img src="{{asset('images/avatars/' .$student->avatar)}}" class="rounded mx-auto d-block" height="100" alt="enseignement_img"></td>
                             <td>{{$student->name}}</td>
                             <td>{{$student->last_name}}</td>
                             <td>{{$student->email}}</td>
                             <td>{{$student->phone}}</td> 
+                            <td>
+
+                              <a class="btn btn-block  btn-outline-primary m-2"
+                                  href="{{ route('profiles.show', Crypt::encrypt($student->id)) }}"
+                                  type="submit">Show</a>
+
+
+                              <form action="{{ route('table.update', $student->id) }}" method="post">
+                                  @csrf
+                                  @method('PUT')
+                                  <input value="block" name="block" type="submit"
+                                      class="btn btn-block btn-outline-danger m-2">
+                              </form>
+
+
+                          </td>
                           </tr>
                         @endforeach
                     

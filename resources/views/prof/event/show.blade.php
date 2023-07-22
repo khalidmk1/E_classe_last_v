@@ -239,7 +239,7 @@
                                                         <i class="fa fa-credit-card" aria-hidden="true"></i> Voir detail
                                                     </a>
                                                     @if (!App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $event->id, 'folow' => 1])->exists())
-                                                        <form action="{{ Route('event.folow', $event->id) }}"
+                                                        <form action="{{ Route('store.folow', $event->id) }}"
                                                             method="POST">
                                                             @csrf
 
