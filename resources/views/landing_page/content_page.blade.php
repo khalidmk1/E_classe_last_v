@@ -20,7 +20,10 @@
                     <h4>Bienvenue dans l'univers de l'apprentissage en ligne, où chaque élève peut exceller et réussir !</h4>
                 </div>
                 <div class="col-12">
-                    <button class="p-3">Je candidate</button>
+                    <a href="{{Route('register')}}">
+                        <button class="p-3">Je candidate</button>
+                    </a>
+                    
                 </div>
             </div>
         </div>

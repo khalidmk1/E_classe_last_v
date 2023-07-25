@@ -41,7 +41,7 @@
             </div>
           @endif
          
-          <a class="nav-link "  href="{{Route('login')}}">{{auth()->user()->name . auth()->user()->last_name}}</a>
+          <a class="nav-link "  href="{{Route('login')}}">{{auth()->user()->name . " " .auth()->user()->last_name}}</a>
          
         </div>
        

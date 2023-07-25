@@ -4,11 +4,11 @@
 @endsection
 
 @section('content')
-<style>
-    span .select2-selection--single{
-        height: 100% !important;
-    }
-</style>
+    <style>
+        span .select2-selection--single {
+            height: 100% !important;
+        }
+    </style>
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -137,7 +137,7 @@
                         <div class="card-body">
                             <div class="form-group text-centre">
                                 <img src="{{ asset('images/avatars/' . auth()->user()->avatar) }}" alt="..."
-                                    class="rounded mx-auto d-block" style="width: 50%" id="blah" >
+                                    class="rounded mx-auto d-block" style="width: 50%" id="blah">
 
                             </div>
                             <div class="form-group">
@@ -145,7 +145,7 @@
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" value="{{ auth()->user()->avatar }}" name="avatar"
-                                            class="custom-file-input" id="exampleInputFile"  id="exampleInputFile">
+                                            class="custom-file-input" id="exampleInputFile" id="exampleInputFile">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                     </div>
                                     <div class="input-group-append">
@@ -182,12 +182,12 @@
                             </div>
 
 
-                           {{--  <!-- /.form group -->
+                            {{--  <!-- /.form group -->
                             <div class="form-group">
                                 <label class="form-label" for="form3Examplev2">ville</label>
                                 <select class="form-control select2"  name="county" style="width: 100%;">
                                     @foreach ($county_array as $country)
-                                        <option value="{{ $country }}" @if(old('county') == $country) selected @endif>{{ $country }}
+                                        <option value="{{ $country }}" @if (old('county') == $country) selected @endif>{{ $country }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -205,25 +205,35 @@
                             </div> --}}
 
 
-                            @if (auth()->user()->role == 'prof')
+                            @if (auth()->user()->role == 'prof' && !auth()->user()->subject == null)
                                 <!-- select subject -->
 
-
-                            <div class="mb-4 pb-2">
-                                <label class="form-label" for="form3Examplev2">Le sujet que vous
-                                    étudiez</label>
-                                <select class="form-control select2" name="subject" style="width: 100%;">
-                                    <option value="{{ $user->subject }}">{{ $user->subject }}
-                                    </option>
-                                    @foreach ($subject as $sujet)
-                                        <option value="{{ $sujet }}">{{ $sujet }}
+                                <div class="mb-4 pb-2">
+                                    <label class="form-label" for="form3Examplev2">Le sujet que vous
+                                        étudiez</label>
+                                    <select class="form-control select2" name="subject" style="width: 100%;">
+                                        <option value="{{ $user->subject }}">{{ $user->subject }}
                                         </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                                        @foreach ($subject as $sujet)
+                                            <option value="{{ $sujet }}">{{ $sujet }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-4 pb-2">
+                                    <label class="form-label" for="form3Examplev2">ville</label>
+                                    <select class="form-control select2" name="county" style="width: 100%;">
+                                        <option value="{{ $user->county }}">{{ $user->county }}
+                                        </option>
+                                        @foreach ($county_array as $county)
+                                            <option value="{{ $county }}">{{ $county }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             @endif
 
-                            
+
 
 
                         </div>
@@ -285,6 +295,9 @@
         </div>
         <!-- /.row -->
         </div><!-- /.container-fluid -->
+
     </section>
+
     <!-- /.content -->
+
 @endsection

@@ -160,7 +160,7 @@
 
                                    @foreach ($events_all as $event)
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                    <div class="modal fade" id="exampleModal{{ $event->id }}" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog " role="document" style="top: 25%">
                                             <div class="modal-content bg-transparent">
@@ -170,6 +170,7 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
+                                               
                                                 <div class="modal-body">
                                                     <video autoplay id="v1" loop controls>
                                                         <source src="{{ asset('videos/' . $event->video) }}"
@@ -205,7 +206,7 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-5 text-center">
                                                         <a type="button" class="btn btn-primary" data-toggle="modal"
-                                                            data-target="#exampleModal">
+                                                            data-target="#exampleModal{{ $event->id }}">
                                                             <i class="fas fa-play"></i>
 
                                                         </a>
@@ -264,17 +265,6 @@
 
     <!-- /.card -->
 
-    <script>
-        var modal = document.getElementById('exampleModal');
-        const video = document.querySelector("#v1");
-        if (modal.classList.contains('show')) {
-            console.log('is show');
-        } else {
-            video.pause();
-        }
-
-        // if modal is not shown/visible then do something
-    </script>
 
     </section>
     <!-- /.content -->

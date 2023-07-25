@@ -140,36 +140,38 @@
                                     src="{{ asset('images/avatars/' . $events->user->avatar) }}" alt="User profile picture">
                             </div>
 
-                            <h3 class="profile-username text-center">{{ $events->user->name . $events->user->last_name }}
+                            <h3 class="profile-username text-center">
+                                {{ $events->user->name . ' ' . $events->user->last_name }}
                             </h3>
 
                             <p class="text-muted text-center">{{ $events->title }}</p>
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Suivis</b> <a class="float-right">{{App\Models\Folow::where(['event_id' => $events->id , 'folow' => 1 ])->count()}}</a>
+                                    <b>Participant</b> <a
+                                        class="float-right">{{ App\Models\Folow::where(['event_id' => $events->id, 'participat' => 1])->count() }}</a>
                                 </li>
                                 @if (auth()->user()->role == 'prof')
                                     <li class="list-group-item">
 
-                                        <a href="#" class="btn btn-block btn-outline-warning">Modifier</a>
+                                        <a href="{{ Route('event.edit', Crypt::encrypt($events->id)) }}"
+                                            class="btn btn-block btn-outline-warning">Modifier</a>
 
                                     </li>
                                 @else
                                     <li class="list-group-item">
-                                        @if (App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id , 'participat'=>0])->exists())
+                                        @if (App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->where('participat', 0)->exists() || !App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->exists())
                                             <form action="{{ Route('store.folow', $events->id) }}" method="post">
                                                 @csrf
                                                 <button type="submit"
                                                     class="btn btn-block btn-outline-success">Partciper</button>
                                             </form>
-                                        @elseif  (App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->where('participat', 1)->exists())
+                                        @elseif (App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->where('participat', 1)->exists())
                                             <form action="{{ Route('update.event', $events->id) }}" method="post">
                                                 @csrf
                                                 <button type="submit"
                                                     class="btn btn-block btn-outline-success">unPartciper</button>
                                             </form>
-                                           
                                         @endif
 
 
@@ -323,12 +325,6 @@
                                     </div>
                                     <!-- /.post -->
                                 </div>
-
-
-
-
-
-
 
                             </div>
                             <!-- /.tab-content -->

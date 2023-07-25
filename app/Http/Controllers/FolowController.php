@@ -45,7 +45,7 @@ class FolowController extends Controller
                 'user_id' =>auth()->user()->id,
                 'event_id' => $eventId->id ,
                 'folow' => true,
-                'participat' =>false
+                'participat' =>true
             ]);
     
             return redirect()->back()->with('valide', 'Vous avez suivi le cour avec succès.');

@@ -74,17 +74,23 @@ class EventController extends Controller
             $file->move(public_path('videos'), $fileName); // Move the uploaded video to the desired location
         }
 
+        if(count($uploadedImages) <= 4){
+            $event = event::create([
+                'user_id' =>auth()->user()->id,
+                'title' => $request->title,
+                'description' =>$request->description,
+                'programe' => $request->programe,
+                'video' => $fileName,
+                'images' => $uploadedImages,
+            ]);
+            return redirect()->back()->with('valide' , 'u create a event');
+        }else{
+            return redirect()->back()->with('faild' , 'u should create just 4 image');
+        }
+        ;
+       
 
-        $event = event::create([
-            'user_id' =>auth()->user()->id,
-            'title' => $request->title,
-            'description' =>$request->description,
-            'programe' => $request->programe,
-            'video' => $fileName,
-            'images' => $uploadedImages,
-        ]);
-
-        return redirect()->back()->with('valide' , 'u create a event');
+        
 
         
 
@@ -102,17 +108,45 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(event $event)
+    public function edit(string $id)
     {
-        //
+        $event = event::find(Crypt::decrypt($id));
+        return view('prof.event.edit')->with('event' , $event);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, event $event)
+    public function update(Request $request)
     {
-        //
+        
+        if ($request->has('avatar')) {
+            $file = $request ->avatar;
+            $image_name = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/avatars'),$image_name);
+
+            User::find(auth()->user()->id)->update([
+                'avatar' =>$image_name,
+            ]);
+            
+            
+        }
+
+        if ($request->hasFile('video')) {
+            $file = $request->file('video');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('videos'), $fileName); // Move the uploaded video to the desired location
+            User::find(auth()->user()->id)->update([
+                'video' =>$fileName,
+            ]);
+        }
+        User::find(auth()->user()->id)->update([
+            'title' => $request->title,
+            'description'=>$request->description,
+            'programe' =>$request->programe,
+        ]);
+
+        return redirect()->back()->with('seccuse' , 'u have changes');
     }
 
     /**

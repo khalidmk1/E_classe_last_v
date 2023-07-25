@@ -23,10 +23,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/videopopup.css') }}" media="screen">
 
-  
-
-    
-
+    <link rel="stylesheet" href="{{asset('assets/dashboard.css')}}">
 
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
@@ -41,12 +38,17 @@
         <!-- /.navbar -->
 
         @include('layouts.sidebar')
+        <!-- Content Header (Page header) -->
+  
         
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
 
+            @yield('sepirator')
+            
 
             @yield('content')
+            
 
         </div>
         <!-- /.content-wrapper -->
@@ -73,12 +75,14 @@
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+        <!-- Summernote -->
+        <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="{{ asset('dist/js/pages/all.js') }}"></script>
 
     
 
 
-    <!-- Summernote -->
-    <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+
 
 
 

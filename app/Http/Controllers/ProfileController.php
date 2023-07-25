@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -37,7 +38,10 @@ class ProfileController extends Controller
     public function show(string $id){
         
         $profile = User::find( Crypt::decrypt($id));
-        return view('profile.show')->with('profile' , $profile);
+        $events = event::where('user_id', $profile->id)->get();
+        return view('profile.show')->with(['profile' => $profile ,
+        'events'=>$events
+    ]);
     }
 
     /**
@@ -60,28 +64,29 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        /* $request->user()->fill($request->validated(
-            
-        ));
+            /* $request->user()->fill($request->validated(
+                
+            ));
 
 
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+            if ($request->user()->isDirty('email')) {
+                $request->user()->email_verified_at = null;
+            }
 
-        $request->user()->save();
+            $request->user()->save();
 
-        return Redirect::back()->with('status', 'profile-updated'); */
-        
-
-        $this->validate($request,[
-            'name' => 'required',
-            'last_name' => 'required',
-            'phone' => 'required',
-            'county' => 'required',
-            'subject' => 'required',
-        ]);
+            return Redirect::back()->with('status', 'profile-updated'); */
+        /*  if(!auth()->user()->subject == " " && !auth()->user()->county == " " ){
+                $this->validate($request,[
+                    'name' => 'required',
+                    'last_name' => 'required',
+                    'phone' => 'required',
+                    'county' => 'required',
+                    'subject' => 'required',
+                ]); */
+    /* }  */
+       
 
         if ($request->has('avatar')) {
             $file = $request ->avatar;
