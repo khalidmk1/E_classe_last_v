@@ -116,13 +116,14 @@
 
 
 
-@extends('master.master_page')
+@extends('master.master_table')
 
 @section('title')
 @endsection
 
 
 @section('content')
+
     <!-- Main content -->
     <section class="content ">
         <div class="container-fluid">

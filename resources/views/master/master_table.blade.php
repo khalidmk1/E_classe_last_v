@@ -79,12 +79,6 @@
         <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
     <script src="{{ asset('dist/js/pages/all.js') }}"></script>
 
-    
-
-
-
-
-
 
     <!-- AdminLTE App -->
     <script src="../../dist/js/adminlte.min.js"></script>
