@@ -75,21 +75,27 @@ class EventController extends Controller
     
     if ($request->hasFile('images')) {
         foreach ($request->file('images') as $image) {
+            // Generate a unique name for the image
             $imageName = time() . '_' . $image->getClientOriginalName();
             $imagePath = public_path('images/event') . '/' . $imageName;
-
+    
             // Save the original image
             $image->move(public_path('images/event'), $imageName);
-
-            // Convert to WebP format
+    
+            // Convert the image to WebP format
             $webpImagePath = public_path('images/event') . '/' . Str::beforeLast($imageName, '.') . '.webp';
             Image::make($imagePath)->encode('webp')->save($webpImagePath);
-
-            // Store the WebP image name in the array
-            $uploadedImages[] = Str::beforeLast($imageName, '.') . '.webp';
-
-            // Delete the original image (optional, you can keep it if needed)
+    
+            // Compress the WebP image (optional)
+            $compressedWebpImagePath = public_path('images/event') . '/' . Str::beforeLast($imageName, '.') . '_compressed.webp';
+            Image::make($webpImagePath)->encode('webp', 70)->save($compressedWebpImagePath);
+    
+            // Store the compressed WebP image name in the array
+            $uploadedImages[] = Str::beforeLast($imageName, '.') . '_compressed.webp';
+    
+            // Delete the original image and uncompressed WebP image (optional, you can keep them if needed)
             unlink($imagePath);
+            unlink($webpImagePath);
         }
     }
 
