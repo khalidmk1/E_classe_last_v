@@ -6,6 +6,10 @@ use App\Models\event;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+
 
 class EventController extends Controller
 {
@@ -60,13 +64,35 @@ class EventController extends Controller
         ]);
 
         $uploadedImages = [];
-    if ($request->hasFile('images')) {
+    /* if ($request->hasFile('images')) {
         foreach ($request->file('images') as $image) {
             $imageName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('images/event'), $imageName);
             $uploadedImages[] = $imageName;
         }
+    } */
+
+    
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imagePath = public_path('images/event') . '/' . $imageName;
+
+            // Save the original image
+            $image->move(public_path('images/event'), $imageName);
+
+            // Convert to WebP format
+            $webpImagePath = public_path('images/event') . '/' . Str::beforeLast($imageName, '.') . '.webp';
+            Image::make($imagePath)->encode('webp')->save($webpImagePath);
+
+            // Store the WebP image name in the array
+            $uploadedImages[] = Str::beforeLast($imageName, '.') . '.webp';
+
+            // Delete the original image (optional, you can keep it if needed)
+            unlink($imagePath);
+        }
     }
+
 
         if ($request->hasFile('video')) {
             $file = $request->file('video');
