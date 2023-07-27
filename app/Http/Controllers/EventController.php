@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use FFMpeg\FFMpeg;
+use FFMpeg\FFProbe;
 
 
 class EventController extends Controller
@@ -100,11 +102,23 @@ class EventController extends Controller
     }
 
 
-        if ($request->hasFile('video')) {
-            $file = $request->file('video');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('videos'), $fileName); // Move the uploaded video to the desired location
-        }
+    if ($request->hasFile('video')) {
+        $file = $request->file('video');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $filePath = public_path('videos') . '/' . $fileName;
+        $file->move(public_path('videos'), $fileName);
+    
+        // Compress the video using FFmpeg
+        $ffmpeg = FFMpeg::create();
+        $video = $ffmpeg->open($filePath);
+        $video->save(new \FFMpeg\Format\Video\X264('aac'), public_path('videos') . '/' . 'compressed_' . $fileName);
+    
+        // Optionally, you can delete the original video
+        unlink($filePath);
+    
+        // Store the compressed video name in the database or use it as needed
+        $compressedFileName = 'compressed_' . $fileName;
+    }
 
         if(count($uploadedImages) <= 4){
             $event = event::create([
