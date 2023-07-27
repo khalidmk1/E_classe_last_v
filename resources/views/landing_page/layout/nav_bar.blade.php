@@ -7,7 +7,7 @@
 <nav class="navbar navbar-expand-lg bg-transparent">
     <div class="container">
       <a class="navbar-brand" href="#">
-        <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="logo_virtuelle" 
+        <img src="{{asset('assets/landing_page_img/AdminLTELogo-removebg-preview.png')}}" alt="logo_virtuelle" 
         style="height: 85px;">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
