@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col-5  image_side"  >
-            <img src="{{asset("dist/img/AdminLTELogo.png")}} " class="img-fluid" alt="...">
+            <img src="{{asset("assets/landing_page_img/img_introduction_classe.png")}} " class="img-fluid" alt="...">
         </div>
       </div>
 </section>
