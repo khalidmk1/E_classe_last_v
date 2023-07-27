@@ -110,6 +110,9 @@
                         {{ $profile->subject }}
                     </h6>
                     <p class="proile-rating">Suivez de c'est cours:
+                        @php
+                            use App\Models\Flow;
+                        @endphp
                         <span>{{ App\Models\folow::where('user_id', auth()->user()->id)->get()->count() }}</span>
                     </p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
