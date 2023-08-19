@@ -149,10 +149,10 @@
               </p> 
             </a>
           </li>
-          <li class="nav-item w-50 m-auto">
+          <li class="nav-item ">
             <form method="post" action="{{route('logout')}}" >
               @csrf
-              <button type="submit" class="nav-link">
+              <button type="submit" class="nav-link w-50 m-auto">
                 <i class="fas fa-sign-out-alt nav-icon"></i>
                 <p class="size_route">
                   Log out
