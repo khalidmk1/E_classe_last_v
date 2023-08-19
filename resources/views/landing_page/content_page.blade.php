@@ -5,16 +5,20 @@
 @endsection
 
 @section('content')
+
+<style>
+
+</style>
     
 <section class="container-fluid first_content p-3 " id="Accueil">
     <div class="row align-items-center justify-content-end row-gap-3 mt-1">
         <div class="col-md-6 content_introduction" >
-            <div class="row align-items-center" style="width: 747px;">
+            <div class="row  align-items-center " >
                 <div class="col-12">
                     <h5>Se Préparer à un Futur Prometteur</h5>
                 </div>
                 <div class="col-12">
-                    <h1>E-Classe, l’éducation virtuelle du succés au primaire, collége et au lycée.</h1>
+                    <h2 class="big_title">E-Classe, l’éducation virtuelle du succés au primaire, collége et au lycée.</h2>
                 </div>
                 <div class="col-12">
                     <h4>Bienvenue dans l'univers de l'apprentissage en ligne, où chaque élève peut exceller et réussir !</h4>
@@ -36,10 +40,10 @@
 
 <section class="container" style="padding: 160px 0px 160px 0;" id="about">
 <div class="row">
-    <div class="col-12">
-        <h3>Obtenir un enseignement de qualité</h3>
+    <div class="col-12 pl-0">
+        <h3 >Obtenir un enseignement de qualité</h3>
     </div>
-    <div class="col-12">
+    <div class="col-12 ">
         <p>Problems trying to resolve the conflict between 
             the two major realms of Classical physics: Newtonian mechanics </p>
     </div>
@@ -124,7 +128,17 @@
 
 
 <section  class="container card_title" style="padding: 50px 0px;" id="niveau">
-    <div class="row mb-5">
+    <div class="col-12 p-2">
+        <h6 style="color:#FF6551 !important">Practice Advice</h6>
+    </div>
+    <div class="col-12 p-2">
+        <h2>Nos niveaux</h2>
+    </div>
+    <div class="col-12 p-2">
+        <p>Problems trying to resolve the conflict between 
+            the two major realms of Classical physics: Newtonian mechanics </p>
+    </div>
+   {{--  <div class="row mb-5">
         <div class="col-12">
             <div class="row">
                 <div class="col-6">
@@ -143,7 +157,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     
     <div class="row text-center justify-content-between" >

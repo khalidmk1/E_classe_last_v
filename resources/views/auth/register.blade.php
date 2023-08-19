@@ -162,7 +162,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" name="last_name" placeholder="Prenom"
-                        value="{{ old('last_name') }}" required autofocus autocomplete="last_name">
+                    value="{{ old('last_name') }}" required autofocus autocomplete="last_name">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>

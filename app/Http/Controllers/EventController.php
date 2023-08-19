@@ -55,89 +55,67 @@ class EventController extends Controller
     {
 
 
+     /* dd($request); */
+    $request->validate([
+        'title' => ['required', 'string', 'max:255'],
+        'description' => ['required', 'string', 'max:255'],
+        'programe' =>['required', 'string', 'max:255'],
+        'video' => ['required','mimes:mp4'], 
+        'images.*' => ['image','mimes:jpeg,png,jpg,gif'],
+    ]);
 
-       /*  dd($request); */
-        $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:255'],
-            'programe' =>['required', 'string', 'max:255'],
-            'video' => 'required|mimes:mp4', 
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif',
+    $uploadedImages=[];
+if ($request->hasFile('images')) {
+    foreach ($request->file('images') as $image) {
+        $imageName = time() . '_' . $image->getClientOriginalName();
+        $image->move(public_path('images/event'), $imageName);
+        $uploadedImages[] = $imageName;
+    }
+
+    if ($request->has('video')) {
+        $file = $request ->video;
+        $video_name = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('videos'),$video_name);
+    }
+
+    if(count($uploadedImages) < 4){
+
+        $event = event::create([
+            'user_id' =>auth()->user()->id,
+            'title' => $request->title,
+            'description' =>$request->description,
+            'programe' => $request->programe,
+            'video' => $video_name,
+            'images' => $uploadedImages,
         ]);
-
-        $uploadedImages = [];
-    /* if ($request->hasFile('images')) {
-        foreach ($request->file('images') as $image) {
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/event'), $imageName);
-            $uploadedImages[] = $imageName;
-        }
-    } */
-
-    
-    if ($request->hasFile('images')) {
-        foreach ($request->file('images') as $image) {
-            // Generate a unique name for the image
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $imagePath = public_path('images/event') . '/' . $imageName;
-    
-            // Save the original image
-            $image->move(public_path('images/event'), $imageName);
-    
-            // Convert the image to WebP format
-            $webpImagePath = public_path('images/event') . '/' . Str::beforeLast($imageName, '.') . '.webp';
-            Image::make($imagePath)->encode('webp')->save($webpImagePath);
-    
-            // Compress the WebP image (optional)
-            $compressedWebpImagePath = public_path('images/event') . '/' . Str::beforeLast($imageName, '.') . '_compressed.webp';
-            Image::make($webpImagePath)->encode('webp', 70)->save($compressedWebpImagePath);
-    
-            // Store the compressed WebP image name in the array
-            $uploadedImages[] = Str::beforeLast($imageName, '.') . '_compressed.webp';
-    
-            // Delete the original image and uncompressed WebP image (optional, you can keep them if needed)
-            unlink($imagePath);
-            unlink($webpImagePath);
-        }
-    }
-
-
-    if ($request->hasFile('video')) {
-        $file = $request->file('video');
-        $fileName = time() . '_' . $file->getClientOriginalName();
-        $filePath = public_path('videos') . '/' . $fileName;
-        $file->move(public_path('videos'), $fileName);
-    
-        // Compress the video using FFmpeg
-        $ffmpeg = FFMpeg::create();
-        $video = $ffmpeg->open($filePath);
-        $video->save(new \FFMpeg\Format\Video\X264('aac'), public_path('videos') . '/' . 'compressed_' . $fileName);
-    
-        // Optionally, you can delete the original video
-        unlink($filePath);
-    
-        // Store the compressed video name in the database or use it as needed
-        $compressedFileName = 'compressed_' . $fileName;
-    }
-
-        if(count($uploadedImages) <= 4){
-            $event = event::create([
-                'user_id' =>auth()->user()->id,
-                'title' => $request->title,
-                'description' =>$request->description,
-                'programe' => $request->programe,
-                'video' => $fileName,
-                'images' => $uploadedImages,
-            ]);
-            return redirect()->back()->with('valide' , 'u create a event');
-        }else{
-            return redirect()->back()->with('faild' , 'u should create just 4 image');
-        }
-        ;
-       
-
         
+        return redirect()->back()->with('valide' , 'vous avez cree un cour');
+    }else{
+        return redirect()->back()->with('faild' , 'les maximum des image est 4');
+    };
 
+
+}
+
+
+
+
+
+
+
+
+    
+
+     /*    $event = event::create([
+            'user_id' =>auth()->user()->id,
+            'title' => $request->title,
+            'description' =>$request->description,
+            'programe' => $request->programe,
+            'video' => $video_name,
+           'images' => $uploadedImages, 
+        ]); */
+        
+       
         
 
     }
@@ -165,8 +143,18 @@ class EventController extends Controller
      */
     public function update(Request $request)
     {
-        
-        if ($request->has('avatar')) {
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('images/event'), $imageName);
+                $uploadedImages[] = $imageName;
+                User::find(auth()->user()->id)->update([
+                    'images' =>$uploadedImages,
+                ]);
+            };
+        }
+     /*    if ($request->has('avatar')) {
             $file = $request ->avatar;
             $image_name = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('images/avatars'),$image_name);
@@ -176,7 +164,7 @@ class EventController extends Controller
             ]);
             
             
-        }
+        } */
 
         if ($request->hasFile('video')) {
             $file = $request->file('video');

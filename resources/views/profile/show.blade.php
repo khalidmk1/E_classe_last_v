@@ -126,6 +126,7 @@
                 <div class="col-md-2">
                     <a href="{{ Route('profile.edit') }}" class="btn btn-block btn-outline-warning" name="btnAddMore"
                         value="Edit Profile">Modifier</a>
+                        <i class="far fa-comments"></i>
 
                 </div>
             @endif
@@ -193,7 +194,7 @@
             </div>
         </div>
 
-        @if (auth()->user()->role == 'student')
+        @if (auth()->user()->role == 'student' )
      
         @else
             <div class="blog-home2 py-5">

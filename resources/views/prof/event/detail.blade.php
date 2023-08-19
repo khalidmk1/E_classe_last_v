@@ -176,6 +176,27 @@
                                         @endif
 
 
+
+
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        
+                                        @if (\App\Models\Conversation::where('sender_id', auth()->user()->id)->where('receiver_id', $events->user_id)->orWhere('sender_id', $events->user_id)->where('receiver_id', auth()->user()->id)->count() === 0)
+                                        <form action="{{ Route('chat.create', $events->user_id ) }}" method="get">
+                                            @csrf
+                                        
+                                            
+                                                <button type="submit"
+                                                    class="btn btn-block btn-outline-primary">
+                                                    <i class="fa fa-comments-o" aria-hidden="true"></i> Conversation
+                                                </button>
+                                            
+                                        
+                                    </form>
+                                    @else
+                                        <a href="/chat" class="btn btn-block btn-outline-primary">chat</a>
+                                    @endif
                                     </li>
                                 @endif
                             </ul>

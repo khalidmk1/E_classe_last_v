@@ -6,6 +6,7 @@ use App\Http\Controllers\TableController;
 use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FolowController;
+use App\Http\Controllers\MessagesController;
 
 
 
@@ -68,13 +69,16 @@ Route::middleware('prof' , 'auth')->group(function () {
 });
 
 
+
 Route::get('/dashboard', function () {
     return view('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 /* Route::get('/profile', function () {
     return view('home');
 })->middleware(['auth', 'verified'])->name('profile'); */
-
+Route::get('/chat', function () {
+    return view('chate');
+})->name("chat");
 
 Route::middleware('auth')->group(function () {
     Route::get('events/show/{id}', [EventController::class , 'show'])->name('events.show');
@@ -84,6 +88,7 @@ Route::middleware('auth')->group(function () {
     Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
    /*  Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); */
+   Route::get('/chat/{id}' , [MessagesController::class , 'startConversation'])->name('chat.create');
 });
 
 

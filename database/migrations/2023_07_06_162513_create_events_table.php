@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('title');
-            $table->string('description');
-            $table->string('programe');
+            $table->text('description');
+            $table->text('programe');
             $table->string('images')->nullable();
             $table->string('video')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -26,6 +26,15 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
      */
     public function down(): void
     {

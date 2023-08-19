@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Folow;
 use App\Models\event;
 
+use Illuminate\Support\Facades\DB;
+
 
 class FolowController extends Controller
 {
@@ -97,6 +99,8 @@ class FolowController extends Controller
             return redirect()->back()->with('valide', 'Vous avez participer dans le cour avec succès.');
         }
     }
+
+  
 
 
 

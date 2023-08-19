@@ -1,55 +1,4 @@
-{{-- <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout> --}}
 
 @extends('master.blank_master_page')
 
@@ -132,7 +81,7 @@
             <a href="../../index2.html" class="h1"><b>E-</b>classe</a>
         </div>
         <div class="card-body">
-            <p class="login-box-msg">Enregistrer une nouvelle utilisateur</p>
+            <p class="login-box-msg">Enregistrer Une Nouvelle Utilisateur</p>
 
             <form method="POST" action="{{ route('enseignement.store') }}" enctype="multipart/form-data">
                 @csrf
@@ -143,9 +92,11 @@
 
                 </div>
 
+                
+
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" name="avatar" class="custom-file-input" id="exampleInputFile">
+                        <input type="file" name="avatar" onblur="getVal()" value="{{old('avatar')}}" class="custom-file-input input_image" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">choiser un photo de profille</label>
                     </div>
                 </div>
@@ -214,14 +165,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                            <label for="agreeTerms">
-                                I agree to the <a href="#">terms</a>
-                            </label>
-                        </div>
-                    </div>
+                    
+                   
                     <!-- /.col -->
                     <div class="col-4">
                         <button type="submit" class="btn btn-primary btn-block">Register</button>
@@ -230,17 +175,17 @@
                 </div>
             </form>
 
-            <div class="social-auth-links text-center">
-                <a href="{{ Route('enseignement.demande') }}" class="btn btn-block btn-primary">
-                    <i class="fas fa-user-graduate mr-2"></i>
-                    Envoyer un demande pour etre an enseignement
-                </a>
-            </div>
-
-            <a href="{{ route('login') }}" class="text-center">j'ai déjà un mail</a>
         </div>
         <!-- /.form-box -->
     </div><!-- /.card -->
     </div>
     <!-- /.register-box -->
+
+   <script>
+
+function getVal() {
+  const val = document.getElementsByClassName('input_image').value;
+  console.log(val);
+}
+   </script>
 @endsection

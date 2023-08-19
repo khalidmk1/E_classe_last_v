@@ -24,6 +24,7 @@
 </style>
 
 @section('content')
+
     <!-- Main content -->
     <section class="content">
 
@@ -36,7 +37,7 @@
             </div>
         @endif
         @if (session('faild'))
-            <div class="alert alert-denger alert-dismissible fade show col-sm-6" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show col-sm-6" role="alert">
                 <strong>{{ session('faild') }}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

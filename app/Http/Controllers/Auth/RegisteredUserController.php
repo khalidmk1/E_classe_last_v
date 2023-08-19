@@ -45,41 +45,16 @@ class RegisteredUserController extends Controller
         ]);
 
         if ($request->has('avatar')) {
-            $file = $request ->avatar;
-
-            $imageName = time() . '_' . $file->getClientOriginalName();
-            $imagePath = public_path('images/avatars') . '/' . $imageName;
-
-            // Save the original image
-            $file->move(public_path('images/avatars'), $imageName);
-
-            // Convert to WebP format
-            $webpImagePath = public_path('images/avatars') . '/' . Str::beforeLast($imageName, '.') . '.webp';
-            Image::make($imagePath)->encode('webp')->save($webpImagePath);
-
-
-             // Compress the WebP image (optional)
-             $compressedWebpImagePath = public_path('images/avatars') . '/' . Str::beforeLast($imageName, '.') . '_compressed.webp';
-             Image::make($webpImagePath)->encode('webp', 70)->save($compressedWebpImagePath);
-     
-             // Store the compressed WebP image name in the array
-             $uploadedImages[] = Str::beforeLast($imageName, '.') . '_compressed.webp';
-     
-             // Delete the original image and uncompressed WebP image (optional, you can keep them if needed)
-             unlink($imagePath);
-             unlink($webpImagePath);
-
            
-
-           /*  $image_name = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images/avatars'),$image_name); */
-
-           
+                $file = $request ->avatar;
+                $image_name = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('images/avatars'),$image_name);
+             
         }
 
-        if($request->has('terms')){
+        if($request->has('terms') ){
             $user = User::create([
-                'avatar' =>$imageName,
+                'avatar' =>$image_name,
                 'name' => $request->name,
                 'last_name'=>$request->last_name,
                 'phone' =>$request->phone,
