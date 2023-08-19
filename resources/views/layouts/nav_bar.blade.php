@@ -44,7 +44,7 @@
             
              
               <div class="dropdown-divider"></div>
-              <a href="" class="dropdown-item dropdown-footer">Voir toute les demande</a>
+              <a href="{{Route('table.demande')}}" class="dropdown-item dropdown-footer">Voir toute les demande</a>
             </div>
            
            
