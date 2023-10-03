@@ -1,11 +1,5 @@
-import './bootstrap';
+/* import './bootstrap'; */
 import jquery from 'jquery';
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
-
 
 let meetingJoined = false;
 const meeting = new Metered.Meeting();

@@ -7,6 +7,7 @@ use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FolowController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\MeetingController;
 
 
 
@@ -23,13 +24,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('landing_page.content_page');
-});
+
+Route::get('event/search' , [EventController::class , 'sort'])->name('event.sort');
+Route::get('event/detail/{id}', [EventController::class , 'detail_student'])->name('event.detail');
+Route::get('event/all' , [EventController::class , 'all_event'])->name('event.all');
+Route::get('favoris/event' , [FolowController::class , 'favoris'])->name('favoris.event');
+Route::post('folow/event/{id}' , [FolowController::class , 'store'])->name('store.folow');
+Route::get('profile/search' , [ProfileController::class , 'view_profile'])->name('profile.search');
+Route::get('profile/all' , [ProfileController::class , 'all_profile'])->name('profile.all');
+/* Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show'); */
+Route::get('profile/show/{id}', [ProfileController::class, 'show_student'])->name('profile.show_student');
+Route::get('users/profile' , [ProfileController::class, 'show_pro'])->name('profile.show_prof');
+
+/* Route::get('/prof', function(){
+return view('student.actions.profile');
+}); */
+
+
+Route::get('/', [ProfileController::class, 'show_pro'])->name('profile.show_prof');
+
+
+
+
+Route::get('/favoris_list', function () {
+    return view('student.favoris_list');
+})->name('event.favoris');
+
 
 /* Route::get('/table', function () {
     return view('admin.tables.ensiengement_table');
 }); */
+
+Route::get('favoris/event' , [FolowController::class , 'favoris'])->name('favoris.event');
 
 Route::get('demande/enseignement', [RegisteredUserEnseignementController::class, 'demande'])->name('enseignement.demande');
 Route::post('send_demand/enseignement', [RegisteredUserEnseignementController::class, 'send_demand'])->name('enseignement.send_demand');
@@ -50,11 +76,13 @@ Route::middleware('admin' , 'auth')->group(function () {
 Route::middleware('student' , 'auth')->group(function () {
     Route::get('calender', [CalenderController::class, 'index'])->name('calender');
     Route::get('event/all_event', [EventController::class , 'index'])->name('events.index');
-    Route::get('event/seach' , [EventController::class , 'sort'])->name('event.sort');
+    /* Route::get('event/seach' , [EventController::class , 'sort'])->name('event.sort'); */
     Route::post('folow/event/{id}' , [FolowController::class , 'store'])->name('store.folow');
     Route::post('update/event/{id}' , [FolowController::class , 'upadte_paticipate'])->name('update.event');
     Route::get('favoris/event' , [FolowController::class , 'favoris'])->name('favoris.event');
     Route::post('unfolow/event/{id}' , [FolowController::class , 'unfolow'])->name('unfolow.event');
+    
+
 });
 
 
@@ -64,7 +92,7 @@ Route::middleware('prof' , 'auth')->group(function () {
    Route::get('event/edit/{id}', [EventController::class , 'edit'])->name('event.edit');
    Route::put('event/update', [EventController::class , 'update'])->name('event.update');
    Route::post('/event/store', [EventController::class , 'store'])->name('event.store');
-   Route::get('event/show/{id}', [EventController::class , 'show'])->name('event.show');
+  
    
 });
 
@@ -78,22 +106,39 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('profile'); */
 Route::get('/chat', function () {
     return view('chate');
-})->name("chat");
+})->middleware(['auth', 'verified'])->name("chat");
+Route::get('/chat/etudiant', function () {
+    return view('chate_etudiant');
+})->middleware(['auth', 'verified'])->name("chat.etudiant");
 
 Route::middleware('auth')->group(function () {
+    Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('events/show/{id}', [EventController::class , 'show'])->name('events.show');
     Route::get('calender', [CalenderController::class, 'index'])->name('calender');
    Route::post('full-calender/action', [CalenderController::class, 'action']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+    
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
    /*  Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); */
    Route::get('/chat/{id}' , [MessagesController::class , 'startConversation'])->name('chat.create');
 });
 
+Route::get('/meeting', function () {
+    return view('welcome_meeting');
+});
 
+Route::post("/createMeeting", [MeetingController::class, 'createMeeting'])->name("createMeeting");
 
+Route::post("/validateMeeting", [MeetingController::class, 'validateMeeting'])->name("validateMeeting");
 
+Route::get("/meeting/{meetingId}", function($meetingId) {
+
+    $METERED_DOMAIN = env('METERED_DOMAIN');
+    return view('meeting', [
+        'METERED_DOMAIN' => $METERED_DOMAIN,
+        'MEETING_ID' => $meetingId
+    ]);
+});
 
 
 

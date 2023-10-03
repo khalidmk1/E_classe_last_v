@@ -30,14 +30,62 @@ class EventController extends Controller
 
     public function sort(Request $request){
         
-        /* $query = event::query(); */
+       
+
+
         $search = $request->search;
-        $events = event::where('title','LIKE', "%$search%")->get();
-        return view('prof.search')->with([
-            'events' => $events, 
-        ]);
+
+        if($search){
+           /*  $output = ''; */
+
+            if($request->ajax()) {
+
+                /* $output = ''; */
+    
+                $events = event::where('title','LIKE', "%$search%")->get();
+
+                return response()->json($events);
+    
+               
+            
+            } 
+        }
+      
+       
+
+
+        return view('student.actions.prof');
+
+        
+
+
+        
+        
+
+
+
+
+
+
     }
 
+
+    public function all_event(Request $request){
+        
+
+
+        if($request->ajax()) {
+
+          
+
+            $events = event::all();
+
+            return response()->json($events);
+
+        
+        
+        } 
+    }
 
 
     /**
@@ -120,12 +168,20 @@ if ($request->hasFile('images')) {
 
     }
 
+    public function detail_student(string $id){
+        $events = event::find($id); 
+      
+        return view('student.actions.detail_event')->with('events' , $events);
+    }
+
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {  
-       $events = event::find(Crypt::decrypt($id)); 
+       $events = event::find($id); 
+
+      
        return view('prof.event.detail')->with('events' , $events);
     }
 

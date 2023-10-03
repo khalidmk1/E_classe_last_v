@@ -142,7 +142,7 @@
        
           <li class="nav-header">Paramètre</li>
           <li class="nav-item">
-            <a href="{{route('profile.show' ,Crypt::encrypt(auth()->user()->id) )}}" class="nav-link">
+            <a href="{{route('profile.show' ,auth()->user()->id )}}" class="nav-link">
               <i class="fas fa-id-card  nav-icon"></i>
               <p class="size_route">
                 Mon Profille

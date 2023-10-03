@@ -1,289 +1,81 @@
-{{-- @extends('master.calender_master')
-
-
+@extends('master.calender_master')
 
 @section('content')
 
-<div id="calendar"></div>
 
+  <div class="row">
+    <div class="col-md-3">
+      <div class="sticky-top mb-3">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Draggable Events</h4>
+          </div>
+          <div class="card-body">
+            <!-- the events -->
+            <div id="external-events">
+              <div class="external-event bg-success">Lunch</div>
+              <div class="external-event bg-warning">Go home</div>
+              <div class="external-event bg-info">Do homework</div>
+              <div class="external-event bg-primary">Work on UI design</div>
+              <div class="external-event bg-danger">Sleep tight</div>
+              <div class="checkbox">
+                <label for="drop-remove">
+                  <input type="checkbox" id="drop-remove">
+                  remove after drop
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Create Event</h3>
+          </div>
+          <div class="card-body">
+            <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
+              <ul class="fc-color-picker" id="color-chooser">
+                <li><a class="text-primary" href="#"><i class="fas fa-square"></i></a></li>
+                <li><a class="text-warning" href="#"><i class="fas fa-square"></i></a></li>
+                <li><a class="text-success" href="#"><i class="fas fa-square"></i></a></li>
+                <li><a class="text-danger" href="#"><i class="fas fa-square"></i></a></li>
+                <li><a class="text-muted" href="#"><i class="fas fa-square"></i></a></li>
+              </ul>
+            </div>
+            <!-- /btn-group -->
+            <div class="input-group">
+              <input id="new-event" type="text" class="form-control" placeholder="Event Title">
 
-<script>
+              <div class="input-group-append">
+                <button id="add-new-event" type="button" class="btn btn-primary">Add</button>
+              </div>
+              <!-- /btn-group -->
+            </div>
+            <!-- /input-group -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.col -->
+    <div class="col-md-9">
+      <div class="card card-primary">
+        <div class="card-body p-0">
+          <!-- THE CALENDAR -->
+          <div id="calendar"></div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
 
-    $(document).ready(function () {
-    
-        $.ajaxSetup({
-            headers:{
-                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    
-        var calendar = $('#calendar').fullCalendar({
-            editable:true,
-            header:{
-                left:'prev,next today',
-                center:'title',
-                right:'month,agendaWeek,agendaDay'
-            },
-            events:'/calender',
-            selectable:true,
-            selectHelper: true,
-            select:function(start, end, allDay)
-            {
-               
-               
-                var title = prompt('Event Title:');
-    
-                if(title)
-                {
-                    var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
-    
-                    var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
-    
-                    $.ajax({
-                        url:"/full-calender/action",
-                        type:"POST",
-                        data:{
-                            title: title,
-                            start: start,
-                            end: end,
-                            type: 'add'
-                        },
-                        success:function(data)
-                        {
-                            calendar.fullCalendar('refetchEvents');
-                            alert("Event Created Successfully");
-                        }
-                    })
-                }
-            },
-            editable:true,
-            eventResize: function(event, delta)
-            {
-                var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
-                var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
-                var title = event.title;
-                var id = event.id;
-                $.ajax({
-                    url:"/full-calender/action",
-                    type:"POST",
-                    data:{
-                        title: title,
-                        start: start,
-                        end: end,
-                        id: id,
-                        type: 'update'
-                    },
-                    success:function(response)
-                    {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Event Updated Successfully");
-                    }
-                })
-            },
-            eventDrop: function(event, delta)
-            {
-                var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
-                var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
-                var title = event.title;
-                var id = event.id;
-                $.ajax({
-                    url:"/full-calender/action",
-                    type:"POST",
-                    data:{
-                        title: title,
-                        start: start,
-                        end: end,
-                        id: id,
-                        type: 'update'
-                    },
-                    success:function(response)
-                    {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Event Updated Successfully");
-                    }
-                })
-            },
-    
-            eventClick:function(event)
-            {
-                if(confirm("Are you sure you want to remove it?"))
-                {
-                    var id = event.id;
-                    $.ajax({
-                        url:"/full-calender/action",
-                        type:"POST",
-                        data:{
-                            id:id,
-                            type:"delete"
-                        },
-                        success:function(response)
-                        {
-                            calendar.fullCalendar('refetchEvents');
-                            alert("Event Deleted Successfully");
-                        }
-                    })
-                }
-            }
-        });
-    
-    });
-      
-    </script>
 
 @endsection
- --}}
-{{-- <!DOCTYPE html>
-<html>
-<head>
-    <title>How to Use Fullcalendar in Laravel 8</title>
-    
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
-</head>
-<body>
-  
-<div class="container">
-    <br />
-    <h1 class="text-center text-primary"><u>How to Use Fullcalendar in Laravel 8</u></h1>
-    <br />
-
-    <div id="calendar"></div>
-
-</div>
-   
-<script>
-
-$(document).ready(function () {
-
-    $.ajaxSetup({
-        headers:{
-            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    var calendar = $('#calendar').fullCalendar({
-        editable:true,
-        header:{
-            left:'prev,next today',
-            center:'title',
-            right:'month,agendaWeek,agendaDay'
-        },
-        events:'/full-calender',
-        selectable:true,
-        selectHelper: true,
-        select:function(start, end, allDay)
-        {
-            var title = prompt('Event Title:');
-
-            if(title)
-            {
-                var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
-
-                var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
-
-                $.ajax({
-                    url:"/full-calender/action",
-                    type:"POST",
-                    data:{
-                        
-                        title: title,
-                        start: start,
-                        end: end,
-                        type: 'add'
-                    },
-                    success:function(data)
-                    {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Event Created Successfully");
-                    }
-                })
-            }
-        },
-        editable:true,
-        eventResize: function(event, delta)
-        {
-            var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
-            var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
-            var title = event.title;
-            var id = event.id;
-            $.ajax({
-                url:"/full-calender/action",
-                type:"POST",
-                data:{
-                    title: title,
-                    start: start,
-                    end: end,
-                    id: id,
-                    type: 'update'
-                },
-                success:function(response)
-                {
-                    calendar.fullCalendar('refetchEvents');
-                    alert("Event Updated Successfully");
-                }
-            })
-        },
-        eventDrop: function(event, delta)
-        {
-            var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
-            var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
-            var title = event.title;
-            var id = event.id;
-            $.ajax({
-                url:"/full-calender/action",
-                type:"POST",
-                data:{
-                    title: title,
-                    start: start,
-                    end: end,
-                    id: id,
-                    type: 'update'
-                },
-                success:function(response)
-                {
-                    calendar.fullCalendar('refetchEvents');
-                    alert("Event Updated Successfully");
-                }
-            })
-        },
-
-        eventClick:function(event)
-        {
-            if(confirm("Are you sure you want to remove it?"))
-            {
-                var id = event.id;
-                $.ajax({
-                    url:"/full-calender/action",
-                    type:"POST",
-                    data:{
-                        id:id,
-                        type:"delete"
-                    },
-                    success:function(response)
-                    {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Event Deleted Successfully");
-                    }
-                })
-            }
-        }
-    });
-
-});
-  
-</script>
-  
-</body>
-</html>
- --}}
-
-
- <!DOCTYPE html>
+<{{-- !DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -1299,26 +1091,6 @@ $(document).ready(function () {
     });
 
     var calendar = new Calendar(calendarEl, {
-         // Function to add a new event
-  /* function addEventToDatabase(title, start, end) {
-    $.ajax({
-      url: '/full-calender/action',
-      method: 'POST',
-      data: {
-        type: 'add',
-        title: title,
-        start: start,
-        end: end,
-        _token: $('meta[name="csrf-token"]').attr('content') // Add CSRF token for security
-      },
-      success: function(response) {
-        console.log('Event added successfully:', response);
-      },
-      error: function(xhr, status, error) {
-        console.error('Error adding event:', error);
-      }
-    });
-  } */
       headerToolbar: {
         left  : 'prev,next today',
         center: 'title',
@@ -1326,16 +1098,53 @@ $(document).ready(function () {
       },
       themeSystem: 'bootstrap',
       //Random default events
-      events: 
+      events: [
         {
-           type: 'add',
-        title: title,
-        start: start,
-        end: end,
-        _token: $('meta[name="csrf-token"]').attr('content') // Add CSRF token for security
+          title          : 'All Day Event',
+          start          : new Date(y, m, 1),
+          backgroundColor: '#f56954', //red
+          borderColor    : '#f56954', //red
+          allDay         : true
         },
-        
-      
+        {
+          title          : 'Long Event',
+          start          : new Date(y, m, d - 5),
+          end            : new Date(y, m, d - 2),
+          backgroundColor: '#f39c12', //yellow
+          borderColor    : '#f39c12' //yellow
+        },
+        {
+          title          : 'Meeting',
+          start          : new Date(y, m, d, 10, 30),
+          allDay         : false,
+          backgroundColor: '#0073b7', //Blue
+          borderColor    : '#0073b7' //Blue
+        },
+        {
+          title          : 'Lunch',
+          start          : new Date(y, m, d, 12, 0),
+          end            : new Date(y, m, d, 14, 0),
+          allDay         : false,
+          backgroundColor: '#00c0ef', //Info (aqua)
+          borderColor    : '#00c0ef' //Info (aqua)
+        },
+        {
+          title          : 'Birthday Party',
+          start          : new Date(y, m, d + 1, 19, 0),
+          end            : new Date(y, m, d + 1, 22, 30),
+          allDay         : false,
+          backgroundColor: '#00a65a', //Success (green)
+          borderColor    : '#00a65a' //Success (green)
+        },
+        {
+          title          : 'Click for Google',
+          start          : new Date(y, m, 28),
+          end            : new Date(y, m, 29),
+          url            : 'https://www.google.com/',
+          backgroundColor: '#3c8dbc', //Primary (light-blue)
+          borderColor    : '#3c8dbc' //Primary (light-blue)
+        }
+      ],
       editable  : true,
       droppable : true, // this allows things to be dropped onto the calendar !!!
       drop      : function(info) {
@@ -1389,216 +1198,5 @@ $(document).ready(function () {
     })
   })
 </script>
-<script>
-
-    $(document).ready(function () {
-    
-        $.ajaxSetup({
-            headers:{
-                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    
-        var calendar = $('#calendar').fullCalendar({
-            editable:true,
-            header:{
-                left:'prev,next today',
-                center:'title',
-                right:'month,agendaWeek,agendaDay'
-            },
-            events:'/calender',
-            selectable:true,
-            selectHelper: true,
-            select:function(start, end, allDay)
-            {
-               
-               
-                var title = prompt('Event Title:');
-    
-                if(title)
-                {
-                    var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
-    
-                    var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
-    
-                    $.ajax({
-                        url:"/full-calender/action",
-                        type:"POST",
-                        data:{
-                            title: title,
-                            start: start,
-                            end: end,
-                            type: 'add'
-                        },
-                        success:function(data)
-                        {
-                            calendar.fullCalendar('refetchEvents');
-                            alert("Event Created Successfully");
-                        }
-                    })
-                }
-            },
-            editable:true,
-            eventResize: function(event, delta)
-            {
-                var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
-                var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
-                var title = event.title;
-                var id = event.id;
-                $.ajax({
-                    url:"/full-calender/action",
-                    type:"POST",
-                    data:{
-                        title: title,
-                        start: start,
-                        end: end,
-                        id: id,
-                        type: 'update'
-                    },
-                    success:function(response)
-                    {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Event Updated Successfully");
-                    }
-                })
-            },
-            eventDrop: function(event, delta)
-            {
-                var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
-                var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
-                var title = event.title;
-                var id = event.id;
-                $.ajax({
-                    url:"/full-calender/action",
-                    type:"POST",
-                    data:{
-                        title: title,
-                        start: start,
-                        end: end,
-                        id: id,
-                        type: 'update'
-                    },
-                    success:function(response)
-                    {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Event Updated Successfully");
-                    }
-                })
-            },
-    
-            eventClick:function(event)
-            {
-                if(confirm("Are you sure you want to remove it?"))
-                {
-                    var id = event.id;
-                    $.ajax({
-                        url:"/full-calender/action",
-                        type:"POST",
-                        data:{
-                            id:id,
-                            type:"delete"
-                        },
-                        success:function(response)
-                        {
-                            calendar.fullCalendar('refetchEvents');
-                            alert("Event Deleted Successfully");
-                        }
-                    })
-                }
-            }
-        });
-    
-    });
-      
-    </script>
-
-    <script>
-        $(document).ready(function() {
-  // Your existing code for initializing the calendar and handling events
-
-  // Function to add a new event
-  function addEventToDatabase(title, start, end) {
-    $.ajax({
-      url: '/full-calender/action',
-      method: 'POST',
-      data: {
-        type: 'add',
-        title: title,
-        start: start,
-        end: end,
-        _token: $('meta[name="csrf-token"]').attr('content') // Add CSRF token for security
-      },
-      success: function(response) {
-        console.log('Event added successfully:', response);
-      },
-      error: function(xhr, status, error) {
-        console.error('Error adding event:', error);
-      }
-    });
-  }
-
-  // Call this function when you want to add a new event
-  $('#add-new-event').click(function(e) {
-    e.preventDefault();
-    var val = $('#new-event').val();
-    if (val.length == 0) {
-      return;
-    }
-    var event = $('<div />').css({
-      'background-color': currColor,
-      'border-color': currColor,
-      'color': '#fff'
-    }).addClass('external-event').text(val);
-    $('#external-events').prepend(event);
-    ini_events(event);
-    $('#new-event').val('');
-    // Assuming you have start and end variables for the new event
-    addEventToDatabase(val, start, end);
-  });
-
-  // Function to update an existing event
-  function updateEventInDatabase(id, title, start, end) {
-    $.ajax({
-      url: '/full-calender/action',
-      method: 'POST',
-      data: {
-        type: 'update',
-        id: id,
-        title: title,
-        start: start,
-        end: end,
-        _token: $('meta[name="csrf-token"]').attr('content') // Add CSRF token for security
-      },
-      success: function(response) {
-        console.log('Event updated successfully:', response);
-      },
-      error: function(xhr, status, error) {
-        console.error('Error updating event:', error);
-      }
-    });
-  }
-
-  // Function to delete an event
-  function deleteEventInDatabase(id) {
-    $.ajax({
-      url: '/full-calender/action',
-      method: 'POST',
-      data: {
-        type: 'delete',
-        id: id,
-        _token: $('meta[name="csrf-token"]').attr('content') // Add CSRF token for security
-      },
-      success: function(response) {
-        console.log('Event deleted successfully:', response);
-      },
-      error: function(xhr, status, error) {
-        console.error('Error deleting event:', error);
-      }
-    });
-  }
-});
-
-    </script>
-
 </body>
-</html>
+</html> --}}

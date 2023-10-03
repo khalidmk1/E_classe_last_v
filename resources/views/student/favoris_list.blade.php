@@ -225,6 +225,13 @@
 </script>
 
 <script>
+    setInterval(() => {
+        $(document).ready(function() {
+            
+        });
+
+    }, 1000);
+
     $(document).ready(function() {
         $.ajax({
               type: "GET",
@@ -239,37 +246,33 @@
                         event +=
                             `
                             <div class="card dark">
-
-<img src="' . asset('images/event/' . $event->images[0]) . '" class="card-img-top img" alt="...">
-<div class="card-body">
-  <div class="text-section">
-    <h5 class="card-title">'.$event->title.'</h5>
-    <p class="card-text">'.$event->description.'</p>
-  </div>
-  <div class="cta-section">
-  <button class="btn btn-sm" type="submit">
-  <i class="fa fa-star" aria-hidden="true"></i> 
-</button>
-    <a href="'. Route('event.show', Crypt::encrypt($event->id)) .'" class="btn btn-light">Voir detail</a>
-  </div>
-</div>
-
-</div>
+                            <img src="/images/event/`+item.event.images[0] +`" class="card-img-top img" alt="...">
+                            <div class="card-body">
+                                <div class="text-section">
+                                  
+                                    <h5 class="card-title">`+item.event.title +`</h5>
+                                    <p class="card-text">`+item.event.description +`</p>
+                                </div>
+                                <div class="cta-section">
+                                    <button class="btn btn-sm" type="submit">
+                                        <i class="fa fa-star" aria-hidden="true"></i> 
+                                    </button>
+                                    <a href="/event/show/${item.id}" class="btn btn-light">Voir detail</a>
+                                </div>
+                            </div>
+                        </div>
                                 `
                     });
-                    $('.containe_1').html(response); = cart;
-                    document.getElementById('total_content').innerHTML = "$" + total;
-                } else {
-                    cart = "<li>Your cart is empty</li>";
-                    // document.getElementById('cart_content').innerHTML = cart;
+
+                    $('.containe_1').html(event);
+                  
                 }
-               /*  console.log(data); */
-               console.log(data);
-                  $('.containe_1').html(data);
+              
                   
               }
           });
 });
 
+    
 </script>
 @endsection

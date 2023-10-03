@@ -18,9 +18,18 @@
           <a class="nav-link " aria-current="page" href="#Accueil">Accueil</a>
           <a class="nav-link" href="#about">À propos-nous</a>
           <a class="nav-link" href="#niveau">Niveau</a>
+          <a class="nav-link" href="{{route('profile.search')}}">Professeur</a>
+          <a class="nav-link" href="{{route('event.sort')}}">Lesson</a>
           <a class="nav-link " href="Contact">Contact</a>
           @auth()
+          @if (auth()->user()->role != 'student')
           <a class="nav-link " href="{{Route('dashboard')}}">Espace</a>
+          @endif
+          @if (auth()->user()->role == 'student')
+          <a class="nav-link " href="{{Route('profile.show' , auth()->user()->id)}}">Profille</a>
+          @endif
+         
+          {{-- <a class="nav-link " href="{{Route('dashboard')}}">Espace</a> --}}
           @endauth
        
         </div>
@@ -41,7 +50,7 @@
             </div>
           @endif
          
-          <a class="nav-link "  href="{{Route('login')}}">{{auth()->user()->name . " " .auth()->user()->last_name}}</a>
+          <a class="nav-link "  href="{{route('profile.show' ,auth()->user()->id )}}">{{auth()->user()->name . " " .auth()->user()->last_name}}</a>
          
         </div>
        

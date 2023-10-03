@@ -71,7 +71,8 @@
 
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('assets/videopopup.css') }}" media="screen">
+    
     <!-- BS Stepper -->
     <link rel="stylesheet" href="{{ asset('plugins/bs-stepper/css/bs-stepper.min.css') }}">
 
@@ -87,6 +88,13 @@
     <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ asset('assets/app.css') }}">
+
 
 
 
@@ -97,24 +105,22 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body >
     {{-- <h1>@yield('title')</h1> --}}
 
-    <div class="wrapper">
-        @include('layouts.nav_bar')
-
-        @include('layouts.sidebar')
+    
        
+        @include('landing_page.layout.nav_bar')
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="container" >
 
             @yield('content')
 
 
         </div>
         <!-- /.content-wrapper -->
-    </div>
+   
 
    {{--  <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
@@ -149,7 +155,12 @@
     
  --}}
 
-
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous">
+    </script>
 
        <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
@@ -199,7 +210,8 @@
     <!-- dropzonejs -->
     <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/all.js') }}"></script>
-
+    
+    
 
 
 

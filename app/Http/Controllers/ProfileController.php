@@ -36,12 +36,92 @@ class ProfileController extends Controller
     }
 
     public function show(string $id){
-        
-        $profile = User::find( Crypt::decrypt($id));
+
+        $profile = User::findOrFail($id);
+
         $events = event::where('user_id', $profile->id)->get();
         return view('profile.show')->with(['profile' => $profile ,
         'events'=>$events
     ]);
+       /*  if($profile->id != auth()->user()->id){
+            return redirect()->back();
+        }else{
+           
+        } */
+ 
+     
+    }
+    public function show_student(string $id){
+
+        $profile = User::findOrFail($id);
+
+        $events = event::where('user_id', $profile->id)->get();
+        return view('profile.show_student')->with(['profile' => $profile ,
+        'events'=>$events
+    ]);
+       /*  if($profile->id != auth()->user()->id){
+            return redirect()->back();
+        }else{
+           
+        } */
+ 
+     
+    }
+
+    public function show_pro(){
+        $users = User::where('role' , 'prof')->take(3)->get();
+        return view('landing_page.content_page')->with('users' , $users);
+    }
+
+
+  
+
+    public function view_profile(Request $request){
+
+        $search = $request->search;
+
+        if($search){
+           /*  $output = ''; */
+
+            if($request->ajax()) {
+
+                /* $output = ''; */
+    
+                $users = User::where('role', 'prof')
+                ->where(function ($query) use ($search) {
+                    $query->where('name', 'LIKE', "%$search%")
+                        ->orWhere('last_name', 'LIKE', "%$search%");
+                })
+                ->get();
+
+                return response()->json($users);
+    
+              
+            
+            } 
+        }
+      
+       
+
+
+        return view('student.actions.profile');
+    }
+
+
+    public function all_profile(Request $request){
+
+        if($request->ajax()) {
+
+          
+
+            $users = User::where('role', 'prof')->get();
+
+            return response()->json($users);
+
+        
+        
+        }
+       
     }
 
     /**

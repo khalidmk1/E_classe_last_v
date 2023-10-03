@@ -78,9 +78,27 @@ class FolowController extends Controller
     }
 
     public function favoris(){
-        $favoris = Folow::where('user_id', auth()->user()->id)->where('folow', 1)->with('event')->get();
-        return view('student.event_favoris')->with('favoris' , $favoris);
+       
+        
+
+           
+
+            $favoris = Folow::with('event')->where('folow' , 1)->get();
+
+
+                return response()->json($favoris);
+
+          
+        
+        
+       /*  return response()->json(['favoris' => $favoris]); */
     }
+
+    public function favoris_list() {
+        return view('event.favoris');
+    }
+
+    
 
     public function unfolow(string $id){
         $eventId  = event::find($id);

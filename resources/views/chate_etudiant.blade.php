@@ -1,22 +1,12 @@
-@extends('master.master_page')
+@extends('master.master_page_student')
 
 
-@section('title')
-    
-@endsection
+
 
 @section('content')
 
 <style>
-    body,
-    html {
-        height: 100%;
-        margin: 0;
-        background: #7F7FD5;
-        background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
-        background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
-    }
-
+ 
     .chat {
         margin-top: 50px;
         margin-bottom: auto;
@@ -274,7 +264,7 @@
     }
 </style>
 
-<div class="container-fluid h-100">
+<div class=" h-100">
     <div class="row justify-content-center h-100">
         <div class="col-md-4 col-xl-3 chat">
             <div class="card mb-sm-3 mb-md-0 contacts_card">
@@ -292,6 +282,8 @@
     </div>
 </div>
 @livewireScripts
+
+
 <script>
     $(document).ready(function() {
         $('#action_menu_btn').click(function() {
@@ -299,4 +291,5 @@
         });
     });
 </script>
+
 @endsection

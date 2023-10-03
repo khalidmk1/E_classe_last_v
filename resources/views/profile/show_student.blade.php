@@ -1,24 +1,20 @@
 
-
-
-   
-
-    @extends('master.master_table')
+@extends('master.master_page_student')
 
 @section('title')
 @endsection
 
-{{-- @section('sepirator')
+@section('sepirator')
     <section class="content-header">
-        <div class="container-fluid">
+        {{-- <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
         <h1></h1>
       </div>
     </div>
-  </div><!-- /.container-fluid -->
+  </div><!-- /.container-fluid --> --}}
     </section>
-@endsection --}}
+@endsection
 
 @section('content')
     {{-- <!-- Main content -->
@@ -131,16 +127,7 @@
                     </ul>
                 </div>
             </div>
-            @if (auth()->check())
-                @if (auth()->user()->id == $profile->id)
-                    <div class="col-md-2">
-                        <a href="{{ Route('profile.edit') }}" class="btn btn-block btn-outline-warning" name="btnAddMore"
-                            value="Edit Profile">Modifier</a>
-                     
-
-                    </div>
-                @endif
-            @endif
+          
 
 
         </div>
@@ -349,6 +336,3 @@
 
 
     @endsection
-
-
-
