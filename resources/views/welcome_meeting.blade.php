@@ -15,8 +15,9 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+        <script src="{{asset('assets/meeting/meeting.js')}}"></script>
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+       {{--  @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 
     </head>
     <body class="antialiased">
@@ -64,5 +65,7 @@
             </div>
   
         </div> 
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     </body>
 </html>
