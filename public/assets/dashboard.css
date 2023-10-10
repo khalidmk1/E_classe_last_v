@@ -6,6 +6,29 @@
     font-family: 'Montserrat', sans-serif;
  }
 
+ .select2-selection {
+  height: 40px !important;
+}
+
+.image-wrapper {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.images {
+  height: 100px !important; 
+  margin-left: 2px
+}
+
+.image-wrapper {
+  padding: 5px;
+}
+
+.delete_icon {
+  position: absolute;
+  top: 0;
+}
+
 .input-group>.form-control:not(:first-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -17,7 +40,11 @@
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
  }
-
+ 
+ .content-wrapper>.content {
+  padding: 0 0.5rem;
+  background: rgb(255, 255, 255) !important;
+}
 
  @media (min-width: 1025px) {
     .h-custom {

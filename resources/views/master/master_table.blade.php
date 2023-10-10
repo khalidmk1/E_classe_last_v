@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
+
+
     <!-- summernote -->
     <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
 
@@ -75,6 +77,12 @@
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+{{-- <!-- Select2 -->
+<script src="../../plugins/select2/js/select2.full.min.js"></script> --}}
+
+
+   
         <!-- Summernote -->
         <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
     <script src="{{ asset('dist/js/pages/all.js') }}"></script>
@@ -114,6 +122,9 @@
             });
         })
     </script>
+
+
+
 </body>
 
 </html>

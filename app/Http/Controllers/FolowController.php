@@ -18,51 +18,34 @@ class FolowController extends Controller
     public function store(string $id){
 
         $eventId  = event::find($id);
-        $existingFolow = Folow::where('user_id', auth()->user()->id)
-        ->where('event_id', $eventId->id)->where('folow' , 0)->first();
-        $participate = Folow::where('user_id', auth()->user()->id)
-        ->where('event_id', $eventId->id)->where('participat' , 0)->first();
+        $existingFolow = Folow::where('event_id', $eventId->id)->first();
+      
+
+       
 
         if($existingFolow){
 
             $existingFolow->update([
-                'folow' =>true
-               ]);
-
-            
-               return redirect()->back()->with('valide', 'Vous avez suivi le cour avec succès.');
+            'participat' =>true
+           ]);
+           $response = ['message' => 'Your message goes here'];
+           return response()->json($response);
         }
-        elseif($participate){
-            $participate->update(
-                [
-                    'participat' =>true
-                ]
-                );
-
-                return redirect()->back()->with('valide', 'Vous avez participer a cour avec succès.');
-
+      
         }
-        else{
-            $folow = Folow::create([
-                'user_id' =>auth()->user()->id,
-                'event_id' => $eventId->id ,
-                'folow' => true,
-                'participat' =>true
-            ]);
-    
-            return redirect()->back()->with('valide', 'Vous avez suivi le cour avec succès.');
-        }
+
+
+     
 
        
-    }
+    
 
 
 
     public function upadte_paticipate(string $id){
 
         $eventId  = event::find($id);
-        $existingFolow = Folow::where('user_id', auth()->user()->id)
-        ->where('event_id', $eventId->id)->where('participat' , 1);
+        $existingFolow = Folow::where('event_id', $eventId->id)->where('participat' , 1);
        
         if($existingFolow){
 
@@ -70,9 +53,14 @@ class FolowController extends Controller
             'participat' =>false
            ]);
 
-           return redirect()->back()->with('valide', 'Vous avez participer dans le cour avec succès.');
+           $response = ['message' => 'Your unticipated'];
+           return response()->json($response);
+      
 
         }
+
+
+      
 
        
     }

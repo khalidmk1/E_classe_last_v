@@ -16,7 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->text('description');
+            $table->integer('price');
+            $table->text('subject');
+            $table->string('niveau');
             $table->text('programe');
+            $table->dateTime('date');
             $table->string('images')->nullable();
             $table->string('video')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -108,14 +108,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+         {{--  <li class="nav-item">
             <a href="{{Route('calender')}}" class="nav-link">
               <i class="fa fa-calendar  nav-icon" aria-hidden="true"></i>
               <p>
                 calendrier
               </p>
             </a>
-          </li>
+          </li> --}}
           
 
           @elseif (auth()->user()->role == "student")

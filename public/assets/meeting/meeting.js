@@ -1,5 +1,5 @@
 /* import './bootstrap'; */
-/* import jquery from 'jquery'; */
+import jquery from 'jquery';
 
 let meetingJoined = false;
 const meeting = new Metered.Meeting();

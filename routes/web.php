@@ -36,9 +36,6 @@ Route::get('profile/all' , [ProfileController::class , 'all_profile'])->name('pr
 Route::get('profile/show/{id}', [ProfileController::class, 'show_student'])->name('profile.show_student');
 Route::get('users/profile' , [ProfileController::class, 'show_pro'])->name('profile.show_prof');
 
-/* Route::get('/prof', function(){
-return view('student.actions.profile');
-}); */
 
 
 Route::get('/', [ProfileController::class, 'show_pro'])->name('profile.show_prof');
@@ -60,13 +57,14 @@ Route::get('favoris/event' , [FolowController::class , 'favoris'])->name('favori
 Route::get('demande/enseignement', [RegisteredUserEnseignementController::class, 'demande'])->name('enseignement.demande');
 Route::post('send_demand/enseignement', [RegisteredUserEnseignementController::class, 'send_demand'])->name('enseignement.send_demand');
 
-Route::middleware('admin' , 'auth')->group(function () {
+Route::middleware(['admine' , 'auth'])->group(function () {
     Route::get('register/enseignement', [RegisteredUserEnseignementController::class, 'create'])->name('enseignement.create');
     Route::put('accepte/enseignement/{id}', [RegisteredUserEnseignementController::class, 'accepte_demande'])->name('enseignement.accepte');
     Route::post('store/enseignement', [RegisteredUserEnseignementController::class, 'store'])->name('enseignement.store');
     Route::get('table/enseignement', [TableController::class, 'index'])->name('table.index');
     Route::get('table/profile/{id}', [ProfileController::class, 'show'])->name('profiles.show');
     Route::put('table/enseignement/{id}', [TableController::class, 'update'])->name('table.update');
+    Route::put('table/enseignement-unblock/{id}', [TableController::class, 'unblock'])->name('table.unblock');
     Route::get('table/demande', [TableController::class, 'demande_table'])->name('table.demande');
     Route::get('table/student', [TableController::class, 'student_table'])->name('table.student');/* this a profile for the student */
 
@@ -86,11 +84,11 @@ Route::middleware('student' , 'auth')->group(function () {
 });
 
 
-Route::middleware('prof' , 'auth')->group(function () {
+Route::middleware(['prof' , 'auth'])->group(function () {
     Route::get('event/all_events', [EventController::class , 'index'])->name('event.index');
    Route::get('event/create', [EventController::class , 'create'])->name('event.create');
    Route::get('event/edit/{id}', [EventController::class , 'edit'])->name('event.edit');
-   Route::put('event/update', [EventController::class , 'update'])->name('event.update');
+   Route::put('event/update/{id}', [EventController::class , 'update'])->name('event.update');
    Route::post('/event/store', [EventController::class , 'store'])->name('event.store');
   
    

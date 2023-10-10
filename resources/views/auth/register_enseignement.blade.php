@@ -7,6 +7,14 @@
 
 
 @section('content')
+<style>
+    .select2-container .select2-selection--single {
+    height: 39px;
+    }
+</style>
+
+
+
     <div class="register-box">
         @if (session('failed'))
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -125,8 +133,8 @@
                 <!-- phone mask -->
 
                 <div class="input-group mb-3">
-                    <input type="text" name="phone" class="form-control" data-mask placeholder="Telephone"
-                    data-inputmask='"mask": "(99) 999-99999"'value="{{ old('phone') }}" required autofocus autocomplete="phone">
+                        <input type="text" name="phone" class="form-control" data-mask placeholder="Telephone"
+                        data-inputmask='"mask": "(99) 999-99999"'value="{{ old('phone') }}" required autofocus autocomplete="phone">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-phone"></span>
@@ -134,6 +142,30 @@
                     </div>
                 </div>
                 <!-- /.form group -->
+                <div class="input-group mb-3 ">
+                  {{--   <label class="form-label" for="form3Examplev2">Le sujet que vous
+                        étudiez</label> --}}
+                    <select class="form-control select2 h-100" value="{{ old('subject') }}" name="subject" style="width: 100%;">
+                        @foreach ($subject as $sujet)
+                       {{--  <option value="Le sujet que vous étudiez"></option> --}}
+                            <option value="{{$sujet}}" @if(old('subject') == $sujet) selected @endif>{{ $sujet }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- /.form group -->
+                <div class="input-group mb-3 ">
+                  {{--   <label class="form-label" for="form3Examplev2">Le sujet que vous
+                        étudiez</label> --}}
+                    <select class="form-control select2 h-100" value="{{ old('county_array') }}" name="county_array" style="width: 100%;">
+                        @foreach ($county_array as $county)
+                       {{--  <option value="Le sujet que vous étudiez"></option> --}}
+                            <option value="{{$county}}" @if(old('subject') == $county) selected @endif>{{ $county }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
 
                 <div class="input-group mb-3">

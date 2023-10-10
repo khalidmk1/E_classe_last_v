@@ -11,6 +11,8 @@
 
     <section class="content">
 
+       
+
         <!-- Default box -->
         <div class="card card-solid">
             <div class="card-body pb-0">
@@ -18,7 +20,7 @@
 
 
                     @foreach ($events as $event)
-                        <!-- Modal -->
+                       {{--  <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog " role="document" style="top: 25%">
@@ -36,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-
+ --}}
 
 
 
@@ -66,14 +68,16 @@
                                             </ul>
                                         </div>
 
+                                       
+                                        
+
                                         <div class="col-5 text-center">
                                             @if (!empty($event->images) && count($event->images) > 0)
                                                 <img class="img-fluid"
                                                     src="{{ asset('images/event/' . $event->images[0]) }}"
                                                     alt="Card image cap">
                                             @endif
-                                            {{--  <img src="../../dist/img/user1-128x128.jpg" alt="user-avatar"
-                                                                class=" img-fluid"> --}}
+                                            
                                         </div>
                                     </div>
                                 </div>

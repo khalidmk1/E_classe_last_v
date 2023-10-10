@@ -1,4 +1,4 @@
-@extends('master.master_table')
+@extends('master.master_page')
 
 @section('title')
 @endsection
@@ -87,15 +87,62 @@
             <div class="row">
                 <div class="col-md p-3 m-3">
                     <div class="card card-primary">
-                        <form action="{{ Route('event.update') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ Route('event.update' ,$event->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
-                                <div class="form-group">
+                                <div class="form-group d-flex">
+                                   <div class="col-6">
                                     <label for="inputName"> Coure Titre </label>
                                     <input tytitlepe="text" name="title" value="{{ $event->title }}" id="inputName"
                                         class="form-control">
+                                   </div>
+                                   <div class="col-6">
+                                    <label for="inputName"> Prix </label>
+                                    <input tytitlepe="text" name="price" value="{{ $event->price }}" id="inputName_2"
+                                        class="form-control">
+                                   </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label>Date and time: </label>
+                                    <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                                        <input type="text" value="{{$event->date}}" placeholder="{{$event->date}}" class="form-control datetimepicker-input"
+                                            data-target="#reservationdatetime" name="date" />
+                                        <div class="input-group-append" data-target="#reservationdatetime"
+                                            data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="selected">Niveau</label>
+                                    <select class="form-control select2" name="niveau" style="width: 100%; height: 100px;">
+                                        <option value="{{$event->niveau}}">{{$event->niveau}}</option>
+                                        @foreach ($niveau as $niv)
+                                            <option value="{{ $niv }}"
+                                                @if (old('subject') == $niv) selected @endif>
+                                                {{ $niv }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="selected">Matière</label>
+                                    <select class="form-control select2" name="subject"
+                                        style="width: 100%; height: 100px;">
+                                        <option value="{{$event->subject}}">{{$event->subject}}</option>
+                                        @foreach ($subject as $sub)
+                                            <option value="{{ $sub }}">
+                                                {{ $sub }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
                                 <div class="form-group">
                                     <label for="inputDescription">Coure Description</label>
                                     <textarea id="inputDescription" name="description" class="form-control" rows="4">{{ $event->description }}</textarea>
@@ -118,9 +165,10 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Upload</span>
                                     </div>
+                                
                                     <div class="custom-file">
                                         <input type="file" name="images[]" class="custom-file-input"
-                                            id="inputGroupFile01" multiple>
+                                            id="inputGroupFile01" multiple >
                                         <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                     </div>
                                 </div>
@@ -128,6 +176,21 @@
                                 <div class="col-12">
                                     <div id="imageContainer"></div>
                                 </div>
+                                
+                               {{--  <div class="col-12">
+                                    @php
+                                    $images = json_decode($event->images);
+                                    @endphp
+                                
+                                    @if(is_array($images))
+                                        @foreach ($images as $image)
+                                            <img src="{{ asset('images/event/' . $image) }}" class="rounded mx-auto"
+                                                 style="height: 100px; margin-left: 2px" alt="{{ $image }}">
+                                        @endforeach
+                                    @endif
+                                </div> --}}
+                                
+                              
 
 
                                 <div class="col-12">

@@ -8,7 +8,7 @@
     <div class="container">
       <a class="navbar-brand" href="#">
         <img src="{{asset('assets/landing_page_img/AdminLTELogo-removebg-preview.png')}}" alt="logo_virtuelle" 
-        style="height: 85px;">
+        style="height: 120px;">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -34,12 +34,12 @@
        
         </div>
         @if (!Auth::check())
-        <div class="navbar-nav auth_link col justify-content-center">
+        <div class="navbar-nav auth_link col justify-content-end">
           <a class="nav-link "  href="{{Route('login')}}">Login</a>
          <button  type="submit" > <a class="nav-link " href="{{Route('register')}}">Rejoignez-nous<i class="fas fa-arrow-right "></i></a></button>
         </div>
         @else
-        <div class="navbar-nav auth_link col justify-content-center align-items-center">
+        <div class="navbar-nav auth_link col justify-content-center align-items-end">
           @if (auth()->user()->avatar)
           <div class="col-lg-4 col-md-6 vv profile-circel-image-60 text-end">
             <img src="{{asset('images/avatars/' . auth()->user()->avatar)}}" alt="user_logo"  class="img-fluid rounded-circle avatar_logo ">

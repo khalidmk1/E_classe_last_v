@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\event;
 use App\Models\User;
+use App\Models\Folow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
@@ -11,10 +12,21 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use FFMpeg\FFMpeg;
 use FFMpeg\FFProbe;
+use Carbon\Carbon;
 
 
 class EventController extends Controller
 {
+
+    public function __construct(){
+        $this->subject = ['Mathématiques' , 'Français' , 'Arabe' , 'Sciences de la Vie et de la Terre (SVT)' , 'Physique , Chimie' , 'Histoire et Géographie' , 
+        'Éducation Islamique' , 'Éducation Civique' , 'Éducation Physique et Sportive (EPS)' , 'Anglais' , 'Technologie' , 'Informatique' , 'Économie et Gestion' ,
+        'Philosophie' , 'Langues étrangères (Espagnol, Allemand, etc.)' , 'Sciences Économiques et Sociales (SES)' , 'Sciences et Technologies Industrielles (STI)']; 
+
+        $this->niveau = ['2 ème année bac' , '1 ère année bac' , 'Tronc commun' , '3ème année collège' , '2ème année collège' ,
+        '1ème année collège'];
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -93,25 +105,34 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('prof.event.create');
+        
+        
+        return view('prof.event.create')->with(['subject'=>$this->subject , 'niveau'=>$this->niveau]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request )
     {
-
-
-     /* dd($request); */
+      
+    
     $request->validate([
         'title' => ['required', 'string', 'max:255'],
-        'description' => ['required', 'string', 'max:255'],
-        'programe' =>['required', 'string', 'max:255'],
+        'description' => ['required', 'string'],
+        'programe' =>['required', 'string'],
+        'price' =>['required' , 'integer'],
+        'date' =>['required' , 'date'],
         'video' => ['required','mimes:mp4'], 
-        'images.*' => ['image','mimes:jpeg,png,jpg,gif'],
+        'images.*' => ['image','mimes:jpeg,png,jpg,gif,webp'],
     ]);
 
+   
+    // Convert the date format to 'YYYY-MM-DD HH:MM:SS'
+    $today = Carbon::now();
+    $date = Carbon::createFromFormat('m/d/Y g:i A', $request->date);
+    $dateFormatted = $date->format('Y-m-d H:i:s');
+   
     $uploadedImages=[];
 if ($request->hasFile('images')) {
     foreach ($request->file('images') as $image) {
@@ -120,26 +141,44 @@ if ($request->hasFile('images')) {
         $uploadedImages[] = $imageName;
     }
 
-    if ($request->has('video')) {
-        $file = $request ->video;
-        $video_name = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('videos'),$video_name);
+    if ($request->hasFile('video')) {
+        $video = $request->file('video');
+        $videoName = time() . '_' . $video->getClientOriginalName();
+        $video->move(public_path('videos'), $videoName);
+    } else {
+        $videoName = null; // Set to null if no video is uploaded.
     }
-
-    if(count($uploadedImages) < 4){
-
-        $event = event::create([
-            'user_id' =>auth()->user()->id,
-            'title' => $request->title,
-            'description' =>$request->description,
-            'programe' => $request->programe,
-            'video' => $video_name,
-            'images' => $uploadedImages,
-        ]);
+   
+    if(count($uploadedImages) < 5){
+        if($today < $dateFormatted ){
+            $event = event::create([
+                'user_id' =>auth()->user()->id,
+                'title' => $request->title,
+                'description' =>$request->description,
+                'programe' => $request->programe,
+                'date'=>$dateFormatted,
+                'price' => $request->price,
+                'subject' =>$request->subject,
+                'niveau' =>$request->niveau,
+                'video' => $videoName,
+                'images' => $uploadedImages,
+            ]);
         
-        return redirect()->back()->with('valide' , 'vous avez cree un cour');
+                $folow = Folow::create([
+                    'user_id' =>auth()->user()->id,
+                    'event_id' => $event->id ,
+                    'folow' => false,
+                    'participat' =>false
+                ]);
+                
+                return redirect()->back()->with('valide' , 'vous avez créé un Cour');
+        }else{
+            return redirect()->back()->with('faild' , ' la date n\'est correcte');
+        }
+       
+     
     }else{
-        return redirect()->back()->with('faild' , 'les maximum des image est 4');
+        return redirect()->back()->with('faild' , 'les maximum des images est 4');
     };
 
 
@@ -152,16 +191,11 @@ if ($request->hasFile('images')) {
 
 
 
+
+
     
 
-     /*    $event = event::create([
-            'user_id' =>auth()->user()->id,
-            'title' => $request->title,
-            'description' =>$request->description,
-            'programe' => $request->programe,
-            'video' => $video_name,
-           'images' => $uploadedImages, 
-        ]); */
+  
         
        
         
@@ -191,52 +225,85 @@ if ($request->hasFile('images')) {
     public function edit(string $id)
     {
         $event = event::find(Crypt::decrypt($id));
-        return view('prof.event.edit')->with('event' , $event);
+        return view('prof.event.edit')->with(['event' => $event ,
+        'subject'=>$this->subject , 'niveau'=>$this->niveau
+    ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request , string $id)
     {
-
+/* dd($id) */;
+/* $event = event::find($id);
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $image->move(public_path('images/event'), $imageName);
                 $uploadedImages[] = $imageName;
-                User::find(auth()->user()->id)->update([
-                    'images' =>$uploadedImages,
-                ]);
+               $event->update('images' ->$uploadedImages);
             };
         }
-     /*    if ($request->has('avatar')) {
-            $file = $request ->avatar;
-            $image_name = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images/avatars'),$image_name);
-
-            User::find(auth()->user()->id)->update([
-                'avatar' =>$image_name,
-            ]);
-            
-            
-        } */
+    
 
         if ($request->hasFile('video')) {
             $file = $request->file('video');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('videos'), $fileName); // Move the uploaded video to the desired location
-            User::find(auth()->user()->id)->update([
+            event::find(auth()->user()->id)->update([
                 'video' =>$fileName,
             ]);
         }
-        User::find(auth()->user()->id)->update([
-            'title' => $request->title,
-            'description'=>$request->description,
-            'programe' =>$request->programe,
-        ]);
+       
+        $input = $request->all();
+        $event->update($input);
 
-        return redirect()->back()->with('seccuse' , 'u have changes');
+        return redirect()->back()->with('seccuse' , 'Vous avez update le cour '); */
+
+
+        $event = Event::find($id);
+
+        $today = now();
+     
+        $date = Carbon::createFromFormat('m/d/Y g:i A', $request->date);
+    $dateFormatted = $date->format('d-m-Y H:i:s');
+    
+
+    $uploadedImages = [];
+
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images/event'), $imageName);
+            $uploadedImages[] = $imageName;
+        }
+    }
+
+    if ($request->hasFile('video')) {
+        $video = $request->file('video');
+        $videoName = time() . '_' . $video->getClientOriginalName();
+        $video->move(public_path('videos'), $videoName);
+        $event->video = $videoName; // Update the video
+    }
+
+    // Update the event attributes
+    $event->title = $request->title;
+    $event->description = $request->description;
+    $event->programe = $request->programe;
+    $event->date = $dateFormatted;
+    $event->price = $request->price;
+    $event->subject = $request->subject;
+    $event->niveau = $request->niveau;
+
+    // Update the images column
+    if (!empty($uploadedImages)) {
+        $event->images = $uploadedImages;
+    }
+
+    $event->save();
+
+    return redirect()->back()->with('success', 'Vous avez mis à jour le cours');
     }
 
     /**

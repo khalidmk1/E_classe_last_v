@@ -8,245 +8,275 @@
 
 
 @section('content')
-
-   <!-- Main content -->
-   <section class="content ">
-    <div class="container-fluid">
-        <div class="col-12" style="height: 20px"></div>
-        <div class="row">
-
-
-            <div class="col-md-3">
-
-                <!-- Profile Image -->
-                <div class="card card-primary card-outline">
-                    <div class="card-body box-profile">
-                        <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle"
-                                src="{{ asset('images/avatars/' . $events->user->avatar) }}"
-                                alt="User profile picture">
-                        </div>
-
-                        <h3 class="profile-username text-center">
-                            {{ $events->user->name . ' ' . $events->user->last_name }}
-                        </h3>
-
-                        <p class="text-muted text-center">{{ $events->title }}</p>
-
-                        <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
-                                <b>Participant</b> <a
-                                    class="float-right">{{ App\Models\Folow::where(['event_id' => $events->id, 'participat' => 1])->count() }}</a>
-                            </li>
-                            @if (!auth()->user()->role == 'prof')
-                            <li class="list-group-item">
-                              
-                                @if (auth()->check())
-                                    @if (App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->where('participat', 0)->exists() || !App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->exists())
-                                        <form action="{{ Route('store.folow', $events->id) }}" method="post">
-                                            @csrf
-                                            <button type="submit"
-                                                class="btn btn-block btn-outline-success">Partciper</button>
-                                        </form>
-                                    @elseif (App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->where('participat', 1)->exists())
-                                        <form action="{{ Route('update.event', $events->id) }}" method="post">
-                                            @csrf
-                                            <button type="submit"
-                                                class="btn btn-block btn-outline-success">unPartciper</button>
-                                        </form>
-                                    @endif
-                                @endif
+    <!-- Main content -->
+    <section class="content ">
+        <div class="container-fluid">
+            <div class="col-12" style="height: 20px"></div>
+            <div class="row">
 
 
+                <div class="col-md-3">
 
-
-
-                            </li>
-                            @endif
-
-                         
-
-                            <li class="list-group-item">
-
-                                       @if (\App\Models\Conversation::where('sender_id', auth()->user()->id)->where('receiver_id', $events->user_id)->orWhere('sender_id', $events->user_id)->where('receiver_id', auth()->user()->id)->count() === 0)
-                                <form action="{{ Route('chat.create', $events->user_id ) }}" method="get">
-                                    @csrf
-                                
-                                    
-                                        <button type="submit"
-                                            class="btn btn-block btn-outline-primary">
-                                            <i class="fa fa-comments-o" aria-hidden="true"></i> Conversation
-                                        </button>
-                                    
-                                
-                            </form>
-                            @else
-                                <a href="/chat" class="btn btn-block btn-outline-primary">chat</a>
-                            @endif
-
-                            </li>
-
-                        </ul>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-
-                <!-- About Me Box -->
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">A propo de moi</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <strong><i class="fas fa-book mr-1"></i> Matière</strong>
-
-                        <p class="text-muted">
-                            {{ $events->user->subject }}
-                        </p>
-
-                        <hr>
-
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Ville</strong>
-
-                        <p class="text-muted">{{ $events->user->county }}</p>
-
-                        <hr>
-
-                        <strong><i class="fas fa-phone"></i>Telephone</strong>
-
-                        <p class="text-muted">
-                            <span class="tag tag-danger">{{ $events->user->phone }}</span>
-
-                        </p>
-
-
-
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </div>
-            <!-- /.col -->
-            <div class="col-md-9">
-                <div class="card">
-
-                    <div class="card-body">
-                        <div class="tab-content">
-                            <div class="active tab-pane">
-
-                                <!-- Post -->
-                                <div class="post">
-
-                                    <div class="row mb-3 ">
-
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <strong>Description :</strong>
-                                                </div>
-                                                <div class="col-12">
-                                                    <p>
-                                                        {{ $events->description }}
-                                                    </p>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-md-12 ">
-                                            <video autoplay id="v1" loop controls
-                                                style="  height: 100%; width: 100%">
-                                                <source src="{{ asset('videos/' . $events->video) }}"
-                                                    type="video/mp4">
-                                            </video>
-                                        </div>
-
-                                        <!-- /.col -->
-                                        <div class="col-md-12 mt-3">
-                                            <div class="card">
-
-                                                <!-- /.card-header -->
-                                                <div class="card-body">
-                                                    <div id="carouselExampleIndicators" class="carousel slide"
-                                                        data-ride="carousel">
-                                                        <ol class="carousel-indicators">
-                                                            <li data-target="#carouselExampleIndicators"
-                                                                data-slide-to="0" class="active"></li>
-                                                            <li data-target="#carouselExampleIndicators"
-                                                                data-slide-to="1"></li>
-                                                            <li data-target="#carouselExampleIndicators"
-                                                                data-slide-to="2"></li>
-                                                        </ol>
-                                                        <!-- ... Previous code ... -->
-
-                                                        <div class="carousel-inner">
-                                                            <div class="carousel-item active ">
-                                                                <img class="d-block w-100 "
-                                                                    src="{{ asset('images/event/' . $events->images[0]) }}"
-                                                                    alt="First slide" style="height: 400px;">
-                                                            </div>
-
-                                                            @foreach ($events->images as $index => $image)
-                                                                <!-- Use a loop to access each image URL -->
-                                                                @if ($index !== 0)
-                                                                    <!-- Skip the first image as it's already displayed as the active slide -->
-                                                                    <div class="carousel-item">
-                                                                        <img class="d-block w-100"
-                                                                            src="{{ asset('images/event/' . $image) }}"
-                                                                            alt="Slide {{ $index + 1 }}"
-                                                                            style="height: 400px;">
-                                                                        <!-- Provide an alt text for each slide -->
-                                                                    </div>
-                                                                @endif
-                                                            @endforeach
-
-                                                        </div>
-
-                                                        <!-- ... Next code ... -->
-
-                                                        <a class="carousel-control-prev"
-                                                            href="#carouselExampleIndicators" role="button"
-                                                            data-slide="prev">
-                                                            <span class="carousel-control-custom-icon"
-                                                                aria-hidden="true">
-                                                                <i class="fas fa-chevron-left"></i>
-                                                            </span>
-                                                            <span class="sr-only">Previous</span>
-                                                        </a>
-                                                        <a class="carousel-control-next"
-                                                            href="#carouselExampleIndicators" role="button"
-                                                            data-slide="next">
-                                                            <span class="carousel-control-custom-icon"
-                                                                aria-hidden="true">
-                                                                <i class="fas fa-chevron-right"></i>
-                                                            </span>
-                                                            <span class="sr-only">Next</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <!-- /.card-body -->
-                                            </div>
-                                            <!-- /.card -->
-                                        </div>
-                                        <!-- /.col -->
-                                    </div>
-                                    <!-- /.row -->
-                                </div>
-                                <!-- /.post -->
+                    <!-- Profile Image -->
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle"
+                                    src="{{ asset('images/avatars/' . $events->user->avatar) }}" alt="User profile picture">
                             </div>
 
-                        </div>
-                        <!-- /.tab-content -->
-                    </div><!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
-    </div><!-- /.container-fluid -->
-</section>
-<!-- /.content -->
+                            <h3 class="profile-username text-center">
+                                {{ $events->user->name . ' ' . $events->user->last_name }}
+                            </h3>
 
+                            <p class="text-muted text-center">{{ $events->title }}</p>
+
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Participant</b> <a
+                                        class="float-right">{{ App\Models\Folow::where(['event_id' => $events->id, 'participat' => 1])->count() }}</a>
+                                </li>
+                                <li class="list-group-item text-center">
+                                    <b>{{ $events->date }}</b>
+                                </li>
+
+
+                                <li class="list-group-item">
+
+
+
+                                    <form action="{{ Route('event.edit',Crypt::encrypt($events->id)) }}" method="get">
+                                        @csrf
+                                       
+                                        <button type="submit" class="btn btn-block btn-outline-success">update</button>
+                                    </form>
+
+
+
+                                </li>
+
+
+
+                                {{-- @if (!auth()->user()->role == 'prof')
+                                    <li class="list-group-item">
+
+                                        @if (auth()->check())
+                                            @if (App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->where('participat', 0)->exists() ||
+    !App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->exists())
+                                                <form action="{{ Route('store.folow', $events->id) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="btn btn-block btn-outline-success">Partciper</button>
+                                                </form>
+                                            @elseif (App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->where('participat', 1)->exists())
+                                                <form action="{{ Route('update.event', $events->id) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="btn btn-block btn-outline-success">unPartciper</button>
+                                                </form>
+                                            @endif
+                                        @endif
+
+
+
+
+
+                                    </li>
+                                @endif --}}
+
+
+
+                                <li class="list-group-item">
+
+                                    @if (\App\Models\Conversation::where('sender_id', auth()->user()->id)->where('receiver_id', $events->user_id)->orWhere('sender_id', $events->user_id)->where('receiver_id', auth()->user()->id)->count() === 0)
+                                        <form action="{{ Route('chat.create', $events->user_id) }}" method="get">
+                                            @csrf
+
+
+                                            <button type="submit" class="btn btn-block btn-outline-primary">
+                                                <i class="fa fa-comments-o" aria-hidden="true"></i> Conversation
+                                            </button>
+
+
+                                        </form>
+                                    @else
+                                        <a href="/chat" class="btn btn-block btn-outline-primary">chat</a>
+                                    @endif
+
+                                </li>
+
+                            </ul>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                    <!-- About Me Box -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">A propo de moi</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <strong><i class="fas fa-book mr-1"></i> Matière</strong>
+
+                            <p class="text-muted">
+                                {{ $events->user->subject }}
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Ville</strong>
+
+                            <p class="text-muted">{{ $events->user->county }}</p>
+
+                            <hr>
+
+                            <strong><i class="fas fa-phone"></i>Telephone</strong>
+
+                            <p class="text-muted">
+                                <span class="tag tag-danger">{{ $events->user->phone }}</span>
+
+                            </p>
+
+
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane">
+
+                                    <!-- Post -->
+                                    <div class="post">
+
+                                        <div class="row mb-3 ">
+
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <strong>Description :</strong>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p>
+                                                            {{ $events->description }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-12 ">
+                                                <video autoplay id="v1" loop controls
+                                                    style="  height: 100%; width: 100%">
+                                                    <source src="{{ asset('videos/' . $events->video) }}" type="video/mp4">
+                                                </video>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-12 mt-3">
+                                                        <strong>Programme :</strong>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p>
+                                                            {!! $events->programe !!}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- /.col -->
+                                            <div class="col-md-12 mt-3">
+                                                <div class="card">
+
+                                                    <!-- /.card-header -->
+                                                    <div class="card-body">
+                                                        <div id="carouselExampleIndicators" class="carousel slide"
+                                                            data-ride="carousel">
+                                                            <ol class="carousel-indicators">
+                                                                <li data-target="#carouselExampleIndicators"
+                                                                    data-slide-to="0" class="active"></li>
+                                                                <li data-target="#carouselExampleIndicators"
+                                                                    data-slide-to="1"></li>
+                                                                <li data-target="#carouselExampleIndicators"
+                                                                    data-slide-to="2"></li>
+                                                            </ol>
+                                                            <!-- ... Previous code ... -->
+
+                                                            <div class="carousel-inner">
+                                                                <div class="carousel-item active ">
+                                                                    <img class="d-block w-100 "
+                                                                        src="{{ asset('images/event/' . $events->images[0]) }}"
+                                                                        alt="First slide" style="height: 400px;">
+                                                                </div>
+
+                                                                @foreach ($events->images as $index => $image)
+                                                                    <!-- Use a loop to access each image URL -->
+                                                                    @if ($index !== 0)
+                                                                        <!-- Skip the first image as it's already displayed as the active slide -->
+                                                                        <div class="carousel-item">
+                                                                            <img class="d-block w-100"
+                                                                                src="{{ asset('images/event/' . $image) }}"
+                                                                                alt="Slide {{ $index + 1 }}"
+                                                                                style="height: 400px;">
+                                                                            <!-- Provide an alt text for each slide -->
+                                                                        </div>
+                                                                    @endif
+                                                                @endforeach
+
+                                                            </div>
+
+                                                            <!-- ... Next code ... -->
+
+                                                            <a class="carousel-control-prev"
+                                                                href="#carouselExampleIndicators" role="button"
+                                                                data-slide="prev">
+                                                                <span class="carousel-control-custom-icon"
+                                                                    aria-hidden="true">
+                                                                    <i class="fas fa-chevron-left"></i>
+                                                                </span>
+                                                                <span class="sr-only">Previous</span>
+                                                            </a>
+                                                            <a class="carousel-control-next"
+                                                                href="#carouselExampleIndicators" role="button"
+                                                                data-slide="next">
+                                                                <span class="carousel-control-custom-icon"
+                                                                    aria-hidden="true">
+                                                                    <i class="fas fa-chevron-right"></i>
+                                                                </span>
+                                                                <span class="sr-only">Next</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.card-body -->
+                                                </div>
+                                                <!-- /.card -->
+                                            </div>
+                                            <!-- /.col -->
+                                        </div>
+                                        <!-- /.row -->
+                                    </div>
+                                    <!-- /.post -->
+                                </div>
+
+                            </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 @endsection

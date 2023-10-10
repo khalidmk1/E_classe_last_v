@@ -18,6 +18,10 @@ use Intervention\Image\Facades\Image;
 
 class RegisteredUserController extends Controller
 {
+
+
+  
+   
     /**
      * Display the registration view.
      */

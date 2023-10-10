@@ -16,18 +16,10 @@ use Illuminate\Support\Facades\Storage;
 
 class RegisteredUserEnseignementController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
-    public function create(): View
-    {
-        return view('auth.register_enseignement');
-    }
 
-    
-    public function demande(): View
+    public function __construct()
     {
-        $county_array=['Casablanca','Ad Dakhla','Ad Darwa','Agadir','Aguelmous','Ain El Aouda','Ait Melloul','Ait Ourir','Al Aaroui','Al Fqih Ben Çalah',
+        $this->county_array=['Casablanca','Ad Dakhla','Ad Darwa','Agadir','Aguelmous','Ain El Aouda','Ait Melloul','Ait Ourir','Al Aaroui','Al Fqih Ben Çalah',
         'Al Hoceïma','Al Khmissat','Al ’Attawia','Arfoud','Azemmour','Aziylal','Azrou','Aïn Harrouda','Aïn Taoujdat','Barrechid','Ben Guerir','Beni Yakhlef',
         'Berkane','Biougra','Bir Jdid','Bou Arfa','Boujad','Bouknadel','Bouskoura','Béni Mellal','Chichaoua','Demnat','El Aïoun','El Hajeb','El Jadid',
        'El Kelaa des Srarhna','Errachidia','Fnidq','Fès','Guelmim','Guercif','Iheddadene','Imzouren','Inezgane','Jerada','Kenitra','Khemis Sahel','Khénifra',
@@ -37,13 +29,32 @@ class RegisteredUserEnseignementController extends Controller
        'Sidi Yahya Zaer','Skhirate','Souk et Tnine Jorf el Mellah','Tahla','Tameslouht','Tangier','Taourirt','Taza','Temara','Temsia','Tifariti','Tit Mellil',
        'Tétouan','Youssoufia','Zagora','Zawyat ech Cheïkh','Zaïo','Zeghanghane',
     ];
-    $subject = ['Mathématiques' , 'Français' , 'Arabe' , 'Sciences de la Vie et de la Terre (SVT)' , 'Physique , Chimie' , 'Histoire et Géographie' , 
-    'Éducation Islamique' , 'Éducation Civique' , 'Éducation Physique et Sportive (EPS)' , 'Anglais' , 'Technologie' , 'Informatique' , 'Économie et Gestion' ,
-    'Philosophie' , 'Langues étrangères (Espagnol, Allemand, etc.)' , 'Sciences Économiques et Sociales (SES)' , 'Sciences et Technologies Industrielles (STI)'];
+        $this->subject = ['Mathématiques' , 'Français' , 'Arabe' , 'Sciences de la Vie et de la Terre (SVT)' , 'Physique , Chimie' , 'Histoire et Géographie' , 
+        'Éducation Islamique' , 'Éducation Civique' , 'Éducation Physique et Sportive (EPS)' , 'Anglais' , 'Technologie' , 'Informatique' , 'Économie et Gestion' ,
+        'Philosophie' , 'Langues étrangères (Espagnol, Allemand, etc.)' , 'Sciences Économiques et Sociales (SES)' , 'Sciences et Technologies Industrielles (STI)'];
+    }
+    
+    /**
+     * Display the registration view.
+     */
+    public function create(): View
+    {
+        return view('auth.register_enseignement')->with(
+            [
+                'county_array'=>$this->county_array,
+                'subject' =>$this->subject,
+                ]
+        );
+    }
+
+    
+    public function demande()
+    {
+       
 
     return view('auth.demande_enseignement')->with([
-        'county_array' => $county_array,
-        'subject' => $subject
+        'county_array' => $this->county_array,
+        'subject' => $this->subject
     ]);
     }
 
@@ -60,6 +71,8 @@ class RegisteredUserEnseignementController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'last_name'=>['required', 'string', 'max:255'],
+            'subject'=>['required', 'string', 'max:255'],
+            'county_array'=>['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -79,6 +92,8 @@ class RegisteredUserEnseignementController extends Controller
                 'name' => $request->name,
                 'last_name'=>$request->last_name,
                 'phone' =>$request->phone,
+                'subject' => $request->subject,
+                'county' =>$request->county_array,
                 'email' => $request->email,
                 'password' => Hash::make($request->password), 
                 'role' => 'prof',  

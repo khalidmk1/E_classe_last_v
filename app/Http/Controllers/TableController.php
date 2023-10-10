@@ -67,18 +67,36 @@ class TableController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(string $id)
     {
        
-        $decryptedId = $request->block;
-        $block = User::find($decryptedId);
+       
+        $block = User::find($id);
     
         if ($block) {
             $block->update([
-                'block' => '1',
+                'block' => true,
             ]);
     
             return redirect()->back()->with('success', 'User blocked successfully');
+        } else {
+            return redirect()->back()->with('error', 'User not found');
+        }
+
+        
+    }
+    public function unblock(string $id)
+    {
+       
+       
+        $block = User::find($id);
+    
+        if ($block) {
+            $block->update([
+                'unblock' => false,
+            ]);
+    
+            return redirect()->back()->with('success', 'Enseignemant unblocked successfully');
         } else {
             return redirect()->back()->with('error', 'User not found');
         }

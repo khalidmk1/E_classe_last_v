@@ -79,16 +79,28 @@
                                                 <td>
 
                                                     <a class="btn btn-block  btn-outline-primary m-2"
-                                                        href="{{ route('profiles.show', Crypt::encrypt($prof->id)) }}"
+                                                        href="{{ route('profiles.show', $prof->id) }}"
                                                         type="submit">Show</a>
 
+                                                    @if ($prof->block == false)
+                                                        <form action="{{ route('table.update', $prof->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <input value="block" name="block" type="submit"
+                                                                class="btn btn-block btn-outline-danger m-2">
+                                                        </form>
+                                                    @else
+                                                        <form action="{{ route('table.unblock', $prof->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <input value="unblock" name="unblock" type="submit"
+                                                                class="btn btn-block btn-outline-danger m-2">
+                                                        </form>
+                                                    @endif
 
-                                                    <form action="{{ route('table.update', $prof->id) }}" method="post">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <input value="block" name="block" type="submit"
-                                                            class="btn btn-block btn-outline-danger m-2">
-                                                    </form>
+
 
 
                                                 </td>

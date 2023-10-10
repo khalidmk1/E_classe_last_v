@@ -15,11 +15,11 @@ class prof
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->role == 'prof'){
+        if(auth()->user()->role == 'prof' ){
             return $next($request);
         }
-        else{
-            return redirect()->back();
+        else{ 
+            return redirect()->back()->with('message' , 'hello');
         }
     }
 }

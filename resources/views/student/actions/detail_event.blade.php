@@ -7,6 +7,8 @@
 
 @section('content')
 
+
+
     <style>
         .btn_chat {
             color: blue !important;
@@ -80,25 +82,31 @@
                                 </li>
                                 @if (auth()->check())
 
-                                @if ($events->user_id == auth()->user()->id)
-                                @else
+
+
+
                                     <li class="list-group-item">
 
 
 
 
                                         @if (auth()->check())
-                                            @if (App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->where('participat', 0)->exists() || !App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->exists())
-                                                <form action="{{ Route('store.folow', $events->id) }}" method="post">
+                                            @if (App\Models\Folow::where('event_id', $events->id)->where('participat', 0)->exists() )
+                                                <form action="{{ Route('store.folow', $events->id) }}" method="post"
+                                                    id="Myform">
                                                     @csrf
                                                     <button type="submit"
-                                                        class="btn btn-block btn_participate btn-outline-success">Partciper</button>
+                                                        class="btn btn-block btn_participate btn-outline-success"
+                                                        data-event-id="{{ $events->id }}"
+                                                        id="participate-btn">Partciper</button>
                                                 </form>
-                                            @elseif (App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->where('participat', 1)->exists())
-                                                <form action="{{ Route('update.event', $events->id) }}" method="post">
+                                            @elseif (App\Models\Folow::where('event_id', $events->id)->where('participat', 1)->exists())
+                                                <form action="{{ Route('update.event', $events->id) }}" method="post" >
                                                     @csrf
                                                     <button type="submit"
-                                                        class="btn btn-block btn_participate btn-outline-success">unPartciper</button>
+                                                        class="btn btn-block btn_participate btn-outline-success"
+                                                        data-event-id="{{ $events->id }}" 
+                                                        id="unparticipate-btn">unPartciper</button>
                                                 </form>
                                             @endif
                                         @else
@@ -111,11 +119,11 @@
 
 
                                     </li>
-                                @endif
-                                    
+
+
                                 @endif
 
-                            
+
 
 
                                 <li class="list-group-item">
@@ -309,6 +317,73 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+
+
+    <script>
+        
+       
+        // Participation button click event
+        $('#participate-btn').on('click', function(event) {
+            event.preventDefault();
+            var form = document.getElementById("Myform");
+            var eventId = $(this).data('event-id');
+            var url = "{{ route('store.folow', ':id') }}";
+            url = url.replace(':id', eventId);
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+                },
+                success: function(response) {
+                    $('#Myform').hide();
+                    $('#unparticipate-btn').show();
+                    // Handle success, e.g., update button appearance or show a message
+                    console.log(response.message);
+
+                    // Reload the page or update UI as needed
+                },
+                error: function(xhr, status, error) {
+                    console.log(url);
+                    // Handle errors if any
+                    console.error(xhr.responseText);
+                }
+            });
+
+        });
+
+        // Unparticipation button click event
+        $('#unparticipate-btn').on('click', function(event) {
+            event.preventDefault()
+            var eventId = $(this).data('event-id');
+            var url = "{{ route('update.event', ':id') }}";
+            url = url.replace(':id', eventId);
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    $('#Myform_2').hide();
+                    $('#unparticipate-btn').show();
+
+                    // Handle success, e.g., update button appearance or show a message
+                    console.log(response.message);
+                    // Reload the page or update UI as needed
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors if any
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    </script>
 
 
 

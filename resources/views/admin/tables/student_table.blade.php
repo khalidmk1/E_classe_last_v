@@ -40,7 +40,7 @@
                             <td>
 
                               <a class="btn btn-block  btn-outline-primary m-2"
-                                  href="{{ route('profiles.show', Crypt::encrypt($student->id)) }}"
+                                  href="{{ route('profiles.show', $student->id) }}"
                                   type="submit">Show</a>
 
 
