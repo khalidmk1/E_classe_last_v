@@ -40,6 +40,15 @@ class EventController extends Controller
     ]);
     }
 
+    public function send_event(){
+        $events = event::where('user_id', auth()->user()->id)->get();
+       
+        
+        return view('layouts.sidebar')->with(
+          'events' , $events
+        );
+    }
+
     public function sort(Request $request){
         
        
@@ -164,12 +173,7 @@ if ($request->hasFile('images')) {
                 'images' => $uploadedImages,
             ]);
         
-                $folow = Folow::create([
-                    'user_id' =>auth()->user()->id,
-                    'event_id' => $event->id ,
-                    'folow' => false,
-                    'participat' =>false
-                ]);
+              
                 
                 return redirect()->back()->with('valide' , 'vous avez créé un Cour');
         }else{

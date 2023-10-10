@@ -108,6 +108,22 @@
               </p>
             </a>
           </li>
+
+
+         <li class="nav-item">
+   
+    <a href="{{ route('folow.accepte', auth()->user()->id) }}" class="nav-link">
+        <i class="fa fa-eye nav-icon" aria-hidden="true"></i>
+        <p>
+            Demande de participation
+        </p>
+    </a>
+</li>
+
+          
+
+
+
          {{--  <li class="nav-item">
             <a href="{{Route('calender')}}" class="nav-link">
               <i class="fa fa-calendar  nav-icon" aria-hidden="true"></i>

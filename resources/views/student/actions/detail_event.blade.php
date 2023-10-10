@@ -10,6 +10,10 @@
 
 
     <style>
+        .float-right {
+            text-decoration: none;
+        }
+
         .btn_chat {
             color: blue !important;
         }
@@ -77,38 +81,47 @@
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Participant</b> <a
-                                        class="float-right">{{ App\Models\Folow::where(['event_id' => $events->id, 'participat' => 1])->count() }}</a>
+                                    <b>Participant</b> <a class="float-right" data-event-id="{{ $events->id }}"
+                                        id="participate_count"></a>
                                 </li>
-                                @if (auth()->check())
 
+                                <li class="list-group-item text-center" id="accepted_li"
+                                    data-event-id="{{ $events->id }}">
+                                    <b>{{ $events->date }}</b>
+                                </li>
 
-
-
+                                @if (auth()->check() && auth()->user()->role == 'student')
                                     <li class="list-group-item">
 
 
 
 
-                                        @if (auth()->check())
-                                            @if (App\Models\Folow::where('event_id', $events->id)->where('participat', 0)->exists() )
-                                                <form action="{{ Route('store.folow', $events->id) }}" method="post"
-                                                    id="Myform">
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="btn btn-block btn_participate btn-outline-success"
-                                                        data-event-id="{{ $events->id }}"
-                                                        id="participate-btn">Partciper</button>
-                                                </form>
-                                            @elseif (App\Models\Folow::where('event_id', $events->id)->where('participat', 1)->exists())
-                                                <form action="{{ Route('update.event', $events->id) }}" method="post" >
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="btn btn-block btn_participate btn-outline-success"
-                                                        data-event-id="{{ $events->id }}" 
-                                                        id="unparticipate-btn">unPartciper</button>
-                                                </form>
-                                            @endif
+                                        @if (auth()->check() )
+
+
+                                      
+
+                                            <form action="{{ Route('store.folow', $events->id) }}" method="post"
+                                                id="Myform">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="btn btn-block btn_participate btn-outline-success"
+                                                    data-event-id="{{ $events->id }}"
+                                                    id="participate-btn">Partciper</button>
+                                            </form>
+
+                                           
+
+                                            <form action="{{ Route('update.event', $events->id) }}" method="post"
+                                                id="Myform_unparticipate">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="btn btn-block btn_participate btn-outline-success"
+                                                    data-event-id="{{ $events->id }}"
+                                                    id="unparticipate-btn">unPartciper</button>
+                                            </form>
+
+
                                         @else
                                             <button type="submit" class="btn btn-block btn_participate btn-outline-success"
                                                 data-bs-toggle="modal" data-bs-target="#exampleModal">Partciper</button>
@@ -119,8 +132,6 @@
 
 
                                     </li>
-
-
                                 @endif
 
 
@@ -225,10 +236,24 @@
                                             </div>
 
                                             <div class="col-md-12 ">
-                                                <video autoplay id="v1" loop controls
+                                                <video autoplay id="video" loop controls
                                                     style="  height: 100%; width: 100%">
                                                     <source src="{{ asset('videos/' . $events->video) }}" type="video/mp4">
                                                 </video>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-12 mt-3">
+                                                        <strong>Programme :</strong>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p>
+                                                            {!! $events->programe !!}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
                                             </div>
 
                                             <!-- /.col -->
@@ -317,19 +342,192 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 
 
     <script>
+        $('#Myform_unparticipate').hide();
+        $('#Myform').hide();
+
+        function stop_video() {
+            var media = $("#video").get(0);
+            media.pause();
+            media.currentTime = 0;
+        }
+
+
         
-       
+        
+
+
+        function check_accepted() {
+            var url_accepte = "{{ route('check.accepte', ':id') }}";
+            var eventId = $('#accepted_li').data('event-id');
+            url_accepte = url_accepte.replace(':id', eventId)
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                type: 'get',
+                url: url_accepte,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+                },
+                success: function(response) {
+
+                    if (response) {
+                        $('#accepted_li').show()
+                    } else {
+                        $('#accepted_li').hide()
+                    }
+
+
+
+
+
+                    // Handle success, e.g., update button appearance or show a message
+
+
+                    // Reload the page or update UI as needed
+                },
+                error: function(xhr, status, error) {
+                    console.log(url);
+                    // Handle errors if any
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+
+        check_accepted()
+
+        function participate_count() {
+            var url_count = "{{ route('paticipate.count', ':id') }}";
+            var eventId = $('#participate_count').data('event-id');
+            url_count = url_count.replace(':id', eventId)
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                type: 'get',
+                url: url_count,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+                },
+                success: function(response) {
+
+                    $('#participate_count').text(response);
+
+
+
+
+
+                    // Handle success, e.g., update button appearance or show a message
+                    console.log(response);
+
+                    // Reload the page or update UI as needed
+                },
+                error: function(xhr, status, error) {
+                    console.log(url);
+                    // Handle errors if any
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+
+        function check_unparticiapate() {
+            var url_unparticipate = "{{ route('check.unparticipte', ':id') }}";
+            var eventId = $('#unparticipate-btn').data('event-id');
+            url_unparticipate = url_unparticipate.replace(':id', eventId)
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type: 'get',
+                url: url_unparticipate,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+                },
+                success: function(response) {
+
+                    if (response) {
+                        $('#Myform').hide();
+                        $('#Myform_unparticipate').show();
+                    } else {
+                        $('#Myform').show();
+                        $('#Myform_unparticipate').hide();
+                    }
+
+
+                    // Handle success, e.g., update button appearance or show a message
+                    console.log(response);
+
+                    // Reload the page or update UI as needed
+                },
+                error: function(xhr, status, error) {
+                    console.log(url);
+                    // Handle errors if any
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+
+
+
+        function check_participate() {
+
+            var url_participate = "{{ route('check.participate', ':id') }}";
+            var eventId = $('#participate-btn').data('event-id');
+            url_participate = url_participate.replace(':id', eventId)
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type: 'get',
+                url: url_participate,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+                },
+                success: function(response) {
+                    if (response) {
+                        $('#Myform').show();
+                        $('#Myform_unparticipate').hide();
+                    } else {
+                        $('#Myform').hide();
+                        $('#Myform_unparticipate').show();
+                    }
+
+                    // Handle success, e.g., update button appearance or show a message
+                    console.log(response);
+
+                    // Reload the page or update UI as needed
+                },
+                error: function(xhr, status, error) {
+                    console.log(url);
+                    // Handle errors if any
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+
+        // Call the function to check participation status when the page loads
+        $(document).ready(function() {
+            check_participate()
+            check_unparticiapate();
+            setInterval(() => {
+                participate_count();
+            }, 1000);
+
+            stop_video()
+
+
+        });
+
+
+
+
         // Participation button click event
         $('#participate-btn').on('click', function(event) {
             event.preventDefault();
-            var form = document.getElementById("Myform");
+
             var eventId = $(this).data('event-id');
             var url = "{{ route('store.folow', ':id') }}";
+
             url = url.replace(':id', eventId);
 
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -340,8 +538,9 @@
                     'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
                 },
                 success: function(response) {
-                    $('#Myform').hide();
-                    $('#unparticipate-btn').show();
+
+                    check_unparticiapate();
+
                     // Handle success, e.g., update button appearance or show a message
                     console.log(response.message);
 
@@ -353,6 +552,8 @@
                     console.error(xhr.responseText);
                 }
             });
+
+
 
         });
 
@@ -370,8 +571,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    $('#Myform_2').hide();
-                    $('#unparticipate-btn').show();
+                    check_participate()
 
                     // Handle success, e.g., update button appearance or show a message
                     console.log(response.message);

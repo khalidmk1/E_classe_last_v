@@ -48,41 +48,13 @@
                                     <form action="{{ Route('event.edit',Crypt::encrypt($events->id)) }}" method="get">
                                         @csrf
                                        
-                                        <button type="submit" class="btn btn-block btn-outline-success">update</button>
+                                        <button type="submit" class="btn btn-block btn-outline-warning">Mis à jour</button>
                                     </form>
 
 
 
                                 </li>
 
-
-
-                                {{-- @if (!auth()->user()->role == 'prof')
-                                    <li class="list-group-item">
-
-                                        @if (auth()->check())
-                                            @if (App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->where('participat', 0)->exists() ||
-    !App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->exists())
-                                                <form action="{{ Route('store.folow', $events->id) }}" method="post">
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="btn btn-block btn-outline-success">Partciper</button>
-                                                </form>
-                                            @elseif (App\Models\Folow::where(['user_id' => auth()->user()->id, 'event_id' => $events->id])->where('participat', 1)->exists())
-                                                <form action="{{ Route('update.event', $events->id) }}" method="post">
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="btn btn-block btn-outline-success">unPartciper</button>
-                                                </form>
-                                            @endif
-                                        @endif
-
-
-
-
-
-                                    </li>
-                                @endif --}}
 
 
 
@@ -174,9 +146,9 @@
                                             </div>
 
                                             <div class="col-md-12 ">
-                                                <video autoplay id="v1" loop controls
+                                                <video autoplay id="video" loop controls
                                                     style="  height: 100%; width: 100%">
-                                                    <source src="{{ asset('videos/' . $events->video) }}" type="video/mp4">
+                                                    <source src="{{ asset('videos/' . $events->video) }}" type="video/mp4"> 
                                                 </video>
                                             </div>
                                             <div class="col-md-12">
@@ -279,4 +251,17 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script>
+        function stop_video() {
+            var media = $("#video").get(0);
+            media.pause();
+            media.currentTime = 0;
+        }
+        stop_video()
+    </script>
+
 @endsection

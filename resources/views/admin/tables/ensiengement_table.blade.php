@@ -79,7 +79,7 @@
                                                 <td>
 
                                                     <a class="btn btn-block  btn-outline-primary m-2"
-                                                        href="{{ route('profiles.show', $prof->id) }}"
+                                                        href="{{ route('profile.show', $prof->id) }}"
                                                         type="submit">Show</a>
 
                                                     @if ($prof->block == false)

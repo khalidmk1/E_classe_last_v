@@ -79,10 +79,15 @@ Route::middleware('student' , 'auth')->group(function () {
     Route::post('update/event/{id}' , [FolowController::class , 'upadte_paticipate'])->name('update.event');
     Route::get('favoris/event' , [FolowController::class , 'favoris'])->name('favoris.event');
     Route::post('unfolow/event/{id}' , [FolowController::class , 'unfolow'])->name('unfolow.event');
+    Route::get('participate/{id}', [FolowController::class, 'check_participate'])->name('check.participate');
+    Route::get('unparticipte/{id}', [FolowController::class, 'check_unparticipte'])->name('check.unparticipte');
+    
+    
+    Route::get('accepte/{id}', [FolowController::class, 'check_accepted'])->name('check.accepte');
     
 
 });
-
+Route::get('accepted', [EventController::class, 'send_event'])->name('sidebar.send');
 
 Route::middleware(['prof' , 'auth'])->group(function () {
     Route::get('event/all_events', [EventController::class , 'index'])->name('event.index');
@@ -90,7 +95,9 @@ Route::middleware(['prof' , 'auth'])->group(function () {
    Route::get('event/edit/{id}', [EventController::class , 'edit'])->name('event.edit');
    Route::put('event/update/{id}', [EventController::class , 'update'])->name('event.update');
    Route::post('/event/store', [EventController::class , 'store'])->name('event.store');
-  
+   Route::get('accepte', [FolowController::class, 'all_inccepte_folow'])->name('folow.accepte');
+
+   
    
 });
 
@@ -115,7 +122,7 @@ Route::middleware('auth')->group(function () {
     Route::get('calender', [CalenderController::class, 'index'])->name('calender');
    Route::post('full-calender/action', [CalenderController::class, 'action']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    
+    Route::get('count/{id}', [FolowController::class, 'count'])->name('paticipate.count');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
    /*  Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); */
    Route::get('/chat/{id}' , [MessagesController::class , 'startConversation'])->name('chat.create');
