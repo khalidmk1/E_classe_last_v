@@ -20,7 +20,7 @@ class EventController extends Controller
 
     public function __construct(){
         $this->subject = ['Mathématiques' , 'Français' , 'Arabe' , 'Sciences de la Vie et de la Terre (SVT)' , 'Physique , Chimie' , 'Histoire et Géographie' , 
-        'Éducation Islamique' , 'Éducation Civique' , 'Éducation Physique et Sportive (EPS)' , 'Anglais' , 'Technologie' , 'Informatique' , 'Économie et Gestion' ,
+        'Éducation Islamique' , 'Éducation Civique' , 'Anglais' ,  'Économie et Gestion' ,
         'Philosophie' , 'Langues étrangères (Espagnol, Allemand, etc.)' , 'Sciences Économiques et Sociales (SES)' , 'Sciences et Technologies Industrielles (STI)']; 
 
         $this->niveau = ['2 ème année bac' , '1 ère année bac' , 'Tronc commun' , '3ème année collège' , '2ème année collège' ,
@@ -40,53 +40,38 @@ class EventController extends Controller
     ]);
     }
 
-    public function send_event(){
-        $events = event::where('user_id', auth()->user()->id)->get();
+   /*  public function send_subject(){
        
-        
-        return view('layouts.sidebar')->with(
-          'events' , $events
+        return view('student.actions.prof')->with(
+           []
         );
-    }
+    } */
+
+
 
     public function sort(Request $request){
         
        
 
 
-        $search = $request->search;
+        $subject = $request->subject;
+        $niveau = $request->niveau;
 
-        if($search){
+        if($subject && $niveau){
            /*  $output = ''; */
 
             if($request->ajax()) {
 
                 /* $output = ''; */
     
-                $events = event::where('title','LIKE', "%$search%")->get();
+                $events = event::with('user')->where('subject','LIKE', "%$subject%")->where('niveau','LIKE', "%$niveau%")->get();
 
                 return response()->json($events);
     
-               
-            
             } 
         }
-      
-       
 
-
-        return view('student.actions.prof');
-
-        
-
-
-        
-        
-
-
-
-
-
+        return view('student.actions.prof')->with([ 'subject'=>$this->subject , 'niveau'=>$this->niveau]);
 
     }
 
@@ -99,7 +84,7 @@ class EventController extends Controller
 
           
 
-            $events = event::all();
+            $events = event::with('user')->get();
 
             return response()->json($events);
 

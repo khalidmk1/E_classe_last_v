@@ -64,6 +64,18 @@ class User extends Authenticatable
    {
        return $this->hasMany(event::class);
    }
+
+   /**
+ * Get all of the Todo for the User
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\HasMany
+ */
+public function todo(): HasMany
+{
+    return $this->hasMany(Todo::class);
+}
+
+
    public function Calender(): HasMany
    {
        return $this->hasMany(Calender::class);

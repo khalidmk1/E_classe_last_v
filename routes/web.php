@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\FolowController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\TodoController;
 
 
 
@@ -85,9 +86,11 @@ Route::middleware('student' , 'auth')->group(function () {
     
     Route::get('accepte/{id}', [FolowController::class, 'check_accepted'])->name('check.accepte');
     
+    
 
 });
-Route::get('accepted', [EventController::class, 'send_event'])->name('sidebar.send');
+/* Route::get('event/subject', [EventController::class, 'send_subject'])->name('event.subject'); */
+
 
 Route::middleware(['prof' , 'auth'])->group(function () {
     Route::get('event/all_events', [EventController::class , 'index'])->name('event.index');
@@ -96,8 +99,13 @@ Route::middleware(['prof' , 'auth'])->group(function () {
    Route::put('event/update/{id}', [EventController::class , 'update'])->name('event.update');
    Route::post('/event/store', [EventController::class , 'store'])->name('event.store');
    Route::get('accepte', [FolowController::class, 'all_inccepte_folow'])->name('folow.accepte');
-
-   
+   Route::put('accepte/folow/{id}', [FolowController::class, 'accepte_folow'])->name('accepte.folow');
+   Route::get('innccepte/message', [FolowController::class, 'meesage_inccepted'])->name('inccepted.message');
+   /* Route::get('folow/inccepted', [FolowController::class, 'view_inccepte'])->name('folowing.inccepted'); */
+   Route::get('todo', [TodoController::class, 'create'])->name('todo.user');
+   Route::post('todos/store', [TodoController::class, 'store'])->name('todos.store');
+   Route::get('todos/list', [TodoController::class, 'get_list'])->name('todos.list');
+   Route::delete('todos/delete/{id}', [TodoController::class, 'Drop_list'])->name('todos.delete');
    
 });
 

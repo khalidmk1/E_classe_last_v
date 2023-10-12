@@ -25,6 +25,7 @@
                       <th>Prenom</th>
                       <th>Email</th>
                       <th>Numero telephone</th>
+                      <th>Coure</th>
                       <th>Action</th>
                       
                     </tr>
@@ -32,27 +33,31 @@
                     <tbody>
                         @foreach ($users as $user )
                         <tr>
-                           {{--  <td><img src="{{asset('images/avatars/' .$user->id)}}" class="rounded mx-auto d-block" height="100" alt="enseignement_img"></td> --}}
-                            <td>{{$user->event->user->name}}</td>
-                           {{--  <td>{{$user->->last_name}}</td>
-                            <td>{{$user->email}}</td>
-                            <td>{{$user->phone}}</td> 
+                            <td><img src="{{asset('images/avatars/' .$user->user->avatar)}}" class="rounded mx-auto d-block" height="100" alt="enseignement_img"></td>
+                            <td>{{$user->user->name}}</td>
+                            <td>{{$user->user->last_name}}</td>
+                            <td>{{$user->user->email}}</td>
+                            <td>{{$user->user->phone}}</td> 
+                            <td>{{$user->event->title}}</td> 
                             <td>
 
                               <a class="btn btn-block  btn-outline-primary m-2"
-                                  href="{{ route('profiles.show', $user->id) }}"
+                                  href="{{ route('profile.show', $user->user->id) }}"
                                   type="submit">Show</a>
 
 
-                              <form action="{{ route('table.update', $user->id) }}" method="post">
+                              <form action="{{ route('accepte.folow', $user->id) }}" method="post">
                                   @csrf
                                   @method('PUT')
-                                  <input value="Accepté" name="accepte" type="submit"
-                                      class="btn btn-block btn-outline-danger m-2">
+                                  <button type="submit"
+                                  class="btn btn-block btn-outline-success m-2" >
+                                    Accepté
+                                  </button >
+                               
                               </form>
 
 
-                          </td> --}}
+                          </td>
                           </tr>
                         @endforeach
                     
@@ -72,5 +77,6 @@
         <!-- /.container-fluid -->
       </section>
       <!-- /.content -->
+      
     
 @endsection

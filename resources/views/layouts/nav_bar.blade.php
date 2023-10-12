@@ -50,10 +50,86 @@
            
            
           </li>
+          @else
+
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-bell"></i>
+              <span class="badge badge-warning navbar-badge" id="messages"></span>
+            </a>
+           
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <span class="dropdown-item dropdown-header">Notification</span>
+             
+              <div class="dropdown-divider"></div>
+              <div  class="dropdown-item">
+                <i class="fas fa-users mr-2"></i>
+                <span id="message_id"></span> 
+                 demande des ensiengement
+              </div>
+            
+             
+              <div class="dropdown-divider"></div>
+              <a href="{{Route('folow.accepte')}}" class="dropdown-item dropdown-footer">Voir toute les demande</a>
+            </div>
+           
+           
+          </li>
+
           @endif
+
+          
          
         
         </ul>
       </nav>
       <!-- /.navbar -->
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+      <script>
+        
+        function message_inccepted() {
+            var url_message = "{{ route('inccepted.message') }}";
+           
+           
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                type: 'get',
+                url: url_message,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+                },
+                success: function(response) {
+
+                  $('#messages').text(response)
+                  $('#message_id').text(response)
+
+                   console.log(response);
+
+
+
+
+
+                    // Handle success, e.g., update button appearance or show a message
+
+
+                    // Reload the page or update UI as needed
+                },
+                error: function(xhr, status, error) {
+                    console.log(url);
+                    // Handle errors if any
+                    console.error(xhr.responseText);
+                }
+            });
+
+
+        }
+
+       /*  setInterval(() => {
+          message_inccepted()
+        }, 1000); */
+       
+      </script>
 

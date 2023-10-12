@@ -406,7 +406,7 @@ src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
                 <div class="row">
 
                     @foreach ($events as $event)
-                        <!-- Modal -->
+                        {{-- <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog " role="document" style="top: 25%">
@@ -423,7 +423,7 @@ src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
 
@@ -490,17 +490,7 @@ src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
 
             <!-- /.card -->
 
-            <script>
-                var modal = document.getElementById('exampleModal');
-                const video = document.querySelector("#v1");
-                if (modal.classList.contains('show')) {
-                    console.log('is show');
-                } else {
-                    video.pause();
-                }
-
-                // if modal is not shown/visible then do something
-            </script>
+       
 
         </section>
         <!-- /.content -->

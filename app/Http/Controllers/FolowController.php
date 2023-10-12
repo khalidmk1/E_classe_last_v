@@ -79,21 +79,19 @@ class FolowController extends Controller
        
     }
 
+
+    public function meesage_folow(){
+        $accepted = Folow::where('user_id' , auth()->user()->id)->where('participat', 1)
+        ->where('accepte', 1);
+        return response()->json($accepted);
+    }
+
   
     
 
 
     public function all_inccepte_folow(){
 
-        /* $eventId  = event::find($id); */
-        /* $user_id = User::all();
-        dd($user); */
-
-       /*  $events = event::where('user_id' , auth()->user()->id )->get();
-        $users = Folow::where('event_id', $events)->where('participat' , 1)->where('accepte' , 0);
-
-        dd($users->count());
-        return view('prof.table_accepte')->with('users' , $users); */
 
         $events = Event::where('user_id', auth()->user()->id)->get();
 
@@ -102,19 +100,40 @@ class FolowController extends Controller
             ->where('accepte', 0)
             ->get();
 
-            dd($users);
-    
-        return view('prof.table_accepte')->with('users', $users);
+           
 
-        
+           
+        return view('prof.table_accepte')->with('users', $users);
+    
      
     
     }
 
-  /*   public function accepte_folow(){
-        $folow_existe = Folow::where('user_id', auth()->user()->id)->exists();
-        return response()->json($data, 200, $headers);
-    } */
+
+    public function meesage_inccepted(){
+        $events = Event::where('user_id', auth()->user()->id)->get();
+
+        $users = Folow::whereIn('event_id', $events->pluck('id'))
+            ->where('participat', 1)
+            ->where('accepte', 0)->count();
+
+            return response()->json($users);
+    }
+
+    public function accepte_folow(string $id){
+
+        $accepted = Folow::find($id);
+      
+        
+        $accepted->update([
+            'accepte'=>true
+        ]);
+
+        return redirect()->back();
+
+    }
+
+
 
   
 

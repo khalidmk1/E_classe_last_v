@@ -74,6 +74,28 @@
         </button>
     </div>
 
+    <div class="form-group">
+        <label for="selected">Niveau</label>
+        <select class="form-control select2" name="niveau" id="niveau" style="width: 100%; height: 100px;">
+            @foreach ($niveau as $niv)
+                <option value="{{ $niv }}" @if (old('subject') == $niv) selected @endif>
+                    {{ $niv }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="selected">Matière</label>
+        <select class="form-control select2" name="subject" id="subject" style="width: 100%; height: 100px;">
+            @foreach ($subject as $sub)
+                <option value="{{ $sub }}" @if (old('subject') == $sub) selected @endif>
+                    {{ $sub }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
 
 
 
@@ -95,13 +117,11 @@
     <script>
         function myFunction(id) {
 
-
-
             /*   console.log(route_store_folow); */
             $.ajax({
                 type: "POST",
                 url: "http://127.0.0.1:8000/folow/event/" + id,
-               
+
 
                 success: function(data) {
                     console.log(data);
@@ -113,68 +133,76 @@
             });
         }
 
-        
+
         $(document).ready(function() {
 
-            var value = $('#search').val();
-            $('#search').on('change', function() {
+            var value = $('#subject').val();
+            $('#subject').on('change', function() {
 
 
-                var value = $(this).val();
+                var subject = $(this).val();
+                var niveau = $('#niveau').val();
+                console.log(niveau);
 
                 if ($(this).val()) {
                     $.ajax({
                         type: "get",
                         url: "/event/search",
                         data: {
-                            'search': value
+                            'subject': subject,
+                            'niveau': niveau
                         },
                         success: function(data) {
-
-                            var output = ""
+                            var output = "";
+                            var processedIds = []; // Initialize an array to store processed IDs
+                            var userId = ''; // Variable to store the user ID
 
                             data.forEach(element => {
+                                var elementId = element.user.id;
+                               
 
-                                var route =
-                                    "{{ route('event.detail', ':id') }}"; // Define the route with a placeholder for ID
-                                route = route.replace(':id', element
+                                console.log(processedIds.indexOf(elementId));
+                                // Check if this ID has already been processed
+                                if (processedIds.indexOf(elementId) === -1) {
+                                    processedIds.push(
+                                    elementId);// Add the ID to the list of processed IDs
+
+                                    
+
+                                    
+                                    var route =
+                                    "{{ route('profile.show_student', ':id') }}"; // Define the route with a placeholder for ID
+                                    route = route.replace(':id', element.user
                                     .id); // Replace the placeholder with the actual ID
-                                var route_folow =
-                                    "{{ route('event.detail', ':id') }}"; // Define the route with a placeholder for ID
-                                route_folow = route_folow.replace(':id', element
+
+                                    var route_folow =
+                                        "{{ route('event.detail', ':id') }}"; // Define the route with a placeholder for ID
+                                    route_folow = route_folow.replace(':id', element
                                     .id); // Replace the placeholder with the actual ID
 
-                                output +=
-                                    `<div class="card dark">
-
-                                        <img src=  "{{ asset('images/event/`+  element.images[0] +`') }}"  class="card-img-top img" alt="...">
-<div class="card-body">
-  <div class="text-section">
-    <h5 class="card-title">` + element.title + `</h5>
-    <p class="card-text">` + element.description + `</p>
-  </div>
-  <div class="cta-section">
-
-  <button class="btn btn-sm" id="favoris" type="submit">
-  <i class="fa fa-star"  aria-hidden="true"></i> 
-</button>
-<a href="` + route + `" class="btn btn-light">Voir detail</a>
-   
-  </div>
-</div>
-
-</div>`
+                                    output += `<div class="card dark">
+                        <img src="{{ asset('images/avatars/`+  element.user.avatar +`') }}"  class="card-img-top img" alt="...">
+                        <div class="card-body">
+                            <div class="text-section">
+                                <h5 class="card-title">` + element.user.name + `</h5>
+                                <p class="card-text">` + element.description + `</p>
+                            </div>
+                            <div class="cta-section">
+                                <button class="btn btn-sm" id="favoris" type="submit">
+                                    <i class="fa fa-star"  aria-hidden="true"></i> 
+                                </button>
+                                <a href="` + route + `" class="btn btn-light">Voir detail</a>
+                            </div>
+                        </div>
+                    </div>`;
+                                }
                             });
 
-
-
-
                             $('.containe_1').html(output);
-
                         }
                     });
-
                 }
+
 
 
                 if (value == 0) {
@@ -196,16 +224,16 @@
                     success: function(data) {
 
 
-                        var output = ""
+                       /*  var output = ""
 
                         data.forEach(element => {
 
                             var route =
-                                "{{ route('event.detail', ':id') }}"; // Define the route with a placeholder for ID
+                                "{{ route('profile.show_student', ':id') }}"; // Define the route with a placeholder for ID
 
 
 
-                            route = route.replace(':id', element
+                            route = route.replace(':id', element.user
                                 .id); // Replace the placeholder with the actual ID
 
                             var route_folow =
@@ -217,25 +245,25 @@
                             output +=
                                 `<div class="card dark">
 
-                                    <img src=  "{{ asset('images/event/`+  element.images[0] +`') }}"  class="card-img-top img" alt="...">
+                                    <img src=  "{{ asset('images/avatars/`+  element.user.images +`') }}"  class="card-img-top img" alt="...">
 <div class="card-body">
   <div class="text-section">
-    <h5 class="card-title">` + element.title + `</h5>
+    <h5 class="card-title">` + element.user.name + `</h5>
     <p class="card-text">` + element.description + `</p>
   </div>
   <div class="cta-section">
  
     ${isAuthenticated ? // Check if the user is authenticated
         `
-                    
-                    <button  class="btn btn-sm" id="favoris">
-                            <i class="fa fa-star" onclick="myFunction(`+element.id +`)" aria-hidden="true"></i> 
-                        </button>
-                   
-                ` :
+                                    
+                                    <button  class="btn btn-sm" id="favoris">
+                                            <i class="fa fa-star" onclick="myFunction(`+element.id +`)" aria-hidden="true"></i> 
+                                        </button>
+                                   
+                                ` :
     `<button class="btn btn-sm">
-                            <i class="fa fa-star"   aria-hidden="true"></i> 
-                        </button>`}
+                                            <i class="fa fa-star"   aria-hidden="true"></i> 
+                                        </button>`}
   
 
     <a href="` + route + `" class="btn btn-light">Voir detail</a>
@@ -245,7 +273,52 @@
 </div>`
 
 
-                        });
+                        }); */
+
+                        var output = "";
+                            var processedIds = []; // Initialize an array to store processed IDs
+                            var userId = ''; // Variable to store the user ID
+
+                            data.forEach(element => {
+                                var elementId = element.user.id;
+                               
+
+                               
+                                // Check if this ID has already been processed
+                                if (processedIds.indexOf(elementId) === -1) {
+                                    processedIds.push(
+                                    elementId);// Add the ID to the list of processed IDs
+
+        
+                                    
+                                    var route =
+                                    "{{ route('profile.show_student', ':id') }}"; // Define the route with a placeholder for ID
+                                    route = route.replace(':id', element.user
+                                    .id); // Replace the placeholder with the actual ID
+
+                                    var route_folow =
+                                        "{{ route('event.detail', ':id') }}"; // Define the route with a placeholder for ID
+                                    route_folow = route_folow.replace(':id', element
+                                    .id); // Replace the placeholder with the actual ID
+
+                                    output += `<div class="card dark">
+                        <img src="{{ asset('images/avatars/`+  element.user.avatar +`') }}"  class="card-img-top img" alt="...">
+                        <div class="card-body">
+                            <div class="text-section">
+                                <h5 class="card-title">` + element.user.name + `</h5>
+                                <p class="card-text">` + element.description + `</p>
+                            </div>
+                            
+                            <div class="cta-section">
+                                <button class="btn btn-sm" id="favoris" type="submit">
+                                    <i class="fa fa-star"  aria-hidden="true"></i> 
+                                </button>
+                                <a href="` + route + `" class="btn btn-light">Voir detail</a>
+                            </div>
+                        </div>
+                    </div>`;
+                                }
+                            });
                         $('.containe_1').html(output);
 
 

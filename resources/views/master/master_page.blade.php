@@ -30,6 +30,13 @@
     <!-- summernote -->
     <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
     <link rel="stylesheet" href="{{ asset('assets/dashboard.css') }}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="../../plugins/sweetalert2/sweetalert2.min.css">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 
 
 
@@ -89,7 +96,7 @@
 
 
     <!-- summernote -->
-    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
 
 
 
@@ -156,9 +163,32 @@
     <!-- Summernote -->
     <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
 
-     <!-- dashboard  -->
-     <script src="{{ asset('assets/dashboard.js') }}"></script>
-    
+    <!-- dashboard  -->
+    <script src="{{ asset('assets/dashboard.js') }}"></script>
+
+
+
+
+
+
+
+
+    {{--   <!-- ChartJS -->
+    <script src="../../plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="../../plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="../../plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="../../plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="../../plugins/jquery-knob/jquery.knob.min.js"></script> --}}
+
+
+
+    <!-- overlayScrollbars -->
+    <script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+
+
 
 
     {{--  <!-- jQuery -->
