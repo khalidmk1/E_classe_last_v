@@ -29,6 +29,7 @@ class Chat extends Component
 
     public function sendMessage()
     {
+        $table_existe  = Conversation::where('');
         $conversation = Conversation::find($this->selectedConversationId);
         if ($conversation->sender_id === Auth()->user()->id) {
             $receiver_id = Auth()->user()->id;

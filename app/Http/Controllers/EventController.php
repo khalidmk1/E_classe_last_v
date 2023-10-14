@@ -64,7 +64,7 @@ class EventController extends Controller
 
                 /* $output = ''; */
     
-                $events = event::with('user')->where('subject','LIKE', "%$subject%")->where('niveau','LIKE', "%$niveau%")->get();
+                $events = event::with('user')->where('subject','LIKE', "%$subject%")->orwhere('niveau','LIKE', "%$niveau%")->get();
 
                 return response()->json($events);
     

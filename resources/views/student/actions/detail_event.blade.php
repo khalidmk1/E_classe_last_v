@@ -85,10 +85,13 @@
                                         id="participate_count"></a>
                                 </li>
 
-                                <li class="list-group-item text-center" id="accepted_li"
-                                    data-event-id="{{ $events->id }}">
-                                    <b>{{ $events->date }}</b>
-                                </li>
+                                @if (auth()->check())
+                                    <li class="list-group-item text-center" id="accepted_li"
+                                        data-event-id="{{ $events->id }}">
+                                        <b>{{ $events->date }}</b>
+                                    </li>
+                                @endif
+
 
                                 @if (auth()->check() && auth()->user()->role == 'student')
                                     <li class="list-group-item">
@@ -96,11 +99,7 @@
 
 
 
-                                        @if (auth()->check() )
-
-
-                                      
-
+                                        @if (auth()->check())
                                             <form action="{{ Route('store.folow', $events->id) }}" method="post"
                                                 id="Myform">
                                                 @csrf
@@ -110,7 +109,7 @@
                                                     id="participate-btn">Partciper</button>
                                             </form>
 
-                                           
+
 
                                             <form action="{{ Route('update.event', $events->id) }}" method="post"
                                                 id="Myform_unparticipate">
@@ -120,11 +119,7 @@
                                                     data-event-id="{{ $events->id }}"
                                                     id="unparticipate-btn">unPartciper</button>
                                             </form>
-
-
                                         @else
-                                            <button type="submit" class="btn btn-block btn_participate btn-outline-success"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal">Partciper</button>
                                         @endif
 
 
@@ -155,10 +150,13 @@
                                                 class="btn btn-block btn-outline-primary">chat</a>
                                         @endif
                                     @else
+                                        <button type="submit" class="btn btn-block btn_participate btn-outline-success"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Partciper</button>
+                                        {{-- 
                                         <button type="submit" class="btn btn-block btn_chat btn-outline-primary"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <i class="fa fa-comments-o"></i> Conversation
-                                        </button>
+                                        </button> --}}
                                     @endif
 
 
@@ -342,7 +340,7 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 
@@ -358,8 +356,8 @@
         }
 
 
-        
-        
+
+
 
 
         function check_accepted() {

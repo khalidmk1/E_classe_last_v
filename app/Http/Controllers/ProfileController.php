@@ -76,16 +76,16 @@ class ProfileController extends Controller
 
   
 
-    public function view_profile(Request $request){
+    /* public function view_profile(Request $request){
 
         $search = $request->search;
 
         if($search){
-           /*  $output = ''; */
+           
 
             if($request->ajax()) {
 
-                /* $output = ''; */
+               
     
                 $users = User::where('role', 'prof')
                 ->where(function ($query) use ($search) {
@@ -105,10 +105,10 @@ class ProfileController extends Controller
 
 
         return view('student.actions.profile');
-    }
+    } */
 
 
-    public function all_profile(Request $request){
+    /* public function all_profile(Request $request){
 
         if($request->ajax()) {
 
@@ -122,7 +122,7 @@ class ProfileController extends Controller
         
         }
        
-    }
+    } */
 
     /**
      * Display the user's profile form.

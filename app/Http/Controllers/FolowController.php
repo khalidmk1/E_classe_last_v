@@ -162,6 +162,37 @@ class FolowController extends Controller
     }
 
 
+    public function create_favoris(string $id){
+
+        $eventId  = event::find($id);
+        $Folow_true = Folow::where(['event_id'=>$eventId->id ,'folow' => 0 ]); 
+         $existingFolow = Folow::where('user_id', auth()->user()->id)->where('event_id', $eventId->id)->exists();
+         
+       
+ 
+        
+ 
+         if(!$existingFolow){
+ 
+             Folow::create([
+                 'user_id' => auth()->user()->id,
+                 'event_id' => $eventId->id,
+                 'folow' =>true
+             ]);
+             $response = ['message' => 'Your create folow '];
+             
+     
+             return response()->json($response);
+         }else{
+            $response_1 = ['message' => 'Your update folow '];
+             $Folow_true->update([
+                 'folow' =>true
+             ]);
+             return response()->json($response_1);
+         }
+
+    }
+
 
     public function favoris(){
        
@@ -183,6 +214,9 @@ class FolowController extends Controller
     public function favoris_list() {
         return view('event.favoris');
     }
+
+
+
 
     
 

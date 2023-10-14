@@ -1,9 +1,4 @@
-
-
-
-   
-
-    @extends('master.master_table')
+@extends('master.master_table')
 
 @section('title')
 @endsection

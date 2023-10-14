@@ -127,6 +127,16 @@
                     </ul>
                 </div>
             </div>
+            @if (auth()->check())
+            @if (auth()->user()->id == $profile->id)
+                <div class="col-md-2">
+                    <a href="{{ Route('profile.edit') }}" class="btn btn-block btn-outline-warning" name="btnAddMore"
+                        value="Edit Profile">Modifier</a>
+                 
+
+                </div>
+            @endif
+        @endif
           
 
 

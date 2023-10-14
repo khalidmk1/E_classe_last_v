@@ -25,21 +25,40 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//this route for finding a prof in professeur page that i dont need it any more
+/* Route::get('profile/search' , [ProfileController::class , 'view_profile'])->name('profile.search');
+Route::get('profile/all' , [ProfileController::class , 'all_profile'])->name('profile.all'); */
+/* Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show'); */
 
+
+/* find a prof page*/
 Route::get('event/search' , [EventController::class , 'sort'])->name('event.sort');
-Route::get('event/detail/{id}', [EventController::class , 'detail_student'])->name('event.detail');
+/* show all event in find a prof page */
 Route::get('event/all' , [EventController::class , 'all_event'])->name('event.all');
+
+
+Route::post('favoris/{id}', [FolowController::class, 'create_favoris'])->name('create.favoris');
+
+/* show profile of pecifique id */
+Route::get('profile/show/{id}', [ProfileController::class, 'show_student'])->name('profile.show_student');
+/* show event of pecifique id */
+Route::get('event/detail/{id}', [EventController::class , 'detail_student'])->name('event.detail');
+
+
+
 Route::get('favoris/event' , [FolowController::class , 'favoris'])->name('favoris.event');
 Route::post('folow/event/{id}' , [FolowController::class , 'store'])->name('store.folow');
-Route::get('profile/search' , [ProfileController::class , 'view_profile'])->name('profile.search');
-Route::get('profile/all' , [ProfileController::class , 'all_profile'])->name('profile.all');
-/* Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show'); */
-Route::get('profile/show/{id}', [ProfileController::class, 'show_student'])->name('profile.show_student');
+
+
+
 Route::get('users/profile' , [ProfileController::class, 'show_pro'])->name('profile.show_prof');
 
 
 
 Route::get('/', [ProfileController::class, 'show_pro'])->name('profile.show_prof');
+
+
+
 
 
 

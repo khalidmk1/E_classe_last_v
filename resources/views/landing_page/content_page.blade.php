@@ -388,7 +388,7 @@
                                             </p>
                                             <h4 class="card-title">{{ $user->name . ' ' . $user->last_name }}</h4>
                                             <p class="card-text">{{ $user->subject }}</p>
-                                            <a href="{{ Route('profile.search') }}" class="btn btn-primary btn-sm"><i
+                                            <a href="{{ Route('event.sort') }}" class="btn btn-primary btn-sm"><i
                                                     class="fa fa-plus"></i></a>
                                         </div>
                                     </div>
