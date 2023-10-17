@@ -38,21 +38,34 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {{--  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div> --}}
+
                 <div class="modal-body text-center">
                     il faut etre ithentifier
                 </div>
                 <a href="{{ Route('login') }}" class="btn btn-primary w-50 m-auto">login</a>
                 <a href="{{ Route('register') }}" class="btn btn-secondery w-50 m-auto">register</a>
-                {{--  <div class="modal-footer">
-                    
-                </div> --}}
+
             </div>
         </div>
     </div>
+    <!-- Modal 2 -->
+    <div class="modal fade" id="exampleModal_2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body text-center">
+
+                    <strong> Merci pour votre participation au cours. Vous pouvez connaître la date de la prochaine session
+                        et
+                        discuter avec l'enseignant de ce cours une fois qu'il vous aura accepté dans sa classe.</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 
 
@@ -60,6 +73,8 @@
     <section class="content ">
         <div class="container-fluid">
             <div class="col-12" style="height: 20px"></div>
+
+
             <div class="row">
 
 
@@ -72,6 +87,8 @@
                                 <img class="profile-user-img img-fluid img-circle"
                                     src="{{ asset('images/avatars/' . $events->user->avatar) }}" alt="User profile picture">
                             </div>
+
+
 
                             <h3 class="profile-username text-center">
                                 {{ $events->user->name . ' ' . $events->user->last_name }}
@@ -131,39 +148,31 @@
 
 
 
-
-                                <li class="list-group-item">
-                                    @if (auth()->check())
-                                        @if (\App\Models\Conversation::where('sender_id', auth()->user()->id)->where('receiver_id', $events->user_id)->orWhere('sender_id', $events->user_id)->where('receiver_id', auth()->user()->id)->count() === 0)
-                                            <form action="{{ Route('chat.create', $events->user_id) }}" method="get">
-                                                @csrf
+                                @if (auth()->check())
+                                    <li class="list-group-item" id="conversation">
 
 
-                                                <button type="submit" class="btn btn-block btn_chat btn-outline-primary">
-                                                    <i class="fa fa-comments-o" aria-hidden="true"></i> Conversation
-                                                </button>
+
+                                        <form action="{{ Route('chat.create', $events->user_id) }}" method="get">
+                                            @csrf
 
 
-                                            </form>
-                                        @else
-                                            <a href="{{ Route('chat.etudiant') }}"
-                                                class="btn btn-block btn-outline-primary">chat</a>
-                                        @endif
-                                    @else
+                                            <button type="submit" class="btn btn-block btn_chat btn-outline-primary">
+                                                <i class="fa fa-comments" aria-hidden="true"></i> Conversation
+                                            </button>
+
+
+                                        </form>
+
+
+                                    </li>
+                                @else
+                                    <li class="list-group-item">
                                         <button type="submit" class="btn btn-block btn_participate btn-outline-success"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal">Partciper</button>
-                                        {{-- 
-                                        <button type="submit" class="btn btn-block btn_chat btn-outline-primary"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="fa fa-comments-o"></i> Conversation
-                                        </button> --}}
-                                    @endif
+                                    </li>
+                                @endif
 
-
-
-
-
-                                </li>
 
                             </ul>
                         </div>
@@ -375,22 +384,16 @@
                 success: function(response) {
 
                     if (response) {
-                        $('#accepted_li').show()
+                        $('#accepted_li').show();
+                        $('#conversation').show();
                     } else {
-                        $('#accepted_li').hide()
+                        $('#accepted_li').hide();
+                        $('#conversation').hide();
                     }
 
-
-
-
-
-                    // Handle success, e.g., update button appearance or show a message
-
-
-                    // Reload the page or update UI as needed
                 },
                 error: function(xhr, status, error) {
-                    console.log(url);
+
                     // Handle errors if any
                     console.error(xhr.responseText);
                 }
@@ -415,17 +418,13 @@
 
                     $('#participate_count').text(response);
 
-
-
-
-
                     // Handle success, e.g., update button appearance or show a message
                     console.log(response);
 
                     // Reload the page or update UI as needed
                 },
                 error: function(xhr, status, error) {
-                    console.log(url);
+
                     // Handle errors if any
                     console.error(xhr.responseText);
                 }
@@ -447,6 +446,7 @@
 
                     if (response) {
                         $('#Myform').hide();
+
                         $('#Myform_unparticipate').show();
                     } else {
                         $('#Myform').show();
@@ -507,11 +507,15 @@
         $(document).ready(function() {
             check_participate()
             check_unparticiapate();
+
+
             setInterval(() => {
                 participate_count();
             }, 1000);
 
             stop_video()
+
+
 
 
         });
@@ -536,8 +540,9 @@
                     'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
                 },
                 success: function(response) {
-
+                    $('#exampleModal_2').modal('show');
                     check_unparticiapate();
+
 
                     // Handle success, e.g., update button appearance or show a message
                     console.log(response.message);

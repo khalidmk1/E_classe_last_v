@@ -32,14 +32,26 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
+                @if (auth()->user()->role == 'admin')
                 <li class="nav-item">
-                    <a href="{{ Route('dashboard') }}" class="nav-link">
+                    <a href="{{ Route('dashboard.admin') }}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Accuielle
                         </p>
                     </a>
                 </li>
+                @else
+                <li class="nav-item">
+                    <a href="{{ Route('dashboard.prof') }}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Accuielle
+                        </p>
+                    </a>
+                </li>
+                @endif
+               
 
 
 
@@ -104,16 +116,17 @@
                         <a href="{{ Route('event.index') }}" class="nav-link">
                             <i class="fa fa-eye nav-icon" aria-hidden="true"></i>
                             <p>
-                                voir tes Cours
+                                Voir tes Cours
                             </p>
                         </a>
                     </li>
 
 
+
                     <li class="nav-item">
 
                         <a style="font-size: 15px;" href="{{ route('folow.accepte') }}" class="nav-link">
-                            <i class="fa fa-eye nav-icon" aria-hidden="true"></i>
+                            <i class="nav-icon fas fa-user" aria-hidden="true"></i>
                             <p>
                                 Demande de participant
                             </p>
@@ -122,7 +135,8 @@
                     <li class="nav-item">
 
                         <a style="font-size: 15px;" href="{{ route('todo.user') }}" class="nav-link">
-                            <i class="fa fa-eye nav-icon" aria-hidden="true"></i>
+                           
+                            <i class="ion ion-clipboard nav-icon"  aria-hidden="true"></i>
                             <p>
                                 Todo list
                             </p>

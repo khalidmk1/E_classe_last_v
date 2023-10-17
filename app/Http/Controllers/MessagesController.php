@@ -42,11 +42,28 @@ public function sendMessage(Request $request)
 public function startConversation($id)
     {
 
-      Conversation::create([
-        "sender_id" => Auth::user()->id,
-        "receiver_id" => $id
-    ]);
-    return redirect()->route('chat');
+      $table_existe  = Conversation::where('sender_id' , auth()->user()->id)->where('receiver_id' , $id)->exists();
+      $user_existe = Conversation::where('sender_id' , $id)->where('receiver_id' , auth()->user()->id)->exists();
+      if(!$table_existe && !$user_existe){
+        Conversation::create([
+          "sender_id" => Auth::user()->id,
+          "receiver_id" => $id
+        ]);
+        if(auth()->user()->role == 'prof'){
+          return redirect()->route('chat');
+        }else{
+          return redirect()->route('chat.etudiant');
+        }
+       
+        
+      }else{
+        if(auth()->user()->role == 'prof'){
+          return redirect()->route('chat');
+        }else{
+          return redirect()->route('chat.etudiant');
+        }
+      }
+     
 
       
        

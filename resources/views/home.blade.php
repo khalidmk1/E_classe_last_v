@@ -31,9 +31,9 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="container-fluid">
+        <div class="container-fluid ">
             <!-- Info boxes -->
-            <div class="row">
+            <div class="row p-3">
                 @if (auth()->user()->role == 'admin' || auth()->user()->role == 'student')
                     <div class="col-12 col-sm-6 col-md-3">
 

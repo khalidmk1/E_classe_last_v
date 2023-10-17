@@ -59,11 +59,6 @@ class ProfileController extends Controller
         return view('profile.show_student')->with(['profile' => $profile ,
         'events'=>$events
     ]);
-       /*  if($profile->id != auth()->user()->id){
-            return redirect()->back();
-        }else{
-           
-        } */
  
      
     }
@@ -73,56 +68,6 @@ class ProfileController extends Controller
         return view('landing_page.content_page')->with('users' , $users);
     }
 
-
-  
-
-    /* public function view_profile(Request $request){
-
-        $search = $request->search;
-
-        if($search){
-           
-
-            if($request->ajax()) {
-
-               
-    
-                $users = User::where('role', 'prof')
-                ->where(function ($query) use ($search) {
-                    $query->where('name', 'LIKE', "%$search%")
-                        ->orWhere('last_name', 'LIKE', "%$search%");
-                })
-                ->get();
-
-                return response()->json($users);
-    
-              
-            
-            } 
-        }
-      
-       
-
-
-        return view('student.actions.profile');
-    } */
-
-
-    /* public function all_profile(Request $request){
-
-        if($request->ajax()) {
-
-          
-
-            $users = User::where('role', 'prof')->get();
-
-            return response()->json($users);
-
-        
-        
-        }
-       
-    } */
 
     /**
      * Display the user's profile form.
@@ -136,6 +81,12 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function edit_student(string $id)
+    {
+        $profile = find($id);
+        return view('profile.edit_student')->with('profile' ,$profile);
+    }
+
 
    
 
@@ -143,30 +94,7 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-            /* $request->user()->fill($request->validated(
-                
-            ));
-
-
-
-            if ($request->user()->isDirty('email')) {
-                $request->user()->email_verified_at = null;
-            }
-
-            $request->user()->save();
-
-            return Redirect::back()->with('status', 'profile-updated'); */
-        /*  if(!auth()->user()->subject == " " && !auth()->user()->county == " " ){
-                $this->validate($request,[
-                    'name' => 'required',
-                    'last_name' => 'required',
-                    'phone' => 'required',
-                    'county' => 'required',
-                    'subject' => 'required',
-                ]); */
-    /* }  */
-       
+    {   
 
         if ($request->has('avatar')) {
             $file = $request ->avatar;

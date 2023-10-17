@@ -8,6 +8,9 @@
 
 
 @section('content')
+
+
+
     <!-- Main content -->
     <section class="content ">
         <div class="container-fluid">
@@ -60,20 +63,18 @@
 
                                 <li class="list-group-item">
 
-                                    @if (\App\Models\Conversation::where('sender_id', auth()->user()->id)->where('receiver_id', $events->user_id)->orWhere('sender_id', $events->user_id)->where('receiver_id', auth()->user()->id)->count() === 0)
-                                        <form action="{{ Route('chat.create', $events->user_id) }}" method="get">
+                                  
+                                        <form action="{{ Route('chat.create', $events->user_id) }}" method="get" >
                                             @csrf
 
 
                                             <button type="submit" class="btn btn-block btn-outline-primary">
-                                                <i class="fa fa-comments-o" aria-hidden="true"></i> Conversation
+                                                <i class="fas fa-comments" aria-hidden="true"></i> Conversation
                                             </button>
 
 
                                         </form>
-                                    @else
-                                        <a href="/chat" class="btn btn-block btn-outline-primary">chat</a>
-                                    @endif
+                                   
 
                                 </li>
 
@@ -110,6 +111,55 @@
                                 <span class="tag tag-danger">{{ $events->user->phone }}</span>
 
                             </p>
+
+
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                    <!-- About Me Box -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Utilisateur associé à ce cours</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            @foreach ($users as $user )
+                            <div class="d-flex align-items-center justify-content-between">
+                                <img src="{{asset('images/avatars/' . $user->avatar)}}" alt="user-avatar"
+                                class="img-circle img-fluid" style="height: 100px ; width: 100px"> 
+    
+                                <strong class="text-muted">
+                                    {{ $user->name . " " . $user->last_name}}
+                                </strong>
+
+                               
+                                <form action="{{ Route('chat.create', $user->id) }}" method="get">
+                                    @csrf
+
+
+                                    <button type="submit" class="btn btn-block btn-outline-primary">
+                                        <i class="fas fa-comments" aria-hidden="true"></i>
+                                    </button>
+
+
+                                </form>
+                         
+
+                            </div>
+                           
+
+                            <hr>
+                            @endforeach
+
+                            
+
+                           
+
+                           
 
 
 

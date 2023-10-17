@@ -40,105 +40,27 @@
             height: 120px;
             border-radius: 50%;
         }
-
-        /*   .image-flip:hover .backside,
-                .image-flip.hover .backside {
-                    -webkit-transform: rotateY(0deg);
-                    -moz-transform: rotateY(0deg);
-                    -o-transform: rotateY(0deg);
-                    -ms-transform: rotateY(0deg);
-                    transform: rotateY(0deg);
-                    border-radius: .25rem;
-                }
-
-                .image-flip:hover .frontside,
-                .image-flip.hover .frontside {
-                    -webkit-transform: rotateY(180deg);
-                    -moz-transform: rotateY(180deg);
-                    -o-transform: rotateY(180deg);
-                    transform: rotateY(180deg);
-                }
-
-                .mainflip {
-                    -webkit-transition: 1s;
-                    -webkit-transform-style: preserve-3d;
-                    -ms-transition: 1s;
-                    -moz-transition: 1s;
-                    -moz-transform: perspective(1000px);
-                    -moz-transform-style: preserve-3d;
-                    -ms-transform-style: preserve-3d;
-                    transition: 1s;
-                    transform-style: preserve-3d;
-                    position: relative;
-                }
-
-                .frontside {
-                    position: relative;
-                    -webkit-transform: rotateY(0deg);
-                    -ms-transform: rotateY(0deg);
-                    z-index: 2;
-                    margin-bottom: 30px;
-                }
-
-                .backside {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    background: white;
-                    -webkit-transform: rotateY(-180deg);
-                    -moz-transform: rotateY(-180deg);
-                    -o-transform: rotateY(-180deg);
-                    -ms-transform: rotateY(-180deg);
-                    transform: rotateY(-180deg);
-                    -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-                    -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-                    box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-                }
-
-                .frontside,
-                .backside {
-                    -webkit-backface-visibility: hidden;
-                    -moz-backface-visibility: hidden;
-                    -ms-backface-visibility: hidden;
-                    backface-visibility: hidden;
-                    -webkit-transition: 1s;
-                    -webkit-transform-style: preserve-3d;
-                    -moz-transition: 1s;
-                    -moz-transform-style: preserve-3d;
-                    -o-transition: 1s;
-                    -o-transform-style: preserve-3d;
-                    -ms-transition: 1s;
-                    -ms-transform-style: preserve-3d;
-                    transition: 1s;
-                    transform-style: preserve-3d;
-                }
-
-                .frontside .card,
-                .backside .card {
-                    min-height: 312px;
-                }
-
-                .backside .card a {
-                    font-size: 18px;
-                    color: #007b5e !important;
-                }
-
-                .frontside .card .card-title,
-                .backside .card .card-title {
-                    color: #007b5e !important;
-                }
-
-                .frontside .card .card-body img {
-                    width: 120px;
-                    height: 120px;
-                    border-radius: 50%;
-                } */
     </style>
+
+
+
 
     <section class="container-fluid first_content p-3 " id="Accueil">
         <div class="row align-items-center justify-content-end row-gap-3 mt-1">
             <div class="col-md-6 content_introduction">
                 <div class="row  align-items-center ">
+                    <div class="col-12">
+                        @error('message')
+                            <div class="alert alert-warning alert-dismissible fade show"
+                                style="display: flex; align-items: center;" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button style="background: #f9eb6e" type="button" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <span style="color: #383c3a" aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @enderror
+                    </div>
                     <div class="col-12">
                         <h5>Se Préparer à un Futur Prometteur</h5>
                     </div>
@@ -357,7 +279,8 @@
                         <h2 class="text-white">Obtenez d’excellents résultats sans jamais quitter la maison.</h2>
                     </div>
                     <div class="col-12 ">
-                        <p class="text-white">Nous vous proposons les meilleurs professeurs depuis le confort de votre maison !</p>
+                        <p class="text-white">Nous vous proposons les meilleurs professeurs depuis le confort de votre
+                            maison !</p>
                     </div>
                     <div class="col-12">
                         <a href="" class="learn_more">Learn More <i class="fas fa-angle-right"></i></a>

@@ -16,82 +16,18 @@
 @endsection --}}
 
 @section('content')
-    {{-- <!-- Main content -->
-    <section class="content">
-    
-        <!-- Default box -->
-        <div class="card">
-            <div class="card-body">
-              
-                <div class="row">
-                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
-                        <div class="row">
-                            <div class="col-12 col-sm-4">
-                                <div class="info-box bg-light">
-                                    <div class="info-box-content">
-                                        <span class="info-box-text text-center text-muted">suiveurs de ce cour</span>
-                                        <span class="info-box-number text-center text-muted mb-0">5</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-4">
-                                <div class="info-box bg-light">
-                                    <div class="info-box-content">
-                                        <span class="info-box-text text-center text-muted">Estimated project duration</span>
-                                        <span class="info-box-number text-center text-muted mb-0">20</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <h4></h4>
-                                <div class="post">
-                                    <div class="user-block">
-                                        <img class="img-circle img-bordered-sm" src="{{asset('images/avatars/'. $profile->avatar)}}"
-                                            alt="user image">
-                                        <span class="username">
-                                            <a href="#">{{$profile->name . " " .$profile->last_name}}</a>
-                                        </span>
-                                        <span class="description">Partagé publiquement - {{$profile->created_at}}</span>
-                                    </div>
-                                    <!-- /.user-block -->
-                                    <p>
-                                    
-                                    </p>
 
-                                    <a href="{{Route('profile.edit')}}">update</a>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
 
-                                 
-                                </div>
-
-                               
-                               
-
-                          
-                            </div>
-                        </div>
-                    </div>
-                    
-
-                    
                 </div>
             </div>
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-
-
-
-
-
-
+        </div><!-- /.container-fluid -->
     </section>
-    <!-- /.content --> --}}
 
-    <style>
-
-    </style>
 
     <div class="container emp-profile ">
 
@@ -111,11 +47,11 @@
                         {{ $profile->subject }}
                     </h6>
                     @if (auth()->check())
-                    <p class="proile-rating">Suivez de c'est cours:
-                        
+                        <p class="proile-rating">Suivez de c'est cours:
+
                             <span>{{ App\Models\Folow::where('user_id', auth()->user()->id)->get()->count() }}</span>
-                       
-                    </p>
+
+                        </p>
                     @endif
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -131,7 +67,7 @@
                     <div class="col-md-2">
                         <a href="{{ Route('profile.edit') }}" class="btn btn-block btn-outline-warning" name="btnAddMore"
                             value="Edit Profile">Modifier</a>
-                     
+
 
                     </div>
                 @endif
@@ -208,19 +144,18 @@
             <div class="container">
                 <!-- Row  -->
                 @if (auth()->check())
-
-                @if (auth()->user()->role != 'student')
-                <div class="row justify-content-center">
-                    <!-- Column -->
-                    <div class="col-md-8 text-center">
-                        <h3 class="my-3">Cours</h3>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                </div>
-            @endif
+                    @if (auth()->user()->role != 'student')
+                        <div class="row justify-content-center">
+                            <!-- Column -->
+                            <div class="col-md-8 text-center">
+                                <h3 class="my-3">Cours</h3>
+                            </div>
+                            <!-- Column -->
+                            <!-- Column -->
+                        </div>
+                    @endif
                 @endif
-              
+
 
 
                 <div class="row mt-4">
@@ -249,7 +184,4 @@
 
 
 
-    @endsection
-
-
-
+        @endsection

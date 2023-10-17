@@ -29,7 +29,7 @@ class Chat extends Component
 
     public function sendMessage()
     {
-        $table_existe  = Conversation::where('');
+       
         $conversation = Conversation::find($this->selectedConversationId);
         if ($conversation->sender_id === Auth()->user()->id) {
             $receiver_id = Auth()->user()->id;
@@ -37,12 +37,16 @@ class Chat extends Component
             $receiver_id = $conversation->receiver_id;
         }
 
-        ModelsMessages::create([
-            'conversation_id' => $this->selectedConversationId,
-            'sender_id' => auth()->id(),
-            'receiver_id' => $receiver_id,
-            'message' => $this->body,
-        ]);
-        $this->body = "";
+      
+            ModelsMessages::create([
+                'conversation_id' => $this->selectedConversationId,
+                'sender_id' => auth()->id(),
+                'receiver_id' => $receiver_id,
+                'message' => $this->body,
+            ]);
+            $this->body = "";
+       
+
+       
     }
 }

@@ -15,11 +15,12 @@ class prof
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->role == 'prof' ){
+        if(auth()->user()->role == 'prof' && auth()->user()->confirmed == 1 && auth()->user()->block == 0){
             return $next($request);
         }
         else{ 
-            return redirect()->back()->with('message' , 'hello');
+            $message = 'Veuillez patienter après que l\'administrateur ait confirmé, vous pourrez ensuite accéder à votre espace de travail.';
+            return redirect()->back()->withErrors(['message' => $message]);
         }
     }
 }

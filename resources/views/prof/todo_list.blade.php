@@ -1,7 +1,18 @@
 @extends('master.master_page')
 
 @section('content')
-    <section class="content mt-5">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content mt-5 p-3">
         <div class="container-fluid">
             <!-- TO DO List -->
             <div class="card">
@@ -58,7 +69,7 @@
 
                         data.forEach(element => {
                             var listItem = $(
-                            '<li id="todo-list"></li>'); // Create a new list item.
+                                '<li id="todo-list"></li>'); // Create a new list item.
 
                             // Create and set unique IDs for this list item's components.
                             var checkboxId = 'todoCheck1_' + index;

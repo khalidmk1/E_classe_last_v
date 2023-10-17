@@ -87,6 +87,7 @@ Route::middleware(['admine' , 'auth'])->group(function () {
     Route::put('table/enseignement-unblock/{id}', [TableController::class, 'unblock'])->name('table.unblock');
     Route::get('table/demande', [TableController::class, 'demande_table'])->name('table.demande');
     Route::get('table/student', [TableController::class, 'student_table'])->name('table.student');/* this a profile for the student */
+    Route::get('/dashboard/admin', function () {return view('home');})->name('dashboard.admin');
 
 });
 
@@ -101,12 +102,11 @@ Route::middleware('student' , 'auth')->group(function () {
     Route::post('unfolow/event/{id}' , [FolowController::class , 'unfolow'])->name('unfolow.event');
     Route::get('participate/{id}', [FolowController::class, 'check_participate'])->name('check.participate');
     Route::get('unparticipte/{id}', [FolowController::class, 'check_unparticipte'])->name('check.unparticipte');
-    
-    
     Route::get('accepte/{id}', [FolowController::class, 'check_accepted'])->name('check.accepte');
+    Route::get('/chat/etudiant', function () {return view('chate_etudiant');})->name("chat.etudiant");
+    Route::get('event/participate', [FolowController::class, 'cours_participate'])->name('participate.event');
+ 
     
-    
-
 });
 /* Route::get('event/subject', [EventController::class, 'send_subject'])->name('event.subject'); */
 
@@ -125,23 +125,20 @@ Route::middleware(['prof' , 'auth'])->group(function () {
    Route::post('todos/store', [TodoController::class, 'store'])->name('todos.store');
    Route::get('todos/list', [TodoController::class, 'get_list'])->name('todos.list');
    Route::delete('todos/delete/{id}', [TodoController::class, 'Drop_list'])->name('todos.delete');
+   Route::get('/dashboard/prof', function () {return view('home');})->name('dashboard.prof');
    
 });
 
 
 
-Route::get('/dashboard', function () {
-    return view('home');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 /* Route::get('/profile', function () {
     return view('home');
 })->middleware(['auth', 'verified'])->name('profile'); */
 Route::get('/chat', function () {
     return view('chate');
 })->middleware(['auth', 'verified'])->name("chat");
-Route::get('/chat/etudiant', function () {
-    return view('chate_etudiant');
-})->middleware(['auth', 'verified'])->name("chat.etudiant");
+
 
 Route::middleware('auth')->group(function () {
     Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
@@ -153,6 +150,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
    /*  Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); */
    Route::get('/chat/{id}' , [MessagesController::class , 'startConversation'])->name('chat.create');
+   Route::get('/profile/edit/{id}', [ProfileController::class, ' edit_student'])->name('edit.student');
 });
 
 Route::get('/meeting', function () {

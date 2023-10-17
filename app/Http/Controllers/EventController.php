@@ -204,8 +204,13 @@ if ($request->hasFile('images')) {
     {  
        $events = event::find($id); 
 
-      
-       return view('prof.event.detail')->with('events' , $events);
+     // Now, you can retrieve users associated with this event with specific conditions.
+     $users = $events->users()
+         ->wherePivot('participat', 1)
+         ->wherePivot('accepte', 1)
+         ->get();
+      /* dd($users); */
+       return view('prof.event.detail')->with(['events' => $events , 'users' => $users]);
     }
 
     /**
@@ -219,6 +224,7 @@ if ($request->hasFile('images')) {
     ]);
     }
 
+   
     /**
      * Update the specified resource in storage.
      */

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   
+
     <title>@yield('title')</title>
 
 
@@ -25,7 +25,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/videopopup.css') }}" media="screen">
 
-    <link rel="stylesheet" href="{{asset('assets/dashboard.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard.css') }}">
 
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
@@ -41,16 +41,17 @@
 
         @include('layouts.sidebar')
         <!-- Content Header (Page header) -->
-  
-        
+
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+           
 
             @yield('sepirator')
-            
+
 
             @yield('content')
-            
+
 
         </div>
         <!-- /.content-wrapper -->
@@ -78,13 +79,13 @@
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-{{-- <!-- Select2 -->
+    {{-- <!-- Select2 -->
 <script src="../../plugins/select2/js/select2.full.min.js"></script> --}}
 
 
-   
-        <!-- Summernote -->
-        <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+
+    <!-- Summernote -->
+    <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
     <script src="{{ asset('dist/js/pages/all.js') }}"></script>
 
 

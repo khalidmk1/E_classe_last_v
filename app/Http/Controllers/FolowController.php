@@ -22,11 +22,7 @@ class FolowController extends Controller
        
         $eventId  = event::find($id);
        $Folow_true = Folow::where(['event_id'=>$eventId->id ,'participat' => 0 ]); 
-        $existingFolow = Folow::where('user_id', auth()->user()->id)->where('event_id', $eventId->id)->exists();
-        
-      
-
-       
+        $existingFolow = Folow::where('user_id', auth()->user()->id)->where('event_id', $eventId->id)->exists(); 
 
         if(!$existingFolow){
 
@@ -47,15 +43,6 @@ class FolowController extends Controller
 
         }
 
-
-
-     
-
-       
-    
-
-
-
     public function upadte_paticipate(string $id){
 
         $eventId  = event::find($id);
@@ -64,7 +51,8 @@ class FolowController extends Controller
         if($existingFolow){
 
            $existingFolow->update([
-            'participat' =>false
+            'participat' =>false,
+            'accepte' =>false
            ]);
 
            $response = ['message' => 'Your unticipated'];
@@ -72,9 +60,6 @@ class FolowController extends Controller
       
 
         }
-
-
-      
 
        
     }
@@ -98,14 +83,9 @@ class FolowController extends Controller
         $users = Folow::whereIn('event_id', $events->pluck('id'))
             ->where('participat', 1)
             ->where('accepte', 0)
-            ->get();
-
-           
-
-           
-        return view('prof.table_accepte')->with('users', $users);
-    
+            ->get();     
      
+        return view('prof.table_accepte')->with('users', $users); 
     
     }
 
@@ -133,10 +113,6 @@ class FolowController extends Controller
 
     }
 
-
-
-  
-
     public function check_participate(string $id){
         $events  = event::find($id);
         $participate = Folow::where('event_id', $events->id)->where('participat', 0)->exists();
@@ -152,7 +128,9 @@ class FolowController extends Controller
     public function count(string $id){
         $events  = event::find($id);
         $count  = Folow::where(['event_id' => $events->id, 'participat' => 1])->count() ;
+    
         return response()->json($count);
+       
     }
 
     public function check_accepted(string $id){
@@ -161,16 +139,21 @@ class FolowController extends Controller
         return response()->json($accepted);
     }
 
+    public function cours_participate(){
+
+        $events  = Folow::with('event')->where(['user_id' => auth()->user()->id, 'participat' => 1 , 'accepte' => 1])->get();
+        
+            return view('student.actions.participate_event')->with('events' , $events);
+       
+     
+
+    }
 
     public function create_favoris(string $id){
 
         $eventId  = event::find($id);
         $Folow_true = Folow::where(['event_id'=>$eventId->id ,'folow' => 0 ]); 
          $existingFolow = Folow::where('user_id', auth()->user()->id)->where('event_id', $eventId->id)->exists();
-         
-       
- 
-        
  
          if(!$existingFolow){
  
@@ -194,20 +177,11 @@ class FolowController extends Controller
     }
 
 
-    public function favoris(){
-       
-        
-
-           
+    public function favoris(){     
 
             $favoris = Folow::with('event')->where('folow' , 1)->get();
 
-
-                return response()->json($favoris);
-
-          
-        
-        
+                return response()->json($favoris); 
        /*  return response()->json(['favoris' => $favoris]); */
     }
 
@@ -237,9 +211,6 @@ class FolowController extends Controller
             return redirect()->back()->with('valide', 'Vous avez participer dans le cour avec succès.');
         }
     }
-
-  
-
 
 
 }
