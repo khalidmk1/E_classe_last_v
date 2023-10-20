@@ -6,13 +6,7 @@
 
 @section('sepirator')
     <section class="content-header">
-        {{-- <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1></h1>
-      </div>
-    </div>
-  </div><!-- /.container-fluid --> --}}
+
     </section>
 @endsection
 
@@ -55,7 +49,7 @@
             @if (auth()->check())
             @if (auth()->user()->id == $profile->id)
                 <div class="col-md-2">
-                    <a href="{{ Route('edit.student' , auth()->user()->id) }}" class="btn btn-block btn-outline-warning" name="btnAddMore"
+                    <a href="{{ Route('edit.student') }}" class="btn btn-block btn-outline-warning" name="btnAddMore"
                         value="Edit Profile">Modifier</a>
                  
 

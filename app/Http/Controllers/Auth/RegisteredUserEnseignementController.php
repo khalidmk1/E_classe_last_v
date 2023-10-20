@@ -165,13 +165,13 @@ class RegisteredUserEnseignementController extends Controller
                 'cin' =>$fileCin,
                 'work_status' => $request->work_status,
                 'confirmed' => false,
-                'block' => true,
+                'block' => false,
 
             ]);
             event(new Registered($user));
 
       
-              return redirect()->back()->with('success','Votre demande a été bien envoyer');
+              return redirect()->route('login')->with('success','Votre demande a été bien envoyer');
 
         }
         else{

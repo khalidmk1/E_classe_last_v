@@ -81,11 +81,11 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function edit_student(string $id)
-    {
-        $profile = find($id);
-        return view('profile.edit_student')->with('profile' ,$profile);
-    }
+    public function edit_student()
+{
+    
+    return view('profile.edit_student');
+}
 
 
    
@@ -105,19 +105,22 @@ class ProfileController extends Controller
                 'avatar' =>$image_name,
             ]);
             
+        }else{
+            User::find(auth()->user()->id)->update([
+                'name' => $request->name,
+                'last_name'=>$request->last_name,
+                'phone' =>$request->phone,
+                'email' => $request->email,
+                'county' =>$request->county,
+                'subject' =>$request->subject,
+            ]);
+            
+    
+           
+            return redirect()->back();
         }
-        User::find(auth()->user()->id)->update([
-            'name' => $request->name,
-            'last_name'=>$request->last_name,
-            'phone' =>$request->phone,
-            'email' => $request->email,
-            'county' =>$request->county,
-            'subject' =>$request->subject,
-        ]);
-        
-
-       
         return redirect()->back();
+       
     }
 
     /**

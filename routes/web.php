@@ -105,6 +105,7 @@ Route::middleware('student' , 'auth')->group(function () {
     Route::get('accepte/{id}', [FolowController::class, 'check_accepted'])->name('check.accepte');
     Route::get('/chat/etudiant', function () {return view('chate_etudiant');})->name("chat.etudiant");
     Route::get('event/participate', [FolowController::class, 'cours_participate'])->name('participate.event');
+    Route::get('/profile/edit', [ProfileController::class, 'edit_student'])->name('edit.student');
  
     
 });
@@ -150,7 +151,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
    /*  Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); */
    Route::get('/chat/{id}' , [MessagesController::class , 'startConversation'])->name('chat.create');
-   Route::get('/profile/edit/{id}', [ProfileController::class, ' edit_student'])->name('edit.student');
+   
 });
 
 Route::get('/meeting', function () {
