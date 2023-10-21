@@ -46,8 +46,11 @@ Route::get('event/detail/{id}', [EventController::class , 'detail_student'])->na
 
 
 
-Route::get('favoris/event' , [FolowController::class , 'favoris'])->name('favoris.event');
+/* Route::get('favoris/event' , [FolowController::class , 'favoris'])->name('favoris.event'); */
 Route::post('folow/event/{id}' , [FolowController::class , 'store'])->name('store.folow');
+
+
+Route::get('favoris/event/id', [FolowController::class, 'create_favoris'])->name('favoris.event');
 
 
 
@@ -63,9 +66,20 @@ Route::get('/', [ProfileController::class, 'show_pro'])->name('profile.show_prof
 
 
 
+
+
 Route::get('/favoris_list', function () {
     return view('student.favoris_list');
 })->name('event.favoris');
+
+//tarif page
+Route::get('/tarif', function () {
+    return view('landing_page.tarif');
+})->name('tarif');
+//contact page
+Route::get('/contact', function () {
+    return view('landing_page.contact');
+})->name('contact');
 
 
 /* Route::get('/table', function () {

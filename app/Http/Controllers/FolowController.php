@@ -149,7 +149,7 @@ class FolowController extends Controller
 
     }
 
-    public function create_favoris(string $id){
+    public function create_favoris($id){
 
         $eventId  = event::find($id);
         $Folow_true = Folow::where(['event_id'=>$eventId->id ,'folow' => 0 ]); 

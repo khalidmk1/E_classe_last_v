@@ -4,7 +4,7 @@
 
 </style>
 
-<nav class="navbar navbar-expand-lg bg-transparent">
+<nav class="navbar navbar-expand-lg bg-transparent p-2">
     <div class="container">
       <a class="navbar-brand" href="/">
         <img src="{{asset('assets/landing_page_img/AdminLTELogo-removebg-preview.png')}}" alt="logo_virtuelle" 
@@ -16,11 +16,11 @@
       <div class="collapse navbar-collapse row " id="navbarNavAltMarkup">
         <div class="navbar-nav col justify-content-end">
           <a class="nav-link " aria-current="page" href="/">Accueil</a>
-          <a class="nav-link" href="#about">À propos-nous</a>
-          <a class="nav-link" href="#niveau">Tarif</a>
+          <a class="nav-link" href="{{Route('tarif')}}">Tarif</a>
+          <a class="nav-link " href="{{route('contact')}}">Contact</a>
           {{-- <a class="nav-link" href="{{route('profile.search')}}">Professeur</a> --}}
           <a class="nav-link" href="{{route('event.sort')}}">Trouver enseignement</a>
-          <a class="nav-link " href="Contact">Contact</a>
+         
           @auth()
 
           @if (auth()->user()->role == 'admin')

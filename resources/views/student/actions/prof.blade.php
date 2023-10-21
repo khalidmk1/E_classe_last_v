@@ -3,22 +3,24 @@
 @section('content')
     <style>
         span {
-                    color: #696969 !important;
-                }
-                .title{
-                    font-size: 20px;
-                    font-weight:400; 
-                    
-    
-                }
-                .cursor_style{
-                    cursor: auto;
-                }
+            color: #696969 !important;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 400;
+
+
+        }
+
+        .cursor_style {
+            cursor: auto;
+        }
     </style>
 
     <meta name="user-authenticated" content="{{ auth()->check() }}">
 
-   
+
 
     <div class="d-flex justify-content-around">
         <div class="form-group col-4">
@@ -71,21 +73,21 @@
     <script>
         /*  function myFunction(id) {
 
-                           
-                            $.ajax({
-                                type: "POST",
-                                url: "http://127.0.0.1:8000/folow/event/" + id,
+                               
+                                $.ajax({
+                                    type: "POST",
+                                    url: "http://127.0.0.1:8000/folow/event/" + id,
 
 
-                                success: function(data) {
-                                    console.log(data);
-                                },
-                                error: function(error) {
-                                    // Handle errors if any
-                                    console.error("error");
-                                }
-                            });
-                        } */
+                                    success: function(data) {
+                                        console.log(data);
+                                    },
+                                    error: function(error) {
+                                        // Handle errors if any
+                                        console.error("error");
+                                    }
+                                });
+                            } */
 
 
         $(document).ready(function() {
@@ -149,7 +151,7 @@
                                     </button>
                                 </form>
             <div class="card-body">
-                <h5 class="card-title">` + element.user.name + " " + element.user.last_name +`</h5>
+                <h5 class="card-title">` + element.user.name + " " + element.user.last_name + `</h5>
               <div class="card-text d-flex gap-1" >
                 <p class="btn btn-secondary btn-rounded cursor_style">` + element.subject + `</p>
                 <p class="btn btn-secondary btn-rounded cursor_style">` + element.niveau + `</p>
@@ -239,7 +241,7 @@
                                     </button>
                                 </form>
             <div class="card-body">
-                <h5 class="card-title">` + element.user.name + " " + element.user.last_name +`</h5>
+                <h5 class="card-title">` + element.user.name + " " + element.user.last_name + `</h5>
               <div class="card-text d-flex gap-1" >
                 <p class="btn btn-secondary btn-rounded cursor_style" >` + element.subject + `</p>
                 <p class="btn btn-secondary btn-rounded cursor_style">` + element.niveau + `</p>
@@ -295,7 +297,7 @@
                                 .id); // Replace the placeholder with the actual ID
 
                             var route_folow =
-                                "{{ route('create.favoris', ':id') }}"; // Define the route with a placeholder for ID
+                                "{{ route('favoris.event', ':id') }}"; // Define the route with a placeholder for ID
                             route_folow = route_folow.replace(':id', element
                                 .id); // Replace the placeholder with the actual ID
 
@@ -314,15 +316,18 @@
                                 <div class="col ">
           <div class="card h-100">
             <img src="{{ asset('images/avatars/`+  element.user.avatar +`') }}" class="card-img-top" alt="Skyscrapers"/>
-            <form class="favoris-form " data-route="` + route_folow + `" style="position: absolute;">
-                                    @csrf
-                                   
-                                    <button class="btn btn-sm favoris-button" type="submit" >
+            <button class="btn btn-sm favoris-button" id="btn_click"  type="submit" onclick=" favoris()" >
                                         <i class="fa fa-star" aria-hidden="true"></i> 
                                     </button>
-                                </form>
+            <form>
+                                          @csrf
+                                        
+                                          
+                                      </form>
+            
+            
             <div class="card-body">
-              <h5 class="card-title">` + element.user.name + " " + element.user.last_name +`</h5>
+              <h5 class="card-title">` + element.user.name + " " + element.user.last_name + `</h5>
               <div class="card-text d-flex gap-1" >
                 <p class="btn btn-secondary btn-rounded cursor_style">` + element.subject + `</p>
                 <p class="btn btn-secondary btn-rounded cursor_style">` + element.niveau + `</p>
@@ -336,39 +341,42 @@
         </div>`;
                             }
 
-
-                            function favoris() {
-
-                                // Attach the click event handler to the favoris-button
-                                $('.favoris-button').on('click', function(e) {
-                                    e.preventDefault();
-
-                                    // Get the route from the data attribute
-                                    var route_folow = $(this).closest('.favoris-form')
-                                        .data(
-                                            'route');
-
-                                    // Use AJAX to submit the form
-                                    $.ajax({
-                                        type: "post",
-                                        url: route_folow,
-
-
-                                        success: function(response) {
-                                            console.log(response);
-                                        }
-                                    });
-                                });
-                            }
-
-                            favoris()
-
-
-
+                       
 
 
                         });
                         $('.containe_1').html(output);
+
+                        $('#btn_click').on('click' , function favoris() {
+                                console.log('hello');
+
+                               /*  e.preventDefault();
+
+                                // Get the route from the data attribute
+                                var route_folow = $(this).closest('.favoris-form')
+                                    .data(
+                                        'route');
+
+                                // Use AJAX to submit the form
+                                $.ajax({
+                                    type: "post",
+                                    url: route_folow,
+                                    headers: {
+                                        'csrftoken': '{{ csrf_token() }}'
+                                    }
+
+
+                                    success: function(response) {
+                                        console.log(response);
+                                    }
+                                }); */
+
+                            });
+                            favoris();
+
+                        
+
+                           
 
 
 
@@ -385,7 +393,11 @@
 
 
 
-
+            /*       <form class="favoris-form " data-route="` + route_folow + `" style="position: absolute;">
+                                          @csrf
+                                         
+                                          
+                                      </form> */
 
             all()
 
