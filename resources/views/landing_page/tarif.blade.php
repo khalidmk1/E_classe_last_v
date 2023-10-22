@@ -24,7 +24,7 @@
                             <div class="card-header bg-white py-3">
                                 <p class="text-uppercase small mb-2"><strong>Pack d'Abonnement Mensuel pour les Formateurs
                                     </strong></p>
-                                <h5 class="mb-0">200 DH</h5>
+                                <h5 class="mb-0">500 DH</h5>
                             </div>
 
                             <div class="card-body">
@@ -58,7 +58,7 @@
 
                             <div class="card-header bg-white py-3">
                                 <p class="text-uppercase small mb-2"><strong>Pack Silver pour les Formateurs</strong></p>
-                                <h5 class="mb-0">350 DH/8 Mois</h5>
+                                <h5 class="mb-0">450 DH/6 Mois</h5>
                             </div>
 
                             <div class="card-body">
@@ -95,7 +95,7 @@
 
                             <div class="card-header bg-white py-3">
                                 <p class="text-uppercase small mb-2"><strong>Pack Gold pour les Formateurs</strong></p>
-                                <h5 class="mb-0">500 DH/12 Mois</h5>
+                                <h5 class="mb-0">400 DH/12 Mois</h5>
                             </div>
 
                             <div class="card-body">

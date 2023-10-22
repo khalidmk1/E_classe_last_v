@@ -149,40 +149,49 @@ class FolowController extends Controller
 
     }
 
-    public function create_favoris($id){
 
-        $eventId  = event::find($id);
-        $Folow_true = Folow::where(['event_id'=>$eventId->id ,'folow' => 0 ]); 
-         $existingFolow = Folow::where('user_id', auth()->user()->id)->where('event_id', $eventId->id)->exists();
- 
-         if(!$existingFolow){
- 
-             Folow::create([
-                 'user_id' => auth()->user()->id,
-                 'event_id' => $eventId->id,
-                 'folow' =>true
-             ]);
-             $response = ['message' => 'Your create folow '];
-             
-     
-             return response()->json($response);
-         }else{
-            $response_1 = ['message' => 'Your update folow '];
-             $Folow_true->update([
-                 'folow' =>true
-             ]);
-             return response()->json($response_1);
-         }
-
+    public function create_favoris(string $id) {
+        $eventId = event::find($id); // Assuming 'Event' is the correct model name
+    
+        $existingFolow = Folow::where('user_id', auth()->user()->id)->where('event_id', $eventId->id)->exists();
+        $FolowTrue = Folow::where('user_id', auth()->user()->id)->where('event_id', $eventId->id)->where('folow', 1)->exists();
+    
+        if (!$existingFolow) {
+            Folow::create([
+                'user_id' => auth()->user()->id,
+                'event_id' => $eventId->id,
+                'folow' => true
+            ]);
+    
+            $response = ['message' => 'Your create folow'];
+            return response()->json($response);
+        } else {
+            if ($FolowTrue) {
+                $response = ['message' => 'Your update folow to 0'];
+                Folow::where('user_id', auth()->user()->id)->where('event_id', $eventId->id)->update(['folow' => false]);
+                return response()->json($response);
+            } else {
+                $response = ['message' => 'Your update folow to 1'];
+                Folow::where('user_id', auth()->user()->id)->where('event_id', $eventId->id)->update(['folow' => true]);
+                return response()->json($response);
+            }
+        }
     }
+    
 
 
-    public function favoris(){     
+    public function favoris_check(string $id){ 
 
-            $favoris = Folow::with('event')->where('folow' , 1)->get();
+        $eventId = Event::find($id);
 
-                return response()->json($favoris); 
-       /*  return response()->json(['favoris' => $favoris]); */
+   
+    $FolowTrue = Folow::where('user_id', auth()->user()->id)
+        ->where('folow', 1)->get();
+
+    return response()->json($FolowTrue);
+       
+        /* return view('profile.show_student', ['FolowTrue' => $FolowTrue]);  */
+     
     }
 
     public function favoris_list() {

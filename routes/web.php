@@ -36,9 +36,6 @@ Route::get('event/search' , [EventController::class , 'sort'])->name('event.sort
 /* show all event in find a prof page */
 Route::get('event/all' , [EventController::class , 'all_event'])->name('event.all');
 
-
-Route::post('favoris/{id}', [FolowController::class, 'create_favoris'])->name('create.favoris');
-
 /* show profile of pecifique id */
 Route::get('profile/show/{id}', [ProfileController::class, 'show_student'])->name('profile.show_student');
 /* show event of pecifique id */
@@ -50,7 +47,6 @@ Route::get('event/detail/{id}', [EventController::class , 'detail_student'])->na
 Route::post('folow/event/{id}' , [FolowController::class , 'store'])->name('store.folow');
 
 
-Route::get('favoris/event/id', [FolowController::class, 'create_favoris'])->name('favoris.event');
 
 
 
@@ -86,7 +82,7 @@ Route::get('/contact', function () {
     return view('admin.tables.ensiengement_table');
 }); */
 
-Route::get('favoris/event' , [FolowController::class , 'favoris'])->name('favoris.event');
+/* Route::post('favoris/event/{id}' , [FolowController::class , 'create_favoris'])->name('favoris.event'); */
 
 Route::get('demande/enseignement', [RegisteredUserEnseignementController::class, 'demande'])->name('enseignement.demande');
 Route::post('send_demand/enseignement', [RegisteredUserEnseignementController::class, 'send_demand'])->name('enseignement.send_demand');
@@ -120,6 +116,9 @@ Route::middleware('student' , 'auth')->group(function () {
     Route::get('/chat/etudiant', function () {return view('chate_etudiant');})->name("chat.etudiant");
     Route::get('event/participate', [FolowController::class, 'cours_participate'])->name('participate.event');
     Route::get('/profile/edit', [ProfileController::class, 'edit_student'])->name('edit.student');
+    /* Favoris pages of action of student */
+Route::post('favoris/{id}', [FolowController::class, 'create_favoris'])->name('create.favoris');
+Route::get('favoris/check/{id}', [FolowController::class, 'favoris_check'])->name('check.favoris');
  
     
 });

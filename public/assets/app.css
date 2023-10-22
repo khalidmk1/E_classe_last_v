@@ -262,5 +262,14 @@
             border-radius: 50%;
         }
 
+        .favoris_check{
+         color: rgb(74, 72, 72) !important;
+        }
+
+        .favoris_seccusse{
+         color: rgb(219, 227, 129)
+        }
+       
+
 
 
