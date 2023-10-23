@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\event;
+use App\Models\Todo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -34,6 +35,15 @@ class ProfileController extends Controller
         'Éducation Islamique' , 'Éducation Civique' , 'Éducation Physique et Sportive (EPS)' , 'Anglais' , 'Technologie' , 'Informatique' , 'Économie et Gestion' ,
         'Philosophie' , 'Langues étrangères (Espagnol, Allemand, etc.)' , 'Sciences Économiques et Sociales (SES)' , 'Sciences et Technologies Industrielles (STI)'];
     }
+
+    public function dashboard_admin(){
+        return view('home');
+    }
+    public function dashboard_prof(){
+        $lists = Todo::where('user_id' , auth()->user()->id)->get(); 
+        return view('home')->with('lists' , $lists);
+    }
+
 
     public function show(string $id){
 

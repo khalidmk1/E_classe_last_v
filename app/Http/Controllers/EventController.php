@@ -172,22 +172,9 @@ if ($request->hasFile('images')) {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-    
-
-  
-        
+   
        
-        
+     
 
     }
 

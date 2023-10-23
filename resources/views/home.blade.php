@@ -116,27 +116,15 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <ul class="todo-list" data-widget="todo-list">
-                                <li>
-                                  {{--   <!-- drag handle -->
-                                    <span class="handle">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </span> --}}
-                                    <!-- checkbox -->
-                                    <div class="icheck-primary d-inline ml-2">
-                                        <input type="checkbox" value="" name="todo1" id="todoCheck1">
-                                        <label for="todoCheck1"></label>
-                                    </div>
-                                    <!-- todo text -->
-                                    <span class="text">Design a nice theme</span>
-                                    <!-- Emphasis label -->
-                                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
-                                    <!-- General tools such as edit or delete-->
-                                    <div class="tools">
-                                        <i class="fas fa-edit"></i>
-                                        <i class="fas fa-trash-o"></i>
-                                    </div>
-                                </li>
+                                @foreach ($lists as $list )
+                                <li class="d-flex align-items-center justify-content-between">
+                                      <!-- todo text -->
+                                      <span class="text">{{$list->description}}</span>
+                                      <!-- Emphasis label -->
+                                      <small class="badge badge-danger"><i class="far fa-clock"></i> {{$list->created_at->format('H:i')}}</small> 
+                                  </li>
+                                @endforeach
+                               
                                
                                 
                                 
@@ -146,8 +134,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add
-                                item</button>
+                            <a href="{{route('todo.user')}}" type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i>Todo</a>
                         </div>
                     </div>
                     <!-- /.card -->

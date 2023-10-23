@@ -97,7 +97,7 @@ Route::middleware(['admine' , 'auth'])->group(function () {
     Route::put('table/enseignement-unblock/{id}', [TableController::class, 'unblock'])->name('table.unblock');
     Route::get('table/demande', [TableController::class, 'demande_table'])->name('table.demande');
     Route::get('table/student', [TableController::class, 'student_table'])->name('table.student');/* this a profile for the student */
-    Route::get('/dashboard/admin', function () {return view('home');})->name('dashboard.admin');
+    Route::get('/dashboard/admin', [ProfileController::class, 'dashboard_admin'])->name('dashboard.admin');
 
 });
 
@@ -116,9 +116,10 @@ Route::middleware('student' , 'auth')->group(function () {
     Route::get('/chat/etudiant', function () {return view('chate_etudiant');})->name("chat.etudiant");
     Route::get('event/participate', [FolowController::class, 'cours_participate'])->name('participate.event');
     Route::get('/profile/edit', [ProfileController::class, 'edit_student'])->name('edit.student');
+
     /* Favoris pages of action of student */
-Route::post('favoris/{id}', [FolowController::class, 'create_favoris'])->name('create.favoris');
-Route::get('favoris/check/{id}', [FolowController::class, 'favoris_check'])->name('check.favoris');
+    Route::post('favoris/{id}', [FolowController::class, 'create_favoris'])->name('create.favoris');
+    Route::get('favoris/check/{id}', [FolowController::class, 'favoris_check'])->name('check.favoris');
  
     
 });
@@ -139,7 +140,7 @@ Route::middleware(['prof' , 'auth'])->group(function () {
    Route::post('todos/store', [TodoController::class, 'store'])->name('todos.store');
    Route::get('todos/list', [TodoController::class, 'get_list'])->name('todos.list');
    Route::delete('todos/delete/{id}', [TodoController::class, 'Drop_list'])->name('todos.delete');
-   Route::get('/dashboard/prof', function () {return view('home');})->name('dashboard.prof');
+   Route::get('/dashboard/prof', [ProfileController::class, 'dashboard_prof'])->name('dashboard.prof');
    
 });
 

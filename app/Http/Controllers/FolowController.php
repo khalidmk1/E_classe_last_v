@@ -43,6 +43,9 @@ class FolowController extends Controller
 
         }
 
+
+
+
     public function upadte_paticipate(string $id){
 
         $eventId  = event::find($id);
@@ -103,7 +106,7 @@ class FolowController extends Controller
     public function accepte_folow(string $id){
 
         $accepted = Folow::find($id);
-      
+        dd($accepted); 
         
         $accepted->update([
             'accepte'=>true

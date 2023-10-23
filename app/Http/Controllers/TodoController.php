@@ -34,11 +34,11 @@ return response()->json(['message' => 'To-do item created successfully', 'todo' 
     }
 
     public function get_list(){
-        $list = Todo::where('user_id' , auth()->user()->id)->get();
+        $list = Todo::where('user_id' , auth()->user()->id)->get(); 
         return response()->json($list);
     }
 
-    public function Drop_list(string $id){
+    public function Drop_list($id){
         $todo = Todo::find($id);
 
         $message = "u delete the list";

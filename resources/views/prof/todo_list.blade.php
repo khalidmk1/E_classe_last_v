@@ -58,6 +58,41 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <script>
+
+
+        $(document).on('click', '#delete-todo', function(e) {
+            e.preventDefault()
+
+            var url_drop = "{{ route('todos.delete', ':id') }}";
+            var listId = $('#delete-todo').data('list-id');
+            url_drop = url_drop.replace(':id', listId)
+            // Find the parent <li> element to identify the to-do item.
+            var listItem = $(this).closest("li");
+
+            // Get the ID or other identifier of the to-do item.
+            var itemId = listItem.data("list-id"); // Adjust this based on your HTML structure.
+
+            console.log('hello');
+
+            // Send an AJAX request to delete the item.
+            $.ajax({
+                url: url_drop, // Replace with your actual delete route.
+                type: "DELETE", // Or use "POST" with a "_method" field to override the HTTP method.
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    console.log(response.message);
+                    // Handle the success response, which can include a confirmation message.
+                    listItem.remove(); // Remove the item from the list on success.
+                },
+                error: function(error) {
+                    // Handle errors (e.g., show an error message).
+                    console.error(error);
+                },
+            });
+        });
+
         $(document).ready(function() {
 
             function get_list() {
@@ -66,39 +101,50 @@
                     type: 'get',
                     url: "{{ route('todos.list') }}",
                     success: function(data, index) {
-
+                        var processedIds = []; 
                         data.forEach(element => {
+                            var todo_id = element.id;
+                           
+                           
                             var listItem = $(
-                                '<li id="todo-list"></li>'); // Create a new list item.
+                                '<li id="todo-list"> </li>'); // Create a new list item.
+                               
 
                             // Create and set unique IDs for this list item's components.
                             var checkboxId = 'todoCheck1_' + index;
                             var listId = 'list_' + index;
                             var timeId = 'time_' + index;
+                            if (processedIds.indexOf(todo_id) === -1) {
+                                processedIds.push(todo_id);
 
-                            listItem.html(`
-        <div class="icheck-primary d-inline ml-2">
-            <input type="checkbox" value="" name="todo${index}" id="${checkboxId}">
-            <label for="${checkboxId}"></label>
-        </div>
-        <span class="text" id="${listId}">${element.description}</span>
-        <small class="badge badge-danger" style="float: right;" id="${timeId}">${calculateTimeDifference(element.created_at)}</small>
-        <div class="tools">
-            <form action="{{ route('todos.delete', ':id') }}".replace(':id', ${element.id}) method="post" class="delete-todo">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button id="delete-todo"  type="submit" data-list-id="${element.id}"><i
-                                            class="fa fa-trash"></i></button>
+                                listItem.html(`
+      
+      <span class="text" id="${listId}">${element.description}</span>
+      <small class="badge badge-danger" style="float: right;" id="${timeId}">${calculateTimeDifference(element.created_at)}</small>
+      <div class="tools">
+      
 
-                                </form>
+          <form  method="post" >
+                                  @csrf
+                                  @method('DELETE')
+                                  
+                                  <button class="btn btn-danger btn-sm rounded-0" id="delete-todo"  type="submit" data-list-id="${element.id}"><i
+                                          class="fa fa-trash"></i></button>
+                              </form>
 
-                            </div>
-    `);
+                          </div>
+  `); 
 
-                            // Append the list item to the to-do list.
+                    }
+
+
+     
+
+                    // Append the list item to the to-do list.
+                  
                             $('#list').append(listItem);
 
-                            console.log(element);
+
 
 
 
@@ -142,8 +188,6 @@
                 $.ajax({
                     url: "{{ route('todos.store') }}",
                     type: 'POST',
-
-
                     data: {
                         "_token": "{{ csrf_token() }}",
                         "description": description
@@ -160,36 +204,7 @@
                 });
             });
 
-            $('#todo-list').on('click', '.delete-todo', function(e) {
-                e.preventDefault()
 
-                var url_drop = "{{ route('todos.delete', ':id') }}";
-                var listId = $('#delete-todo').data('list-id');
-                url_drop = url_drop.replace(':id', listId)
-                // Find the parent <li> element to identify the to-do item.
-                var listItem = $(this).closest("li");
-
-                // Get the ID or other identifier of the to-do item.
-                var itemId = listItem.data("list-id"); // Adjust this based on your HTML structure.
-
-                // Send an AJAX request to delete the item.
-                $.ajax({
-                    url: url_drop, // Replace with your actual delete route.
-                    type: "DELETE", // Or use "POST" with a "_method" field to override the HTTP method.
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        // Handle the success response, which can include a confirmation message.
-                        listItem.remove(); // Remove the item from the list on success.
-                    },
-                    error: function(error) {
-                        // Handle errors (e.g., show an error message).
-                        console.error(error);
-                    },
-                });
-            });
 
 
 

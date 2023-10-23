@@ -102,16 +102,6 @@
 
         $(document).ready(function() {
 
-
-
-
-           
-       
-
-       
-
-
-
         var value = $('#subject').val();
         $('#subject').on('change', function() {
 

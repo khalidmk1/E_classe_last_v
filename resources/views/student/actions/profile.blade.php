@@ -55,11 +55,7 @@
                                  var route =
                                      "{{ route('profile.show_student', ':id') }}"; // Define the route with a placeholder for ID
                                  route = route.replace(':id', element
-                                     .id); // Replace the placeholder with the actual ID
-                               /*   var route_folow =
-                                     "{{ route('event.detail', ':id') }}"; // Define the route with a placeholder for ID
-                                     route_folow = route_folow.replace(':id', element
-                                     .id); // Replace the placeholder with the actual ID */
+                                     .id); 
 
                                 output +=
                                     `
@@ -109,11 +105,8 @@
                              var route =
                                  "{{ route('profile.show_student', ':id') }}"; // Define the route with a placeholder for ID
                              route = route.replace(':id', element
-                                 .id); // Replace the placeholder with the actual ID
-                           /*   var route_folow =
-                                 "{{ route('event.detail', ':id') }}"; // Define the route with a placeholder for ID
-                                 route_folow = route_folow.replace(':id', element
-                                 .id); // Replace the placeholder with the actual ID */
+                                 .id); 
+
 
                             output +=
                                 `
@@ -147,15 +140,7 @@
             }
 
             all()
-            /* 
-                    $.ajax({
-                        type:'GET',
-                        url:'profile/all',
-                        success: function(data) {
-                            console.log(data);
-                        }
-                    })
-             */
+           
         })
     </script>
 @endsection
