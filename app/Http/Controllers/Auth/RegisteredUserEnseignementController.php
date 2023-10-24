@@ -174,7 +174,7 @@ class RegisteredUserEnseignementController extends Controller
             event(new Registered($user));
 
             Auth::login($user);
-       return redirect()->route('verification.notice');
+            return redirect()->route('verification.notice');
              /*  return redirect()->route('login')->with('success','Votre demande a été bien envoyer'); */
 
         }

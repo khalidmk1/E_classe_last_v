@@ -85,7 +85,7 @@ class FolowController extends Controller
         $events = Event::where('user_id', auth()->user()->id)->get();
 
         $users = Folow::whereIn('event_id', $events->pluck('id'))
-            ->where('participat', 0)
+            ->where('participat', 1)
             ->where('accepte', 0)
             ->get();     
      
