@@ -13,6 +13,7 @@ use App\Http\Controllers\TodoController;
 
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,18 @@ use Illuminate\Support\Facades\Route;
 /* Route::get('profile/search' , [ProfileController::class , 'view_profile'])->name('profile.search');
 Route::get('profile/all' , [ProfileController::class , 'all_profile'])->name('profile.all'); */
 /* Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show'); */
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->name('verification.notice');
+
+
+ 
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+ 
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
 
 /* find a prof page*/
@@ -83,11 +96,13 @@ Route::get('/contact', function () {
 }); */
 
 /* Route::post('favoris/event/{id}' , [FolowController::class , 'create_favoris'])->name('favoris.event'); */
-
 Route::get('demande/enseignement', [RegisteredUserEnseignementController::class, 'demande'])->name('enseignement.demande');
 Route::post('send_demand/enseignement', [RegisteredUserEnseignementController::class, 'send_demand'])->name('enseignement.send_demand');
 
-Route::middleware(['admine' , 'auth'])->group(function () {
+
+
+
+Route::middleware(['admine' , 'auth' , 'verified'])->group(function () {
     Route::get('register/enseignement', [RegisteredUserEnseignementController::class, 'create'])->name('enseignement.create');
     Route::put('accepte/enseignement/{id}', [RegisteredUserEnseignementController::class, 'accepte_demande'])->name('enseignement.accepte');
     Route::post('store/enseignement', [RegisteredUserEnseignementController::class, 'store'])->name('enseignement.store');
@@ -102,7 +117,7 @@ Route::middleware(['admine' , 'auth'])->group(function () {
 });
 
 
-Route::middleware('student' , 'auth')->group(function () {
+Route::middleware(['student' , 'auth' , 'verified'])->group(function () {
     Route::get('calender', [CalenderController::class, 'index'])->name('calender');
     Route::get('event/all_event', [EventController::class , 'index'])->name('events.index');
     /* Route::get('event/seach' , [EventController::class , 'sort'])->name('event.sort'); */
@@ -126,7 +141,7 @@ Route::middleware('student' , 'auth')->group(function () {
 /* Route::get('event/subject', [EventController::class, 'send_subject'])->name('event.subject'); */
 
 
-Route::middleware(['prof' , 'auth'])->group(function () {
+Route::middleware(['prof' , 'auth' , 'verified'])->group(function () {
     Route::get('event/all_events', [EventController::class , 'index'])->name('event.index');
    Route::get('event/create', [EventController::class , 'create'])->name('event.create');
    Route::get('event/edit/{id}', [EventController::class , 'edit'])->name('event.edit');
@@ -155,7 +170,7 @@ Route::get('/chat', function () {
 })->middleware(['auth', 'verified'])->name("chat");
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth' , 'verified'])->group(function () {
     Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('events/show/{id}', [EventController::class , 'show'])->name('events.show');
     Route::get('calender', [CalenderController::class, 'index'])->name('calender');

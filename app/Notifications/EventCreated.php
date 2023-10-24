@@ -10,13 +10,15 @@ use Illuminate\Notifications\Notification;
 class EventCreated extends Notification
 {
     use Queueable;
+    protected $eventId;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(string $eventId)
     {
-        //
+        
+        $this->eventId = $eventId;
     }
 
     /**
@@ -34,10 +36,10 @@ class EventCreated extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $url = route('event.detail', $this->eventId);
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Merci pour votre participation l\'enseignent est accepter votre demande')
+                    ->action('Notification Action',$url);
     }
 
     /**

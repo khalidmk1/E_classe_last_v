@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Notifications\EventCreated;
 use App\Models\Folow;
 use App\Models\event;
 use App\Models\User;
@@ -84,7 +85,7 @@ class FolowController extends Controller
         $events = Event::where('user_id', auth()->user()->id)->get();
 
         $users = Folow::whereIn('event_id', $events->pluck('id'))
-            ->where('participat', 1)
+            ->where('participat', 0)
             ->where('accepte', 0)
             ->get();     
      
@@ -106,11 +107,18 @@ class FolowController extends Controller
     public function accepte_folow(string $id){
 
         $accepted = Folow::find($id);
-        dd($accepted); 
         
         $accepted->update([
             'accepte'=>true
         ]);
+
+
+       $user = $accepted->user;
+      
+       if ($user) {
+        $user->notify(new EventCreated($accepted->event->id));
+    }
+        
 
         return redirect()->back();
 

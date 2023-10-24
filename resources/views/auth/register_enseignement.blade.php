@@ -1,5 +1,3 @@
-
-
 @extends('master.blank_master_page')
 
 @section('title')
@@ -7,11 +5,11 @@
 
 
 @section('content')
-<style>
-    .select2-container .select2-selection--single {
-    height: 39px;
-    }
-</style>
+    <style>
+        .select2-container .select2-selection--single {
+            height: 39px;
+        }
+    </style>
 
 
 
@@ -82,7 +80,7 @@
             </button>
         </div>
     @enderror
-   
+
 
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
@@ -100,24 +98,25 @@
 
                 </div>
 
-                
+
 
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" name="avatar" onblur="getVal()" value="{{old('avatar')}}" class="custom-file-input input_image" id="exampleInputFile">
+                        <input type="file" name="avatar" onblur="getVal()" value="{{ old('avatar') }}"
+                            class="custom-file-input input_image" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">choiser un photo de profille</label>
                     </div>
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Nom" name="name"
-                        value="{{ old('name') }}" required autofocus autocomplete="name">
+                    <input type="text" class="form-control" placeholder="Nom" name="name" value="{{ old('name') }}"
+                        required autofocus autocomplete="name">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
                         </div>
                     </div>
-                   
+
                 </div>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" name="last_name" placeholder="Prenom"
@@ -127,14 +126,15 @@
                             <span class="fas fa-user"></span>
                         </div>
                     </div>
-                  
+
                 </div>
 
                 <!-- phone mask -->
 
                 <div class="input-group mb-3">
-                        <input type="text" name="phone" class="form-control" data-mask placeholder="Telephone"
-                        data-inputmask='"mask": "(99) 999-99999"'value="{{ old('phone') }}" required autofocus autocomplete="phone">
+                    <input type="text" name="phone" class="form-control" data-mask placeholder="Telephone"
+                        data-inputmask='"mask": "(99) 999-99999"'value="{{ old('phone') }}" required autofocus
+                        autocomplete="phone">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-phone"></span>
@@ -143,12 +143,14 @@
                 </div>
                 <!-- /.form group -->
                 <div class="input-group mb-3 ">
-                  {{--   <label class="form-label" for="form3Examplev2">Le sujet que vous
+                    {{--   <label class="form-label" for="form3Examplev2">Le sujet que vous
                         étudiez</label> --}}
-                    <select class="form-control select2 h-100" value="{{ old('subject') }}" name="subject" style="width: 100%;">
+                    <select class="form-control select2 h-100" value="{{ old('subject') }}" name="subject"
+                        style="width: 100%;">
                         @foreach ($subject as $sujet)
-                       {{--  <option value="Le sujet que vous étudiez"></option> --}}
-                            <option value="{{$sujet}}" @if(old('subject') == $sujet) selected @endif>{{ $sujet }}
+                            {{--  <option value="Le sujet que vous étudiez"></option> --}}
+                            <option value="{{ $sujet }}" @if (old('subject') == $sujet) selected @endif>
+                                {{ $sujet }}
                             </option>
                         @endforeach
                     </select>
@@ -156,12 +158,14 @@
 
                 <!-- /.form group -->
                 <div class="input-group mb-3 ">
-                  {{--   <label class="form-label" for="form3Examplev2">Le sujet que vous
+                    {{--   <label class="form-label" for="form3Examplev2">Le sujet que vous
                         étudiez</label> --}}
-                    <select class="form-control select2 h-100" value="{{ old('county_array') }}" name="county_array" style="width: 100%;">
+                    <select class="form-control select2 h-100" value="{{ old('county_array') }}" name="county_array"
+                        style="width: 100%;">
                         @foreach ($county_array as $county)
-                       {{--  <option value="Le sujet que vous étudiez"></option> --}}
-                            <option value="{{$county}}" @if(old('subject') == $county) selected @endif>{{ $county }}
+                            {{--  <option value="Le sujet que vous étudiez"></option> --}}
+                            <option value="{{ $county }}" @if (old('subject') == $county) selected @endif>
+                                {{ $county }}
                             </option>
                         @endforeach
                     </select>
@@ -185,7 +189,7 @@
                             <span class="fas fa-lock"></span>
                         </div>
                     </div>
-                  
+
                 </div>
                 <div class="input-group mb-3">
                     <input type="password" class="form-control" placeholder="Confirmer Mot de passe"
@@ -197,8 +201,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    
-                   
+
+
                     <!-- /.col -->
                     <div class="col-4">
                         <button type="submit" class="btn btn-primary btn-block">Register</button>
@@ -213,11 +217,10 @@
     </div>
     <!-- /.register-box -->
 
-   <script>
-
-function getVal() {
-  const val = document.getElementsByClassName('input_image').value;
-  console.log(val);
-}
-   </script>
+    <script>
+        function getVal() {
+            const val = document.getElementsByClassName('input_image').value;
+            console.log(val);
+        }
+    </script>
 @endsection

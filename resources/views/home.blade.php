@@ -97,6 +97,8 @@
             </div>
             <!-- /.row -->
 
+            @if (auth()->user()->role == "prof")
+
             <!-- Main row -->
             <div class="row ">
                 <!-- Left col -->
@@ -142,6 +144,9 @@
                 <!-- /.Left col -->
             </div>
             <!-- /.row (main row) -->
+                
+            @endif
+            
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
