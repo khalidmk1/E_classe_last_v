@@ -19,7 +19,7 @@ class Folow extends Model
     
     public function event()
     {
-        return $this->belongsTo(Event::class, 'event_id');
+        return $this->belongsTo(event::class, 'event_id');
     }
 
     public function user()
