@@ -233,6 +233,9 @@
     }, 1000);
 
     $(document).ready(function() {
+
+
+
         $.ajax({
               type: "GET",
               url: "/favoris/event",
@@ -257,7 +260,7 @@
                                     <button class="btn btn-sm" type="submit">
                                         <i class="fa fa-star" aria-hidden="true"></i> 
                                     </button>
-                                    <a href="/event/show/${item.id}" class="btn btn-light">Voir detail</a>
+                                    <a href="/event/detail/`+item.event.id+`" class="btn btn-light">Voir detail</a>
                                 </div>
                             </div>
                         </div>

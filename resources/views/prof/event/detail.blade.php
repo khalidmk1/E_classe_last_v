@@ -77,6 +77,13 @@
                                    
 
                                 </li>
+                                <li class="list-group-item">
+
+                                  
+                                        <a href="{{Route('meeting')}}">Stream</a>
+                                   
+
+                                </li>
 
                             </ul>
                         </div>

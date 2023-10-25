@@ -49,12 +49,6 @@ Route::get('event/search' , [EventController::class , 'sort'])->name('event.sort
 /* show all event in find a prof page */
 Route::get('event/all' , [EventController::class , 'all_event'])->name('event.all');
 
-/* show profile of pecifique id */
-Route::get('profile/show/{id}', [ProfileController::class, 'show_student'])->name('profile.show_student');
-/* show event of pecifique id */
-Route::get('event/detail/{id}', [EventController::class , 'detail_student'])->name('event.detail');
-
-
 
 /* Route::get('favoris/event' , [FolowController::class , 'favoris'])->name('favoris.event'); */
 Route::post('folow/event/{id}' , [FolowController::class , 'store'])->name('store.folow');
@@ -124,6 +118,7 @@ Route::middleware(['student' , 'auth' , 'verified'])->group(function () {
     Route::post('folow/event/{id}' , [FolowController::class , 'store'])->name('store.folow');
     Route::post('update/event/{id}' , [FolowController::class , 'upadte_paticipate'])->name('update.event');
     Route::get('favoris/event' , [FolowController::class , 'favoris'])->name('favoris.event');
+    Route::get('favoris' , [FolowController::class , 'favoris_page'])->name('favoris.page');
     Route::post('unfolow/event/{id}' , [FolowController::class , 'unfolow'])->name('unfolow.event');
     Route::get('participate/{id}', [FolowController::class, 'check_participate'])->name('check.participate');
     Route::get('unparticipte/{id}', [FolowController::class, 'check_unparticipte'])->name('check.unparticipte');
@@ -171,6 +166,11 @@ Route::get('/chat', function () {
 
 
 Route::middleware(['auth' , 'verified'])->group(function () {
+    /* show profile of pecifique id */
+Route::get('profile/show/{id}', [ProfileController::class, 'show_student'])->name('profile.show_student');
+/* show event of pecifique id */
+Route::get('event/detail/{id}', [EventController::class , 'detail_student'])->name('event.detail');
+
     Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('events/show/{id}', [EventController::class , 'show'])->name('events.show');
     Route::get('calender', [CalenderController::class, 'index'])->name('calender');
@@ -185,7 +185,7 @@ Route::middleware(['auth' , 'verified'])->group(function () {
 
 Route::get('/meeting', function () {
     return view('welcome_meeting');
-});
+})->name('meeting');
 
 Route::post("/createMeeting", [MeetingController::class, 'createMeeting'])->name("createMeeting");
 

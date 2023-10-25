@@ -34,7 +34,8 @@
     <!-- dropzonejs -->
     <link rel="stylesheet" href="../../plugins/dropzone/min/dropzone.min.css">
     <link rel="stylesheet" href="{{ asset('assets/dashboard.css') }}">
-
+  <!-- Toastr -->
+  <link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
 
 
 
@@ -87,6 +88,8 @@
     <script src="../../plugins/dropzone/min/dropzone.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../../dist/js/adminlte.min.js"></script>
+    <!-- Toastr -->
+<script src="../../plugins/toastr/toastr.min.js"></script>
 
     <!-- Page specific script -->
     <script>

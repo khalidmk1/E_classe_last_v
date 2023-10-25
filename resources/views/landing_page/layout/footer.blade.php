@@ -8,7 +8,7 @@
             </div>
             <div class="col-4">
                 <div class="d-flex flex-row gap-2">
-                    <a href="">
+                    <a href="https://www.facebook.com/profile.php?id=100095082617794">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none">
                             <path fill-rule="evenodd" clip-rule="evenodd"

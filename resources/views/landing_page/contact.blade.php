@@ -1,10 +1,21 @@
-@extends("master.master_landing_page")
+@extends('master.master_landing_page')
 
 @section('content')
+    {{--  contact --}}
+    <section>
 
 
-     {{--  contact --}}
-     <section>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p class="text-center">Merci pour votre avis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="container text-center" style="justify-content: space-evenly; display: flex">
             <div class="row flex-column justify-content-center align-items-center" style="height: 600px">
                 <div class="col">
@@ -21,19 +32,20 @@
                         data-inputmask='"mask": "(99) 999-99999"' required autocomplete="phone">
                 </div>
                 <div class="col">
-                    <select name="" class="form-control" id="">
-                        <option value="Comment nous avez-vous trouvé?">Comment nous avez-vous trouvé?</option>
-                    </select>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                        <label for="floatingTextarea">Commentaire</label>
+                    </div>
                 </div>
                 <div class="col">
-                    <button
+                    <button data-bs-toggle="modal" data-bs-target="#exampleModal"
                         style="background: #DD5471; display: flex;
                     width: 100%;
                     height: 50px;
                     padding: 12px 24px;
                     justify-content: center;
                     align-items: center;
-                    gap: 10px;">Send</button>
+                    gap: 10px;">Envoyer</button>
                 </div>
                 <div class="col-12">
                     <div class="row">
@@ -54,8 +66,8 @@
                         </div>
                         <div class="col">
                             <div class="d-flex ">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
-                                    viewBox="0 0 28 28" fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"
+                                    fill="none">
                                     <path
                                         d="M7.95455 2.625V4.59624L1.75 8.63565V25.375H26.5682V8.63565L20.3636 4.59624V2.625H7.95455ZM10.0227 4.69318H18.2955V12.6428L14.1591 15.3249L10.0227 12.6428V4.69318ZM11.0568 6.76136V8.82955H17.2614V6.76136H11.0568ZM7.95455 7.0522V11.2855L4.6907 9.18501L7.95455 7.0522ZM20.3636 7.0522L23.6275 9.18501L20.3636 11.2855V7.0522ZM11.0568 9.86364V11.9318H17.2614V9.86364H11.0568ZM3.81818 11.0916L14.1591 17.7809L24.5 11.0916V23.3068H3.81818V11.0916Z"
                                         fill="black" />
@@ -92,8 +104,166 @@
                         width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-                <div class="col-4"style="background: #183A4A;">col-4</div>
+                <div class="col-4"style="background: #183A4A;"></div>
             </div>
         </div>
     </section>
+
+
+    <script>
+        < script >
+            $(function() {
+                var Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+
+                $('.swalDefaultSuccess').click(function() {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.swalDefaultInfo').click(function() {
+                    Toast.fire({
+                        icon: 'info',
+                        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.swalDefaultError').click(function() {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.swalDefaultWarning').click(function() {
+                    Toast.fire({
+                        icon: 'warning',
+                        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.swalDefaultQuestion').click(function() {
+                    Toast.fire({
+                        icon: 'question',
+                        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+
+                $('.toastrDefaultSuccess').click(function() {
+                    toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+                });
+                $('.toastrDefaultInfo').click(function() {
+                    toastr.info('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+                });
+                $('.toastrDefaultError').click(function() {
+                    toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+                });
+                $('.toastrDefaultWarning').click(function() {
+                    toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+                });
+
+                $('.toastsDefaultDefault').click(function() {
+                    $(document).Toasts('create', {
+                        title: 'Toast Title',
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.toastsDefaultTopLeft').click(function() {
+                    $(document).Toasts('create', {
+                        title: 'Toast Title',
+                        position: 'topLeft',
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.toastsDefaultBottomRight').click(function() {
+                    $(document).Toasts('create', {
+                        title: 'Toast Title',
+                        position: 'bottomRight',
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.toastsDefaultBottomLeft').click(function() {
+                    $(document).Toasts('create', {
+                        title: 'Toast Title',
+                        position: 'bottomLeft',
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.toastsDefaultAutohide').click(function() {
+                    $(document).Toasts('create', {
+                        title: 'Toast Title',
+                        autohide: true,
+                        delay: 750,
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.toastsDefaultNotFixed').click(function() {
+                    $(document).Toasts('create', {
+                        title: 'Toast Title',
+                        fixed: false,
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.toastsDefaultFull').click(function() {
+                    $(document).Toasts('create', {
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+                        title: 'Toast Title',
+                        subtitle: 'Subtitle',
+                        icon: 'fas fa-envelope fa-lg',
+                    })
+                });
+                $('.toastsDefaultFullImage').click(function() {
+                    $(document).Toasts('create', {
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+                        title: 'Toast Title',
+                        subtitle: 'Subtitle',
+                        image: '../../dist/img/user3-128x128.jpg',
+                        imageAlt: 'User Picture',
+                    })
+                });
+                $('.toastsDefaultSuccess').click(function() {
+                    $(document).Toasts('create', {
+                        class: 'bg-success',
+                        title: 'Toast Title',
+                        subtitle: 'Subtitle',
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.toastsDefaultInfo').click(function() {
+                    $(document).Toasts('create', {
+                        class: 'bg-info',
+                        title: 'Toast Title',
+                        subtitle: 'Subtitle',
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.toastsDefaultWarning').click(function() {
+                    $(document).Toasts('create', {
+                        class: 'bg-warning',
+                        title: 'Toast Title',
+                        subtitle: 'Subtitle',
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.toastsDefaultDanger').click(function() {
+                    $(document).Toasts('create', {
+                        class: 'bg-danger',
+                        title: 'Toast Title',
+                        subtitle: 'Subtitle',
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+                $('.toastsDefaultMaroon').click(function() {
+                    $(document).Toasts('create', {
+                        class: 'bg-maroon',
+                        title: 'Toast Title',
+                        subtitle: 'Subtitle',
+                        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+            });
+    </script>
+    </script>
 @endsection

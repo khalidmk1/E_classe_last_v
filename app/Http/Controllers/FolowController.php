@@ -205,9 +205,25 @@ class FolowController extends Controller
      
     }
 
+    public function favoris_page(){
+        return view('student.favoris_list');
+    }
+    
+
+    public function favoris(){
+        $favoris = Folow::with('event')->where('user_id', auth()->user()->id)
+        ->where('folow', 1)->get();
+
+        return response()->json($favoris);
+
+
+
+    }
+
     public function favoris_list() {
         return view('event.favoris');
     }
+
 
 
 

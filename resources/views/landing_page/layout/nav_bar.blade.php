@@ -53,7 +53,7 @@
                                 <li><a class="dropdown-item"
                                         href="{{ Route('profile.show_student', auth()->user()->id) }}">Profile</a>
                                 </li>
-                                <li><a class="dropdown-item" href="#">Favoris</a></li>
+                                <li><a class="dropdown-item" href="{{Route('favoris.page')}}">Favoris</a></li>
                                 <li><a class="dropdown-item" href="{{ Route('participate.event') }}">Votre Cours</a>
                                 </li>
                                 <li>

@@ -40,7 +40,7 @@
             <div class="modal-content">
 
                 <div class="modal-body text-center">
-                    il faut etre ithentifier
+                    vous devez être authentifié
                 </div>
                 <a href="{{ Route('login') }}" class="btn btn-primary w-50 m-auto">login</a>
                 <a href="{{ Route('register') }}" class="btn btn-secondery w-50 m-auto">register</a>

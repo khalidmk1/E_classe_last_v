@@ -46,7 +46,7 @@
                 </div>
             </div>
             @if (auth()->check())
-                @if (auth()->user()->id == $profile->id && auth()->user()->role = 'student')
+                @if (auth()->user()->id == $profile->id && (auth()->user()->role = 'student'))
                     <div class="col-md-2">
                         <a href="{{ Route('edit.student') }}" class="btn btn-block btn-outline-warning" name="btnAddMore"
                             value="Edit Profile">Modifier</a>
@@ -150,14 +150,27 @@
                                 <img class="card-img-top " style="height: 200px"
                                     src="{{ asset('images/event/' . $event->images[0]) }}" alt="wrappixel kit">
 
-                                <form style="position: absolute;" class="favoris-form" method="post">
+                                @if (App\Models\Folow::where('user_id', auth()->user()->id)->where('event_id', $event->id)->where('folow', 1)->exists())
+                                    <form style="position: absolute;" class="favoris-form" method="post">
 
-                                    @csrf
-                                    <button class="btn btn-sm favoris-button" data-event-id="{{ $event->id }}"
-                                        type="button">
-                                        <i class="fa fa-star favoris_check" id="favoris_{{ $event->id }}" aria-hidden="true"></i>
-                                    </button>
-                                </form>
+                                        @csrf
+                                        <button class="btn btn-sm favoris-button" data-event-id="{{ $event->id }}"
+                                            type="button">
+                                            <i class="fa fa-star" id="favoris_{{ $event->id }}" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                @else
+                                    <form style="position: absolute;" class="favoris-form" method="post">
+
+                                        @csrf
+                                        <button class="btn btn-sm favoris-button" data-event-id="{{ $event->id }}"
+                                            type="button">
+                                            <i class="fa fa-star favoris_check" id="favoris_{{ $event->id }}"
+                                                aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                @endif
+
 
 
 
@@ -165,8 +178,10 @@
                                     class="date-pos bg-info-gradiant p-2 d-inline-block text-center rounded text-white position-absolute">
                                     {{ $event->created_at->format('M') }}<span
                                         class="d-block">{{ $event->created_at->format('d') }}</span></div>
-                                <h5 class="font-weight-medium m-3"><a href="#"
-                                        class="text-decoration-none link">{{ $event->title }}</a></h5>
+                                <h5 class="font-weight-medium m-3 d-flex justify-content-between align-items-center">
+                                    <p>{{ $event->title }} </p>
+                                    <p>{{ $event->price }} Dh</p>
+                                </h5>
                                 <p class="m-3">{{ $event->description }}</p>
 
                                 <a href="{{ Route('event.detail', $event->id) }}"
@@ -190,12 +205,12 @@
 
         <script>
             /*  <form class="favoris-form " action="{{ Route('favoris.event', ` + element.id + `) }}" method="post"  style="position: absolute;">
-                                                     @csrf
-                                                    
-                                                     <button class="btn btn-sm favoris-button" type="submit" >
-                                                         <i class="fa fa-star" aria-hidden="true"></i> 
-                                                     </button>
-                                                 </form> */
+                                                             @csrf
+                                                            
+                                                             <button class="btn btn-sm favoris-button" type="submit" >
+                                                                 <i class="fa fa-star" aria-hidden="true"></i> 
+                                                             </button>
+                                                         </form> */
 
             /*  $(document).on('click', '.favoris-button', function(e) {
                         e.preventDefault();
@@ -224,65 +239,65 @@
 
         <script>
             $(document).ready(function() {
-               
-                   /*  var eventId = $('.favoris-button').data('event-id');
-                    var button = $("#favoris_" + eventId);
-                    var buttonFolow = $('.favoris-button').data('favoris'); // Get the folow value
-                    var url = '{{ route('check.favoris', ':id') }}';
-                    url = url.replace(':id', eventId);
+
+                /*  var eventId = $('.favoris-button').data('event-id');
+                 var button = $("#favoris_" + eventId);
+                 var buttonFolow = $('.favoris-button').data('favoris'); // Get the folow value
+                 var url = '{{ route('check.favoris', ':id') }}';
+                 url = url.replace(':id', eventId);
 
 
-                   
-                   for (let index = 0; index < button.length; index++) {
-                    const element = button[index];
+                
+                for (let index = 0; index < button.length; index++) {
+                 const element = button[index];
 
-                    console.log(element);
-                    
-                   } */
-
-
-
+                 console.log(element);
+                 
+                } */
 
 
 
-              /*       button.each(function(obj){
 
-                        console.log(button);
 
-                   $.ajax({
-                        type: 'get',
-                        url: url,
-                        data: {
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            
-                            response.forEach(element => {
-                               if(element.event_id == obj){
-                                obj.removeClass('favoris_check')
-                               }
-                               
-                            // Handle the response from the server
+
+                /*       button.each(function(obj){
+
+                                console.log(button);
+
+                           $.ajax({
+                                type: 'get',
+                                url: url,
+                                data: {
+                                    _token: '{{ csrf_token() }}'
+                                },
+                                success: function(response) {
+                                    
+                                    response.forEach(element => {
+                                       if(element.event_id == obj){
+                                        obj.removeClass('favoris_check')
+                                       }
+                                       
+                                    // Handle the response from the server
+                                    });
+
+                                  
+                                },
+                                error: function(xhr, status, error) {
+                                    // Handle errors if the request fails
+                                    console.error(error);
+                                    console.log(url);
+                                }
                             });
 
-                          
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle errors if the request fails
-                            console.error(error);
-                            console.log(url);
-                        }
-                    });
+
+                             
+        }); */
 
 
-                     
-}); */
-                   
 
-                 
-                
 
-             
+
+
 
 
                 $('.favoris-button').click(function() {
