@@ -80,7 +80,7 @@
                                 <li class="list-group-item">
 
                                   
-                                        <a href="{{Route('meeting')}}">Stream</a>
+                                        <a href="{{Route('meeting')}}">Video apelle</a>
                                    
 
                                 </li>

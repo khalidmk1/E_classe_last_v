@@ -73,7 +73,7 @@
                     <div class="col-sm-5 ">
                         <div class="row align-items-center number_introduction ">
                             <div class="col-12 title_do">
-                                Most trusted in our field
+                                Le plus fiable dans notre domaine
                             </div>
                             <div class="col-12">
                                 <p>Most calendars are designed for teams. Slate s designed
