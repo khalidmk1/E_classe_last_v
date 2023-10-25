@@ -39,7 +39,7 @@
                         </h4>
                     </div>
                     <div class="col-12">
-                        <a href="{{ Route('register') }}">
+                        <a href="{{ Route('enseignement.demande') }}">
                             <button class="p-3">Je candidate</button>
                         </a>
 
