@@ -11,6 +11,12 @@
 
 @section('content')
 
+<style>
+    .favoris_check{
+         color: rgb(74, 72, 72) !important;
+        }
+</style>
+
 
     <div class="container emp-profile ">
 
