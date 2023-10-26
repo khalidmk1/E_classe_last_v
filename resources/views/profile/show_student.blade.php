@@ -151,7 +151,7 @@
                                     src="{{ asset('images/event/' . $event->images[0]) }}" alt="wrappixel kit">
 
                                 @if (auth()->user()->role == 'student')
-                                    @if (App\Models\Folow::where('user_id', auth()->user()->id)->where('event_id', $event->id)->where('folow', 1)->exists())
+                                    @if (App\Models\Folow::where('user_id', auth()->user()->id)->where('event_id', $event->id)->where('folow', 1))
                                         <form style="position: absolute;" class="favoris-form" method="post">
 
                                             @csrf
