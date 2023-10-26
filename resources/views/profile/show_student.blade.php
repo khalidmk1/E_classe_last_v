@@ -150,7 +150,7 @@
                                 <img class="card-img-top " style="height: 200px"
                                     src="{{ asset('images/event/' . $event->images[0]) }}" alt="wrappixel kit">
 
-                                @if (App\Models\Folow::where('user_id', auth()->user()->id)->where('event_id', $event->id)->where('folow', 1)->exists())
+                                @if (App\Models\Folow::where('user_id', auth()->user()->id)->where('event_id', $event->id)->where('folow', 1)->exists() && auth()->user()->role == 'student')
                                     <form style="position: absolute;" class="favoris-form" method="post">
 
                                         @csrf
