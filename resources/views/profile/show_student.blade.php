@@ -1,4 +1,4 @@
-i@extends('master.master_page_student')
+@extends('master.master_page_student')
 
 @section('title')
 @endsection
