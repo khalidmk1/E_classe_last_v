@@ -128,7 +128,7 @@
                         <div class="card">
 
                             <div class="card-header bg-white py-3">
-                                <p class="text-uppercase small mb-2"><strong>Pack Gold pour les Formateurs</strong></p>
+                                <p class="text-uppercase small mb-2"><strong>Pack Diamond pour les Formateurs</strong></p>
                                 <h5 class="mb-0">1250 DH/12 Mois</h5>
                             </div>
 
@@ -145,7 +145,7 @@
                                         d'une assistance technique pour garantir une expérience optimale.</li>
                                     <li class="list-group-item">Les formateurs premium bénéficient d'un support dédié et
                                         d'une assistance technique pour garantir une expérience optimale.</li>
-                                        
+
                                 </ul>
                             </div>
 
