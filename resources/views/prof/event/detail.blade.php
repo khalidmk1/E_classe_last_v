@@ -79,8 +79,10 @@
                                 </li>
                                 <li class="list-group-item">
 
-                                  
-                                        <a href="{{Route('meeting')}}">Video apelle</a>
+                                    <a href="{{Route('meeting')}}" type="submit" class="btn btn-block btn-outline-primary">
+                                        <i class="fas fa-video-camera" aria-hidden="true"></i> appel vidéo
+                                    </a>
+                                       
                                    
 
                                 </li>
