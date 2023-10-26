@@ -46,7 +46,7 @@
                 </div>
             </div>
             @if (auth()->check())
-                @if (auth()->user()->id == $profile->id && auth()->user()->role = 'student')
+                @if (auth()->user()->id == $profile->id && auth()->user()->role == 'student')
                     <div class="col-md-2">
                         <a href="{{ Route('edit.student') }}" class="btn btn-block btn-outline-warning" name="btnAddMore"
                             value="Edit Profile">Modifier</a>
