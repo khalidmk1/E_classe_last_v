@@ -1,4 +1,4 @@
-@extends('master.master_page_student')
+i@extends('master.master_page_student')
 
 @section('title')
 @endsection
@@ -150,28 +150,29 @@
                                 <img class="card-img-top " style="height: 200px"
                                     src="{{ asset('images/event/' . $event->images[0]) }}" alt="wrappixel kit">
 
-                                @if (App\Models\Folow::where('user_id', auth()->user()->id)->where('event_id', $event->id)->where('folow', 1)->exists() && auth()->user()->role == 'student')
-                                    <form style="position: absolute;" class="favoris-form" method="post">
+                                @if (auth()->user()->role == 'student')
+                                    @if (App\Models\Folow::where('user_id', auth()->user()->id)->where('event_id', $event->id)->where('folow', 1)->exists())
+                                        <form style="position: absolute;" class="favoris-form" method="post">
 
-                                        @csrf
-                                        <button class="btn btn-sm favoris-button" data-event-id="{{ $event->id }}"
-                                            type="button">
-                                            <i class="fa fa-star" id="favoris_{{ $event->id }}" aria-hidden="true"></i>
-                                        </button>
-                                    </form>
-                                @else
-                                    <form style="position: absolute;" class="favoris-form" method="post">
+                                            @csrf
+                                            <button class="btn btn-sm favoris-button" data-event-id="{{ $event->id }}"
+                                                type="button">
+                                                <i class="fa fa-star" id="favoris_{{ $event->id }}"
+                                                    aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form style="position: absolute;" class="favoris-form" method="post">
 
-                                        @csrf
-                                        <button class="btn btn-sm favoris-button" data-event-id="{{ $event->id }}"
-                                            type="button">
-                                            <i class="fa fa-star favoris_check" id="favoris_{{ $event->id }}"
-                                                aria-hidden="true"></i>
-                                        </button>
-                                    </form>
+                                            @csrf
+                                            <button class="btn btn-sm favoris-button" data-event-id="{{ $event->id }}"
+                                                type="button">
+                                                <i class="fa fa-star favoris_check" id="favoris_{{ $event->id }}"
+                                                    aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                 @endif
-
-
 
 
                                 <div
@@ -205,12 +206,12 @@
 
         <script>
             /*  <form class="favoris-form " action="{{ Route('favoris.event', ` + element.id + `) }}" method="post"  style="position: absolute;">
-                                                             @csrf
-                                                            
-                                                             <button class="btn btn-sm favoris-button" type="submit" >
-                                                                 <i class="fa fa-star" aria-hidden="true"></i> 
-                                                             </button>
-                                                         </form> */
+                                                                     @csrf
+                                                                    
+                                                                     <button class="btn btn-sm favoris-button" type="submit" >
+                                                                         <i class="fa fa-star" aria-hidden="true"></i> 
+                                                                     </button>
+                                                                 </form> */
 
             /*  $(document).on('click', '.favoris-button', function(e) {
                         e.preventDefault();
@@ -262,36 +263,36 @@
 
                 /*       button.each(function(obj){
 
-                                console.log(button);
+                                        console.log(button);
 
-                           $.ajax({
-                                type: 'get',
-                                url: url,
-                                data: {
-                                    _token: '{{ csrf_token() }}'
-                                },
-                                success: function(response) {
-                                    
-                                    response.forEach(element => {
-                                       if(element.event_id == obj){
-                                        obj.removeClass('favoris_check')
-                                       }
-                                       
-                                    // Handle the response from the server
+                                   $.ajax({
+                                        type: 'get',
+                                        url: url,
+                                        data: {
+                                            _token: '{{ csrf_token() }}'
+                                        },
+                                        success: function(response) {
+                                            
+                                            response.forEach(element => {
+                                               if(element.event_id == obj){
+                                                obj.removeClass('favoris_check')
+                                               }
+                                               
+                                            // Handle the response from the server
+                                            });
+
+                                          
+                                        },
+                                        error: function(xhr, status, error) {
+                                            // Handle errors if the request fails
+                                            console.error(error);
+                                            console.log(url);
+                                        }
                                     });
 
-                                  
-                                },
-                                error: function(xhr, status, error) {
-                                    // Handle errors if the request fails
-                                    console.error(error);
-                                    console.log(url);
-                                }
-                            });
 
-
-                             
-        }); */
+                                     
+                }); */
 
 
 
