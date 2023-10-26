@@ -80,7 +80,7 @@
 
                         <div class="col-3">
                             <a class="nav-link" style="position: absolute; bottom: 36%;"
-                                href="{{ route('profile.show_student', auth()->user()->id) }}">{{ auth()->user()->name . ' ' . auth()->user()->last_name }}</a>
+                                href="/">{{ auth()->user()->name . ' ' . auth()->user()->last_name }}</a>
                         </div>
 
 
