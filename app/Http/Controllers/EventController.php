@@ -51,9 +51,7 @@ class EventController extends Controller
 
     public function sort(Request $request){
         
-       
-
-
+    
         $subject = $request->subject;
         $niveau = $request->niveau;
 

@@ -104,9 +104,10 @@
                         var processedIds = []; 
                         data.forEach(element => {
                             var todo_id = element.id;
+
+                            var listItem = ""
                            
-                           
-                            var listItem = $(
+                            listItem = $(
                                 '<li id="todo-list"> </li>'); // Create a new list item.
                                
 

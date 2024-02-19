@@ -179,7 +179,7 @@
                             <div class="mainflip flip-0">
                                 <div class="frontside">
                                     <div class="card">
-                                        <div class="card-body text-center shadow-sm p-3 mb-5 rounded">
+                                        <div class="card-body text-center shadow-sm p-3  rounded">
                                             <p><img class=" img-fluid"
                                                     src="{{ asset('images/avatars/' . $user->avatar) }}" alt="card image">
                                             </p>

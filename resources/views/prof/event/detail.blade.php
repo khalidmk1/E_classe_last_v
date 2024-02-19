@@ -205,7 +205,7 @@
                                             </div>
 
                                             <div class="col-md-12 ">
-                                                <video autoplay id="video" loop controls
+                                                <video autoplay id="video" loop controls muted
                                                     style="  height: 100%; width: 100%">
                                                     <source src="{{ asset('videos/' . $events->video) }}" type="video/mp4"> 
                                                 </video>

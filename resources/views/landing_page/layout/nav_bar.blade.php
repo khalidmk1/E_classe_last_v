@@ -2,7 +2,11 @@
 
 
 </style>
-
+<style>
+    .navbar{
+       background-color: #FFF !important
+    }
+</style>
 <nav class="navbar navbar-expand-lg bg-transparent p-2">
     <div class="container">
         <a class="navbar-brand" href="/">

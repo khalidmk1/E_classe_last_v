@@ -167,7 +167,8 @@ Route::get('/chat', function () {
 
 Route::middleware(['auth' , 'verified'])->group(function () {
     /* show profile of pecifique id */
-Route::get('profile/show/{id}', [ProfileController::class, 'show_student'])->name('profile.show_student');
+
+    Route::get('profile/show/{id}', [ProfileController::class, 'show_student'])->name('profile.show_student');
 /* show event of pecifique id */
 Route::get('event/detail/{id}', [EventController::class , 'detail_student'])->name('event.detail');
 
