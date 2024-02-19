@@ -105,9 +105,9 @@
                         data.forEach(element => {
                             var todo_id = element.id;
 
-                            var listItem = ""
+                            
                            
-                            listItem = $(
+                            var listItem = $(
                                 '<li id="todo-list"> </li>'); // Create a new list item.
                                
 
